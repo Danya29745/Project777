@@ -735,3 +735,23 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .accom-badge b{font:900 32px/1 var(--font-display);letter-spacing:-.01em;}
 .accom-badge span{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.85;}
 @media (max-width:760px){.accom-badge{left:10px;bottom:10px;min-width:54px;padding:6px 11px 7px;}.accom-badge b{font-size:26px;}}
+
+/* Доплата за дополнительного гостя — блок для карточки беседки */
+.pavilion-extra-guest {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.04);
+  line-height: 1.3;
+}
+
+.pavilion-extra-guest__title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.pavilion-extra-guest__price {
+  font-size: 14px;
+  font-weight: 600;
+}
