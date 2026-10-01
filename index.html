@@ -792,7 +792,7 @@
     }
     function open(id){
       const d=data[id]; if(!d) return;
-      const rub=function(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/₽/g,'₽');};
+      const rub=function(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/₽/g,' ₽');};
       title.textContent=d.title; meta.innerHTML=rub(d.meta); price.innerHTML=rub(d.price); note.innerHTML=rub(d.note);
       meta.style.display=d.meta?'':'none'; price.style.display=d.price?'':'none'; note.style.display=d.note?'':'none';
       photos=d.photos||[]; render(0);
