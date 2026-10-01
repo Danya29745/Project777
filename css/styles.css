@@ -737,47 +737,47 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 @media (max-width:760px){.accom-badge{left:10px;bottom:10px;min-width:54px;padding:6px 11px 7px;}.accom-badge b{font-size:26px;}}
 
 /* Доплата за дополнительного гостя — блок для карточки беседки */
+
+/* Компактный блок доплаты за дополнительного гостя */
 .pavilion-extra-guest {
-  margin-top: 12px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.04);
-  line-height: 1.3;
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 14px;
+  margin-bottom: 2px;
+  padding: 8px 12px;
+  border: 1px solid rgba(31, 61, 52, 0.28);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.16);
+  box-sizing: border-box;
 }
 
 .pavilion-extra-guest__title {
-  font-size: 13px;
+  font-family: inherit;
+  font-size: 12px;
   font-weight: 500;
-  margin-bottom: 3px;
+  line-height: 1.25;
+  color: #53635c;
 }
 
 .pavilion-extra-guest__price {
+  font-family: inherit;
   font-size: 14px;
   font-weight: 600;
+  line-height: 1.3;
+  color: #39483f;
 }
 
-.pavilion-extra-guest__price .ruble-symbol {
+.pavilion-extra-guest__price .guest-ruble {
   display: inline-block;
   margin-left: 1px;
   font-family: Arial, "Helvetica Neue", sans-serif;
-  font-size: 1.08em;
+  font-size: 1.1em;
   font-weight: 900;
   line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: geometricPrecision;
-}
-
-/* Явный жирный символ рубля в блоке дополнительного гостя */
-.pavilion-extra-guest__price .ruble-symbol {
-  display: inline-block !important;
-  margin-left: 2px !important;
-  font-family: Arial, "Helvetica Neue", sans-serif !important;
-  font-size: 1.12em !important;
-  font-weight: 900 !important;
-  line-height: 1 !important;
-  color: inherit !important;
-  opacity: 1 !important;
-  text-shadow: none !important;
+  color: inherit;
+  opacity: 1;
+  text-shadow: none;
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
 }
