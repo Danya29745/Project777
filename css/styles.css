@@ -827,10 +827,10 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .map-marker .map-pin img{width:auto;height:auto;max-width:56px;max-height:48px;object-fit:contain;filter:drop-shadow(0 3px 5px rgba(0,0,0,.55));}
 .map-marker.is-selected .map-pin{border:0;box-shadow:none;}
 .map-marker.is-selected .map-pin img{filter:drop-shadow(0 0 3px #f0cf83) drop-shadow(0 0 7px rgba(240,207,131,.7));}
-@media(max-width:760px){.map-marker .map-pin img{max-width:20px;max-height:18px;}}
-@media(max-width:390px){.map-marker .map-pin img{max-width:18px;max-height:16px;}}
+@media(max-width:760px){.map-marker .map-pin img{max-width:13px;max-height:12px;}.map-marker .map-pin::after{content:'';position:absolute;inset:-9px;}}
+@media(max-width:390px){.map-marker .map-pin img{max-width:12px;max-height:11px;}}
 .map-marker--hotel{z-index:6;}
 /* Hotel (10) and bath tub (11): smaller so they don't overlap */
 .map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:44px;max-height:36px;}
-@media(max-width:760px){.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:14px;max-height:12px;}}
-@media(max-width:390px){.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:12px;max-height:10px;}}
+@media(max-width:760px){.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:9px;max-height:8px;}}
+@media(max-width:390px){.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:8px;max-height:7px;}}
