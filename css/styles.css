@@ -623,7 +623,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   .accom-card--wide .accom-media{height:auto;min-height:0;aspect-ratio:16/10;}
   .accom-card{border-radius:12px;}
   .accom-media{aspect-ratio:4/3;clip-path:none;}
-  .accom-body{padding:14px 14px 12px;min-height:auto;}
+  .accom-body{padding:14px 14px 12px;min-height:auto;display:flex;flex-direction:column;}
   .accom-body h3{font-size:clamp(18px,5vw,24px);margin-bottom:6px;}
   .accom-body p{font-size:13px;margin-bottom:10px;}
   .accom-price-grid{gap:8px;padding-top:8px;}
@@ -633,9 +633,9 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   .accom-price-single{padding:11px 12px;margin-top:auto;border-radius:12px;gap:5px;}
   .accom-price-single strong{font-size:clamp(24px,6vw,30px);}
   .accom-gallery-name{font-size:10px;}
-  .accom-included{padding-left:12px;margin-top:0;}
-  .accom-included__title{font-size:9px;margin-bottom:6px;}
-  .accom-included__list{gap:5px 12px;}
+  .accom-included{padding-left:12px;margin-top:12px;margin-bottom:10px;border-left:3px solid var(--p-brass);}
+  .accom-included__title{font-size:9px;margin-bottom:6px;font-weight:800;}
+  .accom-included__list{gap:5px 12px;flex-direction:column;}
   .accom-included__list li{font-size:11px;padding-left:14px;}
   .accom-meta{gap:6px;margin-bottom:12px;}
   .accom-meta span{font-size:11px;padding:6px 10px;}
@@ -700,14 +700,14 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   .territory-map-wrap{margin-top:26px;}
   .map-head h3{font-size:24px!important;line-height:1.1;}
   .map-head p{font-size:12px!important;line-height:1.45;max-width:330px;}
-  .territory-map{width:94%;margin:0 auto;overflow:visible;}
-  .territory-map img{width:100%;}
+  .territory-map{width:94%;margin:0 auto;overflow:visible;max-width:100%;will-change:auto;}
+  .territory-map img{width:100%;max-width:100%;height:auto;display:block;contain:layout style paint;}
   .map-pin{width:29px;height:29px;border-width:1.5px;box-shadow:0 4px 10px rgba(6,12,8,.28),0 0 0 2px rgba(239,230,209,.15);}
   .map-pin svg{width:18px;height:18px;}
   .map-pin img{width:18px;height:18px;}
   .map-pin .map-badge{right:-5px;top:-5px;min-width:14px;height:14px;padding:0 3px;border-width:1.5px;font-size:7px;}
   .map-label{top:31px;font-size:7px;padding:3px 5px;border-radius:6px;line-height:1.05;box-shadow:0 3px 9px rgba(6,12,8,.18);}
-  .map-list{gap:5px;margin:10px auto 0;width:94%;}
+  .map-list{gap:5px;margin:10px auto 0;width:94%;max-width:100%;}
   .map-list span{font-size:8px;padding:5px 7px;border-radius:6px;line-height:1.1;}
 }
 @media(max-width:390px){
@@ -735,9 +735,11 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 /* VIP: растягиваем тело карточки по высоте соседней беседки,
    чтобы цена и кнопка ушли заметно ниже, к самому низу карточки. */
 .accom-card--vip{display:flex;flex-direction:column;}
-.accom-card--vip .accom-body{flex:1;padding-bottom:10px;}
+.accom-card--vip .accom-body{flex:1;padding-bottom:10px;display:flex;flex-direction:column;}
 @media(max-width:760px){
-  .accom-price-single{min-height:70px;}
+  .accom-price-single{min-height:70px;padding:12px 12px;margin-top:auto;}
+  .accom-card--vip .accom-included{margin-bottom:auto;padding-left:12px;}
+  .accom-card--vip .accom-body{padding:14px 14px 12px;}
 }
 
 /* ---------- бейдж вместимости на фото беседок ---------- */
