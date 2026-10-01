@@ -839,6 +839,6 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .map-marker .map-pin img{filter:drop-shadow(1.5px 0 0 #fff) drop-shadow(-1.5px 0 0 #fff) drop-shadow(0 1.5px 0 #fff) drop-shadow(0 -1.5px 0 #fff) drop-shadow(0 3px 4px rgba(0,0,0,.5));}
 .map-marker.is-selected .map-pin img{filter:drop-shadow(1.5px 0 0 #f0cf83) drop-shadow(-1.5px 0 0 #f0cf83) drop-shadow(0 1.5px 0 #f0cf83) drop-shadow(0 -1.5px 0 #f0cf83) drop-shadow(0 0 6px rgba(240,207,131,.8));}
 @media(max-width:760px){
-  .map-marker .map-pin img{filter:drop-shadow(.8px 0 0 #fff) drop-shadow(-.8px 0 0 #fff) drop-shadow(0 .8px 0 #fff) drop-shadow(0 -.8px 0 #fff) drop-shadow(0 1px 2px rgba(0,0,0,.5));}
-  .map-marker.is-selected .map-pin img{filter:drop-shadow(.8px 0 0 #f0cf83) drop-shadow(-.8px 0 0 #f0cf83) drop-shadow(0 .8px 0 #f0cf83) drop-shadow(0 -.8px 0 #f0cf83) drop-shadow(0 0 3px rgba(240,207,131,.8));}
+  .map-marker .map-pin img{filter:drop-shadow(1.3px 0 0 #fff) drop-shadow(-1.3px 0 0 #fff) drop-shadow(0 1.3px 0 #fff) drop-shadow(0 -1.3px 0 #fff) drop-shadow(0 1px 2px rgba(0,0,0,.6));}
+  .map-marker.is-selected .map-pin img{filter:drop-shadow(1.3px 0 0 #f0cf83) drop-shadow(-1.3px 0 0 #f0cf83) drop-shadow(0 1.3px 0 #f0cf83) drop-shadow(0 -1.3px 0 #f0cf83) drop-shadow(0 0 3px rgba(240,207,131,.8));}
 }
