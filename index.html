@@ -1008,4 +1008,28 @@
   window.addEventListener('orientationchange',()=>setTimeout(placeLabels,120),{passive:true});
 })();
 </script>
+
+<script>
+/* Territory marker editor
+   Usage:
+   1. Add ?edit-map=1 to the page URL.
+   2. Click the map to get marker coordinates.
+   3. Copy the generated left/top values into marker styles.
+*/
+(function(){
+  const params = new URLSearchParams(location.search);
+  if (!params.has('edit-map')) return;
+  const map = document.getElementById('territoryMap');
+  if (!map) return;
+  map.style.cursor = 'crosshair';
+  map.addEventListener('click', function(e){
+    const r = map.getBoundingClientRect();
+    const x = ((e.clientX-r.left)/r.width*100).toFixed(3);
+    const y = ((e.clientY-r.top)/r.height*100).toFixed(3);
+    console.log('marker position: left:'+x+'%; top:'+y+'%;');
+    alert('Позиция метки:\nleft: '+x+'%;\ntop: '+y+'%;');
+  });
+})();
+</script>
+
 </body></html>
