@@ -610,7 +610,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .map-marker--hotel{--marker-color:#2c5a4c;}
 .map-marker--chan{--marker-color:#7c3618;}
 .map-marker--facility{--marker-color:#5e7a45;}
-.map-label{position:absolute;left:50%;top:51px;transform:translateX(-50%);white-space:nowrap;padding:6px 10px;border-radius:8px;background:rgba(15,38,34,.94);border:1px solid rgba(203,171,108,.55);color:var(--p-paper);font-size:10px;font-weight:800;letter-spacing:.01em;box-shadow:0 5px 15px rgba(6,12,8,.22);display:none;opacity:0;transition:opacity .2s ease;}
+.map-label{position:absolute;left:50%;top:51px;transform:translateX(-50%);white-space:nowrap;padding:6px 10px;border-radius:8px;background:rgba(15,38,34,.94);border:1px solid rgba(203,171,108,.55);color:var(--p-paper);font-size:10px;font-weight:800;letter-spacing:.01em;box-shadow:0 5px 15px rgba(6,12,8,.22);display:block;opacity:1;transition:opacity .2s ease;}
 .map-editor{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center;}
 .map-editor button{border:1px solid var(--border);background:transparent;color:var(--fg);border-radius:10px;padding:10px 13px;font:700 12px var(--font-body);cursor:pointer;}
 .map-editor button:hover{border-color:var(--accent);color:var(--accent);}
