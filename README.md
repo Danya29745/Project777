@@ -304,3 +304,19 @@ cp -r images/backgrounds ../Project777/images/
 ## Favicon
 
 Добавлена папка `favicon/` с готовыми форматами и размерами для браузеров, iOS и Android. Подключение выполнено в `index.html`.
+
+## VIP-беседка — нижний блок
+Цена и кнопка «Посмотреть на карте» в VIP-беседке выровнены ниже, к нижнему краю карточки, за счёт растяжения тела карточки по высоте соседней беседки.
+
+## Header logo
+
+Подключена предоставленная иконка `images/embedded/embedded-0.png` в логотипе шапки сайта. Фон вне логотипа сделан прозрачным, чтобы иконка корректно смотрелась на тёмной шапке.
+
+## Header icon correction
+
+`images/embedded/embedded-0.png` заменён на предоставленную иконку «Рыбалка у Иваныча». В шапке используется `object-fit: contain`, поэтому вся иконка отображается целиком без обрезки.
+
+## Latest adjustment
+
+- Added `images/embedded/embedded-0.png` from `favicon/apple-touch-icon.png`.
+- Moved the VIP price and map button another 4px upward together.
