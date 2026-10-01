@@ -794,3 +794,11 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
 }
+
+
+/* VIP: ещё 4px вверх для цены и кнопки вместе */
+.map-marker--vip .accom-price-single,
+.map-marker--vip .accom-map-link,
+.map-marker--vip .map-link {
+    transform: translateY(-4px);
+}
