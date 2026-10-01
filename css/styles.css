@@ -802,3 +802,9 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .accom-card--vip .btn--green {
     transform: translateY(-12px);
 }
+
+
+/* VIP: блок "В стоимость входит" опущен на 4px */
+.accom-card--vip .features {
+    transform: translateY(4px);
+}
