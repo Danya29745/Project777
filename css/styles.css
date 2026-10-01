@@ -732,6 +732,8 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .accom-price-single{width:100%;box-sizing:border-box;min-height:78px;margin-top:auto;}
 .accom-price-single strong{display:block;}
 .accom-price-single + .accom-gallery-name{min-height:18px;display:flex;align-items:center;}
+/* VIP: опустить рамку единой цены, сохранив кнопку на общем уровне с «Большой беседкой». */
+.accom-card--vip .accom-price-single{transform:translateY(8px);}
 @media(max-width:760px){
   .accom-price-single{min-height:70px;}
 }
