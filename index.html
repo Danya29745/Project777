@@ -1033,62 +1033,84 @@
 </script>
 
 
-<script id="territory-editor">
+<script id="map-editor-fixed-v1">
 (function(){
 const params=new URLSearchParams(location.search);
-if(!params.has("edit-map")) return;
-const map=document.getElementById("territoryMap");
+if(!params.has('edit-map')) return;
+
+const map=document.getElementById('territoryMap');
 if(!map) return;
 
-const panel=document.createElement("div");
-panel.style.cssText="position:fixed;right:12px;top:12px;z-index:99999;background:#fff;padding:14px;border-radius:14px;box-shadow:0 4px 20px #0005;font:14px Arial;max-width:260px";
+const panel=document.createElement('div');
+panel.id='mapEditorPanel';
 panel.innerHTML=`
-<b>Редактор меток</b><br><br>
-Выберите метку и двигайте её.<br><br>
-Текст:<br><input id="teText"><br>
-Размер иконки:<br><input id="teIcon" type="number"><br>
-Размер текста:<br><input id="teFont" type="number"><br><br>
-<button id="teSave">Сохранить HTML</button>`;
+<div class="editor-box">
+<b>Редактор схемы</b>
+<label>Текст <input id="meText"></label>
+<label>Размер иконки <input id="meIcon" type="number"></label>
+<label>Размер текста <input id="meLabel" type="number"></label>
+<button id="meSave">Сохранить HTML</button>
+</div>`;
 document.body.appendChild(panel);
 
+const css=document.createElement('style');
+css.textContent=`
+.editor-box{position:fixed;right:15px;top:15px;z-index:99999;background:white;padding:15px;border-radius:12px;box-shadow:0 4px 20px #0005;font:14px Arial;display:grid;gap:8px}
+.editor-box input{width:90px}
+.map-marker.edit-selected{outline:2px dashed #0a7}
+.map-marker{touch-action:none!important}
+`;
+document.head.appendChild(css);
+
 let active=null;
-const text=document.getElementById("teText");
-const icon=document.getElementById("teIcon");
-const font=document.getElementById("teFont");
+let offset={x:0,y:0};
 
-document.querySelectorAll(".map-marker").forEach(m=>{
- m.style.touchAction="none";
- m.addEventListener("pointerdown",e=>{
+document.querySelectorAll('.map-marker').forEach(m=>{
+ m.addEventListener('pointerdown',e=>{
    active=m;
+   m.classList.add('edit-selected');
+   const r=m.getBoundingClientRect();
+   offset.x=e.clientX-r.left-r.width/2;
+   offset.y=e.clientY-r.top-r.height/2;
+   meText.value=m.querySelector('.map-label')?.innerText || '';
+   meIcon.value=parseInt(getComputedStyle(m.querySelector('.map-pin')||m).width)||40;
+   meLabel.value=parseInt(getComputedStyle(m.querySelector('.map-label')||m).fontSize)||16;
    m.setPointerCapture(e.pointerId);
-   text.value=m.querySelector(".map-label")?.textContent || "";
-   icon.value=parseInt(getComputedStyle(m.querySelector(".map-pin")).width)||40;
-   font.value=parseInt(getComputedStyle(m.querySelector(".map-label")).fontSize)||14;
+   e.preventDefault();
  });
- m.addEventListener("pointermove",e=>{
-   if(!active) return;
+ m.addEventListener('pointermove',e=>{
+   if(!active)return;
    const r=map.getBoundingClientRect();
-   active.style.left=((e.clientX-r.left)/r.width*100).toFixed(4)+"%";
-   active.style.top=((e.clientY-r.top)/r.height*100).toFixed(4)+"%";
+   let x=((e.clientX-r.left-offset.x)/r.width)*100;
+   let y=((e.clientY-r.top-offset.y)/r.height)*100;
+   x=Math.max(0,Math.min(100,x)); y=Math.max(0,Math.min(100,y));
+   active.style.left=x.toFixed(4)+'%';
+   active.style.top=y.toFixed(4)+'%';
  });
- m.addEventListener("pointerup",()=>active=null);
+ m.addEventListener('pointerup',()=>{});
 });
-text.oninput=()=>{if(active){let l=active.querySelector(".map-label");if(l)l.textContent=text.value;active.setAttribute("aria-label",text.value);}};
-icon.oninput=()=>{if(active){let p=active.querySelector(".map-pin");if(p){p.style.width=icon.value+"px";p.style.height=icon.value+"px";}}};
-font.oninput=()=>{if(active){let l=active.querySelector(".map-label");if(l)l.style.fontSize=font.value+"px";}};
 
-document.getElementById("teSave").onclick=()=>{
- let out=[...document.querySelectorAll(".map-marker")].map(m=>({
+document.addEventListener('pointerup',()=>{
+ if(active){active.classList.remove('edit-selected');active=null;}
+});
+
+meText.oninput=()=>{if(active){let l=active.querySelector('.map-label');if(l)l.textContent=meText.value;active.setAttribute('aria-label',meText.value);}};
+meIcon.oninput=()=>{if(active){let p=active.querySelector('.map-pin');if(p){p.style.width=meIcon.value+'px';p.style.height=meIcon.value+'px';}}};
+meLabel.oninput=()=>{if(active){let l=active.querySelector('.map-label');if(l)l.style.fontSize=meLabel.value+'px';}};
+
+meSave.onclick=()=>{
+ const data=[...document.querySelectorAll('.map-marker')].map(m=>({
   marker:m.dataset.marker,
   left:m.style.left,
   top:m.style.top,
-  text:m.querySelector(".map-label")?.textContent||"",
-  iconSize:m.querySelector(".map-pin")?.style.width||"",
-  textSize:m.querySelector(".map-label")?.style.fontSize||""
+  text:m.querySelector('.map-label')?.textContent||'',
+  iconSize:m.querySelector('.map-pin')?.style.width||'',
+  textSize:m.querySelector('.map-label')?.style.fontSize||''
  }));
- const a=document.createElement("a");
- a.href=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:"text/plain"}));
- a.download="territory-markers.json";
+ const file='/* Вставь эти данные в HTML */\n'+JSON.stringify(data,null,2);
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(new Blob([file],{type:'text/html'}));
+ a.download='territory-markers.html';
  a.click();
 };
 })();
