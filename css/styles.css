@@ -766,3 +766,18 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
 }
+
+/* Явный жирный символ рубля в блоке дополнительного гостя */
+.pavilion-extra-guest__price .ruble-symbol {
+  display: inline-block !important;
+  margin-left: 2px !important;
+  font-family: Arial, "Helvetica Neue", sans-serif !important;
+  font-size: 1.12em !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  color: inherit !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
