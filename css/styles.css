@@ -797,8 +797,8 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 
 
 
-/* VIP: цена и кнопка карты подняты ещё на 4px вместе */
+/* VIP: цена и кнопка карты подняты ещё на 8px вместе */
 .accom-card--vip .accom-price-single,
 .accom-card--vip .btn--green {
-    transform: translateY(-8px);
+    transform: translateY(-12px);
 }
