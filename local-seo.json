@@ -1,0 +1,57 @@
+{
+  "@context": "https://schema.org",
+  "@type": [
+    "LocalBusiness",
+    "SportsActivityLocation"
+  ],
+  "name": "Рыбалка у Иваныча",
+  "url": "https://xn-----6kcacabm7cqk5a2a2cxd8bm.xn--p1ai/",
+  "image": "./DSC00856.jpg",
+  "description": "Платная рыбалка у Иваныча в Щёлковском районе Московской области, деревня Большие Жеребцы. Рыбалка на карпа, щуку и осетра, беседки у воды, домики для проживания и банный чан.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "деревня Большие Жеребцы, СПК «Ромашка»",
+    "addressRegion": "Московская область",
+    "addressLocality": "Щёлковский район",
+    "addressCountry": "RU"
+  },
+  "telephone": [
+    "+7-926-926-78-87",
+    "+7-926-911-94-07"
+  ],
+  "email": "evg9269119407@yandex.ru",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 55.865551,
+    "longitude": 38.050037
+  },
+  "openingHours": "Mo-Su 07:00-19:00",
+  "priceRange": "₽₽",
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "Щёлковский район"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Московская область"
+    }
+  ],
+  "availableLanguage": "ru",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "07:00",
+      "closes": "19:00"
+    }
+  ]
+}
