@@ -824,16 +824,16 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 
 /* Map: real icons instead of round pins */
 .map-marker .map-pin{width:auto;height:auto;border:0;border-radius:0;background:none;box-shadow:none;display:block;}
-.map-marker .map-pin img{width:auto;height:auto;max-width:56px;max-height:48px;object-fit:contain;filter:drop-shadow(0 3px 5px rgba(0,0,0,.55));}
+.map-marker .map-pin img{width:auto;height:auto;max-width:calc(56px*var(--s,1));max-height:calc(48px*var(--s,1));object-fit:contain;filter:drop-shadow(0 3px 5px rgba(0,0,0,.55));}
 .map-marker.is-selected .map-pin{border:0;box-shadow:none;}
 .map-marker.is-selected .map-pin img{filter:drop-shadow(0 0 3px #f0cf83) drop-shadow(0 0 7px rgba(240,207,131,.7));}
-@media(max-width:760px){.map-marker .map-pin img{max-width:18px;max-height:16px;}.map-marker .map-pin::after{content:'';position:absolute;inset:-9px;}}
-@media(max-width:390px){.map-marker .map-pin img{max-width:17px;max-height:15px;}}
+@media(max-width:760px){.map-marker .map-pin img{max-width:calc(18px*var(--sm,1));max-height:calc(16px*var(--sm,1));}.map-marker .map-pin::after{content:'';position:absolute;inset:-9px;}}
+@media(max-width:390px){.map-marker .map-pin img{max-width:calc(17px*var(--sm,1));max-height:calc(15px*var(--sm,1));}}
 .map-marker--hotel{z-index:6;}
 /* Hotel (10) and bath tub (11): smaller so they don't overlap */
-.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:44px;max-height:36px;}
-@media(max-width:760px){.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:12px;max-height:10px;}}
-@media(max-width:390px){.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:11px;max-height:9px;}}
+.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:calc(44px*var(--s,1));max-height:calc(36px*var(--s,1));}
+@media(max-width:760px){.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:calc(12px*var(--sm,1));max-height:calc(10px*var(--sm,1));}}
+@media(max-width:390px){.map-marker--hotel .map-pin img,.map-marker--chan .map-pin img{max-width:calc(11px*var(--sm,1));max-height:calc(9px*var(--sm,1));}}
 
 /* Map icons: light outline following the icon shape */
 .map-marker .map-pin img{filter:drop-shadow(1.5px 0 0 #fff) drop-shadow(-1.5px 0 0 #fff) drop-shadow(0 1.5px 0 #fff) drop-shadow(0 -1.5px 0 #fff) drop-shadow(0 3px 4px rgba(0,0,0,.5));}
