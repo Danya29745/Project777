@@ -557,6 +557,11 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .accom-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
 .accom-meta span{padding:8px 12px;border-radius:18px;border:none;font-size:12px;font-weight:600;color:var(--text-accent);background:var(--bg-accent);display:flex;align-items:center;gap:6px;letter-spacing:.02em;}
 .accom-meta i{font-size:14px;flex-shrink:0;}
+.accom-included{border-left:3px solid var(--p-brass);padding:2px 0 2px 16px;margin:2px 0 0;}
+.accom-included__title{font:800 10px var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--p-brass);margin-bottom:8px;}
+.accom-included__list{display:flex;flex-wrap:wrap;gap:7px 16px;margin:0;padding:0;list-style:none;}
+.accom-included__list li{position:relative;padding-left:16px;font-size:12px;font-weight:700;color:var(--fg);line-height:1.45;}
+.accom-included__list li::before{content:'✓';position:absolute;left:0;top:0;color:var(--accent);font-weight:900;}
 .accom-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto;padding-top:10px;margin-bottom:0;}
 .accom-price-box{padding:14px 16px;border-radius:13px;background:color-mix(in srgb,var(--p-river) 6%,transparent);border:1px solid var(--border);display:flex;flex-direction:column;gap:5px;min-width:0;}
 .accom-price-box small,.accom-price-single small{font:700 10px var(--font-body);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-soft);}
@@ -628,6 +633,10 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   .accom-price-single{padding:11px 12px;margin-top:auto;border-radius:12px;gap:5px;}
   .accom-price-single strong{font-size:clamp(24px,6vw,30px);}
   .accom-gallery-name{font-size:10px;}
+  .accom-included{padding-left:12px;margin-top:0;}
+  .accom-included__title{font-size:9px;margin-bottom:6px;}
+  .accom-included__list{gap:5px 12px;}
+  .accom-included__list li{font-size:11px;padding-left:14px;}
   .accom-meta{gap:6px;margin-bottom:12px;}
   .accom-meta span{font-size:11px;padding:6px 10px;}
   .accom-meta i{font-size:13px;}
