@@ -71,7 +71,7 @@ header{min-height:78px;display:flex;align-items:center;gap:28px;justify-content:
 .brand{display:flex;align-items:center;gap:12px;min-width:max-content;}
 .stamp-mark{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--brass-light,var(--brass));display:grid;place-items:center;color:var(--brass-light,var(--brass));background:rgba(203,171,108,.14);flex:none;overflow:hidden;}
 .stamp-mark .icon{width:22px;height:22px;}
-.stamp-mark img{width:100%;height:100%;object-fit:cover;display:block;}
+.stamp-mark img{width:100%;height:100%;object-fit: contain;display:block;}
 .brand-name{font-family:var(--font-display);font-size:19px;font-weight:800;line-height:1.1;}
 .brand-name small{display:block;font-family:var(--font-mono);font-weight:700;letter-spacing:.04em;color:var(--fg-on-cover-soft);font-size:10px;margin-top:5px;text-transform:uppercase;}
 nav#nav-menu{display:flex;align-items:center;gap:22px;font-size:12.5px;font-weight:800;letter-spacing:.02em;}
@@ -800,5 +800,15 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .map-marker--vip .accom-price-single,
 .map-marker--vip .accom-map-link,
 .map-marker--vip .map-link {
+    transform: translateY(-4px);
+}
+
+
+/* VIP: ещё 4px вверх для нижнего блока (цена + кнопка карты) */
+.accom-card--vip .accom-price-single {
+    transform: translateY(-4px);
+}
+.accom-card--vip .accom-map-link,
+.accom-card--vip .map-link {
     transform: translateY(-4px);
 }
