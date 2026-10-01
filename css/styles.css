@@ -597,11 +597,12 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .map-marker{position:absolute;transform:translate(-50%,-100%);z-index:5;cursor:grab;touch-action:none;user-select:none;line-height:1;}
 .map-marker:active{cursor:grabbing;}
 .map-marker:focus-visible{outline:2px solid #f0cf83;outline-offset:4px;border-radius:12px;}
-.map-pin{position:relative;width:44px;height:44px;border-radius:50%;transform:none;background:var(--p-river-deep);border:2px solid var(--p-brass-light);box-shadow:0 6px 18px rgba(6,12,8,.34),0 0 0 3px rgba(239,230,209,.18);display:grid;place-items:center;color:var(--p-brass-light);}
+.map-pin{position:relative;width:44px;height:44px;border-radius:50%;transform:none;background:var(--p-river-deep);border:2px solid var(--p-brass-light);box-shadow:0 6px 18px rgba(6,12,8,.34),0 0 0 3px rgba(239,230,209,.18);display:grid;place-items:center;color:var(--p-brass-light);cursor:pointer;transition:all .2s ease;}
+.map-pin:hover{transform:scale(1.15);box-shadow:0 8px 24px rgba(6,12,8,.45),0 0 0 4px rgba(239,230,209,.25);}
 .map-pin svg{width:28px;height:28px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 .map-pin img{width:28px;height:28px;display:block;object-fit:contain;pointer-events:none;user-select:none;-webkit-user-drag:none;}
-.map-marker.is-selected .map-pin{border-color:#f0cf83;box-shadow:0 0 0 4px rgba(240,207,131,.28),0 8px 20px rgba(6,12,8,.40);transform:scale(1.08);}
-.map-marker.is-selected .map-label{border-color:#f0cf83;box-shadow:0 0 0 2px rgba(240,207,131,.16),0 5px 15px rgba(6,12,8,.25);}
+.map-marker.is-selected .map-pin{border-color:#f0cf83;box-shadow:0 0 0 4px rgba(240,207,131,.28),0 8px 20px rgba(6,12,8,.40);transform:scale(1.25);}
+.map-marker.is-selected .map-label{border-color:#f0cf83;box-shadow:0 0 0 2px rgba(240,207,131,.16),0 5px 15px rgba(6,12,8,.25);display:block !important;}
 .map-pin .map-badge{position:absolute;right:-8px;top:-8px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:var(--marker-color,var(--p-rust));color:#fff;border:2px solid var(--p-paper);font-size:9px;font-weight:900;display:grid;place-items:center;line-height:1;}
 .map-marker--standard{--marker-color:#2f7d54;}
 .map-marker--big{--marker-color:#a3823f;}
@@ -609,7 +610,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .map-marker--hotel{--marker-color:#2c5a4c;}
 .map-marker--chan{--marker-color:#7c3618;}
 .map-marker--facility{--marker-color:#5e7a45;}
-.map-label{position:absolute;left:50%;top:51px;transform:translateX(-50%);white-space:nowrap;padding:6px 10px;border-radius:8px;background:rgba(15,38,34,.94);border:1px solid rgba(203,171,108,.55);color:var(--p-paper);font-size:10px;font-weight:800;letter-spacing:.01em;box-shadow:0 5px 15px rgba(6,12,8,.22);}
+.map-label{position:absolute;left:50%;top:51px;transform:translateX(-50%);white-space:nowrap;padding:6px 10px;border-radius:8px;background:rgba(15,38,34,.94);border:1px solid rgba(203,171,108,.55);color:var(--p-paper);font-size:10px;font-weight:800;letter-spacing:.01em;box-shadow:0 5px 15px rgba(6,12,8,.22);display:none;opacity:0;transition:opacity .2s ease;}
 .map-editor{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center;}
 .map-editor button{border:1px solid var(--border);background:transparent;color:var(--fg);border-radius:10px;padding:10px 13px;font:700 12px var(--font-body);cursor:pointer;}
 .map-editor button:hover{border-color:var(--accent);color:var(--accent);}
@@ -653,9 +654,10 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   .territory-map{width:100%;overflow:hidden;}
   .territory-map img{width:100%;height:auto;min-width:0;}
   .map-pin{width:36px;height:36px;border-width:2px;}
+  .map-pin:hover{transform:scale(1.2);}
   .map-pin svg{width:22px;height:22px;}
   .map-pin img{width:22px;height:22px;}
-  .map-label{font-size:8px;top:40px;padding:3px 6px;}
+  .map-label{font-size:8px;top:40px;padding:3px 6px;display:none;}
   .map-help{width:100%;margin-left:0;margin-top:8px;}
 }
 
@@ -702,20 +704,22 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   .map-head p{font-size:12px!important;line-height:1.45;max-width:330px;}
   .territory-map{width:94%;margin:0 auto;overflow:visible;max-width:100%;will-change:auto;}
   .territory-map img{width:100%;max-width:100%;height:auto;display:block;contain:layout style paint;}
-  .map-pin{width:29px;height:29px;border-width:1.5px;box-shadow:0 4px 10px rgba(6,12,8,.28),0 0 0 2px rgba(239,230,209,.15);}
-  .map-pin svg{width:18px;height:18px;}
-  .map-pin img{width:18px;height:18px;}
-  .map-pin .map-badge{right:-5px;top:-5px;min-width:14px;height:14px;padding:0 3px;border-width:1.5px;font-size:7px;}
-  .map-label{top:31px;font-size:7px;padding:3px 5px;border-radius:6px;line-height:1.05;box-shadow:0 3px 9px rgba(6,12,8,.18);}
+  .map-pin{width:24px;height:24px;border-width:1.5px;box-shadow:0 3px 8px rgba(6,12,8,.28),0 0 0 1.5px rgba(239,230,209,.15);}
+  .map-pin:hover{transform:scale(1.3);}
+  .map-pin svg{width:14px;height:14px;}
+  .map-pin img{width:14px;height:14px;}
+  .map-pin .map-badge{right:-4px;top:-4px;min-width:12px;height:12px;padding:0 2px;border-width:1px;font-size:6px;}
+  .map-label{top:26px;font-size:7px;padding:3px 5px;border-radius:6px;line-height:1.05;box-shadow:0 3px 9px rgba(6,12,8,.18);display:none;}
   .map-list{gap:5px;margin:10px auto 0;width:94%;max-width:100%;}
   .map-list span{font-size:8px;padding:5px 7px;border-radius:6px;line-height:1.1;}
 }
 @media(max-width:390px){
   .territory-map{width:92%;}
-  .map-pin{width:26px;height:26px;}
-  .map-pin svg{width:16px;height:16px;}
-  .map-pin img{width:16px;height:16px;}
-  .map-label{top:28px;font-size:6.5px;padding:3px 5px;}
+  .map-pin{width:22px;height:22px;}
+  .map-pin:hover{transform:scale(1.25);}
+  .map-pin svg{width:13px;height:13px;}
+  .map-pin img{width:13px;height:13px;}
+  .map-label{top:24px;font-size:6px;padding:2px 4px;display:none;}
   .map-list{width:92%;gap:4px;}
   .map-list span{font-size:7.5px;padding:4px 6px;}
 }
