@@ -569,7 +569,6 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .accom-price-single strong .rub{font-family:inherit;font-size:.72em;font-weight:inherit;line-height:1;color:currentColor;margin-left:.06em;}
 .accom-price-single small{flex:none;}
 .accom-gallery-name{font-size:11px;letter-spacing:.05em;color:var(--fg-soft);margin-top:8px;}
-.accom-gallery-name--top{margin-top:0;margin-bottom:8px;}
 
 .accom-gallery-name{font-size:11px;letter-spacing:.05em;color:var(--fg-soft);margin-top:8px;}
 .accom-card .btn{margin-top:15px;align-self:flex-start;}
