@@ -553,8 +553,9 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .accom-body{padding:22px;display:flex;flex-direction:column;min-height:250px;}
 .accom-body h3{margin:0 0 8px;font-size:clamp(21px,2.2vw,29px);}
 .accom-body p{margin:0 0 15px;color:var(--fg-soft);font-size:14px;line-height:1.65;}
-.accom-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
-.accom-meta span{padding:7px 10px;border-radius:999px;border:1px solid var(--border);font-size:11px;font-weight:800;color:var(--fg-soft);}
+.accom-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.accom-meta span{padding:8px 12px;border-radius:18px;border:none;font-size:12px;font-weight:600;color:var(--text-accent);background:var(--bg-accent);display:flex;align-items:center;gap:6px;letter-spacing:.02em;}
+.accom-meta i{font-size:14px;flex-shrink:0;}
 .accom-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto;padding-top:10px;margin-bottom:0;}
 .accom-price-box{padding:14px 16px;border-radius:13px;background:color-mix(in srgb,var(--p-river) 6%,transparent);border:1px solid var(--border);display:flex;flex-direction:column;gap:5px;min-width:0;}
 .accom-price-box small,.accom-price-single small{font:700 10px var(--font-body);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-soft);}
@@ -626,8 +627,9 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   .accom-price-single{padding:11px 12px;margin-top:auto;border-radius:12px;gap:5px;}
   .accom-price-single strong{font-size:clamp(24px,6vw,30px);}
   .accom-gallery-name{font-size:10px;}
-  .accom-meta{gap:5px;margin-bottom:12px;}
-  .accom-meta span{font-size:9px;padding:5px 7px;}
+  .accom-meta{gap:6px;margin-bottom:12px;}
+  .accom-meta span{font-size:11px;padding:6px 10px;}
+  .accom-meta i{font-size:13px;}
   .gallery-nav{gap:6px;padding:6px 10px;font-size:10px;}
   .gallery-nav span{font-size:10px !important;min-width:50px;}
   .gallery-nav button{width:30px;height:30px;font-size:14px;background:rgba(168,76,38,.8) !important;}
