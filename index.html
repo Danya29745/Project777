@@ -1032,4 +1032,65 @@
 })();
 </script>
 
+
+<script id="territory-editor">
+(function(){
+const params=new URLSearchParams(location.search);
+if(!params.has("edit-map")) return;
+const map=document.getElementById("territoryMap");
+if(!map) return;
+
+const panel=document.createElement("div");
+panel.style.cssText="position:fixed;right:12px;top:12px;z-index:99999;background:#fff;padding:14px;border-radius:14px;box-shadow:0 4px 20px #0005;font:14px Arial;max-width:260px";
+panel.innerHTML=`
+<b>Редактор меток</b><br><br>
+Выберите метку и двигайте её.<br><br>
+Текст:<br><input id="teText"><br>
+Размер иконки:<br><input id="teIcon" type="number"><br>
+Размер текста:<br><input id="teFont" type="number"><br><br>
+<button id="teSave">Сохранить HTML</button>`;
+document.body.appendChild(panel);
+
+let active=null;
+const text=document.getElementById("teText");
+const icon=document.getElementById("teIcon");
+const font=document.getElementById("teFont");
+
+document.querySelectorAll(".map-marker").forEach(m=>{
+ m.style.touchAction="none";
+ m.addEventListener("pointerdown",e=>{
+   active=m;
+   m.setPointerCapture(e.pointerId);
+   text.value=m.querySelector(".map-label")?.textContent || "";
+   icon.value=parseInt(getComputedStyle(m.querySelector(".map-pin")).width)||40;
+   font.value=parseInt(getComputedStyle(m.querySelector(".map-label")).fontSize)||14;
+ });
+ m.addEventListener("pointermove",e=>{
+   if(!active) return;
+   const r=map.getBoundingClientRect();
+   active.style.left=((e.clientX-r.left)/r.width*100).toFixed(4)+"%";
+   active.style.top=((e.clientY-r.top)/r.height*100).toFixed(4)+"%";
+ });
+ m.addEventListener("pointerup",()=>active=null);
+});
+text.oninput=()=>{if(active){let l=active.querySelector(".map-label");if(l)l.textContent=text.value;active.setAttribute("aria-label",text.value);}};
+icon.oninput=()=>{if(active){let p=active.querySelector(".map-pin");if(p){p.style.width=icon.value+"px";p.style.height=icon.value+"px";}}};
+font.oninput=()=>{if(active){let l=active.querySelector(".map-label");if(l)l.style.fontSize=font.value+"px";}};
+
+document.getElementById("teSave").onclick=()=>{
+ let out=[...document.querySelectorAll(".map-marker")].map(m=>({
+  marker:m.dataset.marker,
+  left:m.style.left,
+  top:m.style.top,
+  text:m.querySelector(".map-label")?.textContent||"",
+  iconSize:m.querySelector(".map-pin")?.style.width||"",
+  textSize:m.querySelector(".map-label")?.style.fontSize||""
+ }));
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:"text/plain"}));
+ a.download="territory-markers.json";
+ a.click();
+};
+})();
+</script>
 </body></html>
