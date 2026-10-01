@@ -34,7 +34,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
 body::before{content:'';pointer-events:none;position:fixed;inset:0;z-index:40;opacity:.025;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
 /* ---------- fixed page backdrop photo (visible through translucent sections while scrolling) ---------- */
-.page-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--p-river-deep) url('./images/backgrounds/pagebackground.webp') center/cover no-repeat fixed;pointer-events:none;}
+.page-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--p-river-deep) url('../images/backgrounds/pagebackground.webp') center/cover no-repeat fixed;pointer-events:none;}
 .page-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:saturate(1.08);opacity:1;}
 .page-bg::after{content:'';position:absolute;inset:0;background:rgba(9,20,17,.65);}
 @media (max-width:680px){.page-bg{position:fixed;}}
