@@ -736,7 +736,6 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
    чтобы цена и кнопка ушли заметно ниже, к самому низу карточки. */
 .accom-card--vip{display:flex;flex-direction:column;}
 .accom-card--vip .accom-body{flex:1;padding-bottom:10px;}
-.accom-card--vip .accom-price-single{transform:translateY(-4px);}
 @media(max-width:760px){
   .accom-price-single{min-height:70px;}
 }
@@ -796,19 +795,10 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 }
 
 
-/* VIP: ещё 4px вверх для цены и кнопки вместе */
-.map-marker--vip .accom-price-single,
-.map-marker--vip .accom-map-link,
-.map-marker--vip .map-link {
-    transform: translateY(-4px);
-}
 
 
-/* VIP: ещё 4px вверх для нижнего блока (цена + кнопка карты) */
-.accom-card--vip .accom-price-single {
-    transform: translateY(-4px);
-}
-.accom-card--vip .accom-map-link,
-.accom-card--vip .map-link {
-    transform: translateY(-4px);
+/* VIP: цена и кнопка карты подняты ещё на 4px вместе */
+.accom-card--vip .accom-price-single,
+.accom-card--vip .btn--green {
+    transform: translateY(-8px);
 }
