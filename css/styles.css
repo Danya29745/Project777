@@ -1393,3 +1393,151 @@ img{
   .pavilion-extra-guest__title{font-size:13px;}
   .pavilion-extra-guest__price{font-size:16px;}
 }
+
+
+/* CTA buttons + contact card refinement */
+.cta-actions .btn,
+.hero-actions .btn,
+a[href="#booking"].btn,
+a[href="#prices"].btn {
+  min-height: 48px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* Make the two primary CTAs visually identical. */
+a[href="#booking"].btn,
+a[href="#prices"].btn {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  box-shadow: 0 8px 20px rgba(0,0,0,.10);
+}
+
+a[href="#booking"].btn:hover,
+a[href="#prices"].btn:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Contact/admin prompt */
+.contact-prompt,
+.admin-contact,
+.question-contact {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border: 1px solid rgba(31,61,52,.16);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--p-river) 5%, transparent);
+  box-shadow: 0 8px 24px rgba(15,35,30,.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.contact-prompt a,
+.admin-contact a,
+.question-contact a {
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.contact-prompt .contact-title,
+.admin-contact .contact-title,
+.question-contact .contact-title {
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.contact-prompt .contact-subtitle,
+.admin-contact .contact-subtitle,
+.question-contact .contact-subtitle {
+  margin-top: 4px;
+  color: var(--fg-soft);
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .cta-actions .btn,
+  .hero-actions .btn,
+  a[href="#booking"].btn,
+  a[href="#prices"].btn {
+    min-height: 52px;
+    font-size: 16px !important;
+    line-height: 1.2;
+    padding: 12px 18px;
+  }
+
+  .contact-prompt,
+  .admin-contact,
+  .question-contact {
+    padding: 16px;
+    border-radius: 15px;
+    display: block;
+  }
+
+  .contact-prompt a,
+  .admin-contact a,
+  .question-contact a {
+    display: block;
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  .contact-prompt .contact-title,
+  .admin-contact .contact-title,
+  .question-contact .contact-title {
+    font-size: 16px;
+  }
+}
+
+
+/* Final typography: included label + extra guest */
+.accom-included__title {
+  color: #000 !important;
+}
+
+.pavilion-extra-guest {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pavilion-extra-guest__price,
+.pavilion-extra-guest__title {
+  font-family: var(--font-display, 'Bitter', Georgia, serif) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.pavilion-extra-guest__price {
+  font-size: clamp(20px, 2vw, 27px);
+  color: var(--accent, #1f7a4d);
+}
+
+.pavilion-extra-guest__title {
+  font-size: clamp(20px, 2vw, 27px);
+  color: #000;
+}
+
+@media (max-width: 640px) {
+  .pavilion-extra-guest {
+    gap: 7px 9px;
+  }
+
+  .pavilion-extra-guest__price,
+  .pavilion-extra-guest__title {
+    font-size: 21px;
+  }
+}
