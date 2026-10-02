@@ -1769,3 +1769,27 @@ a[href="#prices"].btn:hover {
     font-size: 15px !important;
   }
 }
+
+<style id="unified-cta-v6">
+/* Unified CTA typography */
+.btn--green, .btn--price, .btn--booking,
+button.btn--green, button.btn--price, button.btn--booking,
+a.btn--green, a.btn--price, a.btn--booking {
+  font-family: var(--font-display) !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.1 !important;
+  text-transform: uppercase !important;
+}
+@media (max-width: 600px) {
+  .btn--green, .btn--price, .btn--booking,
+  button.btn--green, button.btn--price, button.btn--booking,
+  a.btn--green, a.btn--price, a.btn--booking { font-size: 16px !important; }
+}
+@media (max-width: 380px) {
+  .btn--green, .btn--price, .btn--booking,
+  button.btn--green, button.btn--price, button.btn--booking,
+  a.btn--green, a.btn--price, a.btn--booking { font-size: 15px !important; }
+}
+</style>
