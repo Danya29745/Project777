@@ -572,72 +572,96 @@
   <div class="seam seam--bg" aria-hidden="true"></div>
   <section class="section section--alt booking-section" id="booking">
     <div class="shell">
-      <h2 class="reveal">Забронировать <em>отдых</em></h2>
-      <p class="section-lead reveal">Четыре простых шага, это займёт минуту. Оплата не нужна: мы перезвоним и всё подтвердим.</p>
-      <div class="booking-card reveal">
+      <div class="booking-heading reveal">
+        <div>
+          <p class="booking-kicker">Бронирование</p>
+          <h2>Забронировать <em>отдых</em></h2>
+          <p class="section-lead">Выберите формат отдыха, дату и оставьте телефон. Мы проверим свободные места и перезвоним для подтверждения.</p>
+        </div>
+        <div class="booking-assurance" aria-label="Условия бронирования">
+          <span><b>01</b> Выбираете отдых</span>
+          <span><b>02</b> Указываете дату</span>
+          <span><b>03</b> Мы подтверждаем</span>
+        </div>
+      </div>
+
+      <div class="booking-card booking-card--premium reveal">
         <form id="bookingForm" class="booking-form" novalidate>
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="bf-honey" aria-hidden="true">
 
-          <fieldset class="bk-step" id="bkStep1">
-            <legend><span class="bk-num">1</span> Где будете отдыхать? <small>Можно выбрать несколько</small></legend>
-            <div class="bk-opts"><label class="bk-opt"><input type="checkbox" name="Объект" value="Стандартная беседка"><span class="bk-opt__box"><b>Стандартная беседка</b><em>до 6 человек · 3 000 <span class="rub-symbol">₽</span> будни, 4 000 <span class="rub-symbol">₽</span> выходные</em><ul><li>Беседка</li><li>Мангальная зона</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="Средняя беседка"><span class="bk-opt__box"><b>Средняя беседка</b><em>до 10 человек · 6 000 <span class="rub-symbol">₽</span> будни, 8 000 <span class="rub-symbol">₽</span> выходные</em><ul><li>Беседка</li><li>Домик</li><li>Мангальная зона</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="Большая беседка"><span class="bk-opt__box"><b>Большая беседка</b><em>до 15 человек · 8 000 <span class="rub-symbol">₽</span> в любой день</em><ul><li>Беседка</li><li>Домик</li><li>Мангальная зона</li><li>Микроволновка</li><li>Раковина</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="VIP-беседка"><span class="bk-opt__box"><b>VIP-беседка</b><em>до 10 человек · 15 000 <span class="rub-symbol">₽</span> в любой день</em><ul><li>Домик</li><li>Камин</li><li>Телевизор</li><li>Раковина</li></ul></span></label><label class="bk-opt bk-opt--fishing-only"><input type="checkbox" name="Объект" value="Только рыбалка"><span class="bk-opt__box"><b>Только рыбалка</b><em>Только рыбалка · мини-беседка 1 × 1 м бесплатно</em><ul><li>Мини-беседка 1 × 1 м</li><li>Можно занять свободную в любом месте пруда</li><li>Только для рыбалки</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="Гостиница"><span class="bk-opt__box"><b>Гостиница (домик на ночь)</b><em>2 места · 6 000 <span class="rub-symbol">₽</span> будни, 8 000 <span class="rub-symbol">₽</span> выходные за сутки</em><ul><li>Кухня</li><li>Спальня</li><li>Мангал бесплатно</li><li>Заезд 14:00, выезд 12:00</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="Банный чан"><span class="bk-opt__box"><b>Банный чан на дровах</b><em>6 000 <span class="rub-symbol">₽</span> за 3 часа, продление 1 000 <span class="rub-symbol">₽</span>/час</em><ul><li>Тёплая вода</li><li>Травы и хвоя</li></ul></span></label></div>
-          </fieldset>
-
-          <fieldset class="bk-step">
-            <legend><span class="bk-num">2</span> <span id="bkFishLegend">Будете рыбачить?</span></legend>
-            <div class="bk-pills"><label class="bk-pill"><input type="radio" name="Рыбалка" value="Без рыбалки" checked><span><b>Без рыбалки</b><em>только отдых</em></span></label><label class="bk-pill"><input type="radio" name="Рыбалка" value="День 07:00–19:00"><span><b>Рыбалка на день</b><em>07:00–19:00 · 3 000 <span class="rub-symbol">₽</span></em></span></label><label class="bk-pill"><input type="radio" name="Рыбалка" value="Полдня 13:00–19:00"><span><b>Рыбалка на полдня</b><em>13:00–19:00 · 2 500 <span class="rub-symbol">₽</span></em></span></label><label class="bk-pill"><input type="radio" name="Рыбалка" value="Ночь 20:00–06:00"><span><b>Ночная рыбалка</b><em>20:00–06:00 · 3 000 <span class="rub-symbol">₽</span></em></span></label><label class="bk-pill"><input type="radio" name="Рыбалка" value="Сутки 07:00–06:00"><span><b>Рыбалка на сутки</b><em>07:00–06:00 · 5 000 <span class="rub-symbol">₽</span></em></span></label></div>
-            <div class="bk-tackle" id="bkTackle" hidden>
-              <div class="bf-field bk-fishers"><label for="bfFishers">Сколько человек будут рыбачить</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfFishers" aria-label="Меньше">−</button><input id="bfFishers" type="number" inputmode="numeric" min="1" max="30" value="2" aria-label="Сколько рыбачат"><button type="button" data-step="1" data-for="bfFishers" aria-label="Больше">+</button></div></div>
-              <div class="bk-sub">Нужно взять напрокат?</div>
-              <div class="bk-chips"><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Подсачник"><span>Подсачник <small>200 <span class="rub-symbol">₽</span></small></span></label><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Садок"><span>Садок <small>200 <span class="rub-symbol">₽</span></small></span></label><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Комплект снастей"><span>Комплект снастей <small>500 <span class="rub-symbol">₽</span></small></span></label><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Спиннинг"><span>Спиннинг <small>1 000 <span class="rub-symbol">₽</span></small></span></label></div>
-            </div>
-          </fieldset>
-
-          <fieldset class="bk-step">
-            <legend><span class="bk-num">3</span> Когда приезжаете?</legend>
-            <div class="bk-row">
-              <div class="bf-field"><label for="bfDate">Дата приезда</label><input id="bfDate" name="Дата" type="date" required></div>
-              <div class="bf-field" id="bkGuestsField"><label for="bfGuests">Сколько всего человек</label>
-                <div class="bf-stepper"><button type="button" data-step="-1" data-for="bfGuests" aria-label="Меньше">−</button><input id="bfGuests" name="Гостей" type="number" inputmode="numeric" min="1" max="30" value="2" aria-label="Сколько всего человек"><button type="button" data-step="1" data-for="bfGuests" aria-label="Больше">+</button></div>
+          <div class="booking-main">
+            <fieldset class="bk-step" id="bkStep1">
+              <legend><span class="bk-num">1</span><span><strong>Где будете отдыхать?</strong><small>Выберите один или несколько вариантов</small></span></legend>
+              <div class="bk-opts">
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="Стандартная беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Стандартная беседка</b><strong>от 3 000 <span class="rub-symbol">₽</span></strong></span><em>До 6 человек · 10 м²</em><span class="bk-opt__meta">Беседка · мангал · у воды</span><span class="bk-opt__more">Будни 3 000 <span class="rub-symbol">₽</span> · выходные 4 000 <span class="rub-symbol">₽</span></span></span></label>
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="Средняя беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Средняя беседка</b><strong>от 6 000 <span class="rub-symbol">₽</span></strong></span><em>До 10 человек · 18 + 7 м²</em><span class="bk-opt__meta">Домик · беседка · мангал</span><span class="bk-opt__more">Будни 6 000 <span class="rub-symbol">₽</span> · выходные 8 000 <span class="rub-symbol">₽</span></span></span></label>
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="Большая беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Большая беседка</b><strong>8 000 <span class="rub-symbol">₽</span></strong></span><em>До 15 человек · 20 + 14 м²</em><span class="bk-opt__meta">Домик · мангал · кухня</span><span class="bk-opt__more">+500 <span class="rub-symbol">₽</span> за каждого гостя сверх 15</span></span></label>
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="VIP-беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>VIP-беседка</b><strong>15 000 <span class="rub-symbol">₽</span></strong></span><em>До 10 человек · 16 м²</em><span class="bk-opt__meta">Камин · телевизор · раковина</span><span class="bk-opt__more">Стоимость не зависит от дня недели</span></span></label>
+                <label class="bk-opt bk-opt--fishing-only"><input type="checkbox" name="Объект" value="Только рыбалка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Только рыбалка</b><strong>от 2 500 <span class="rub-symbol">₽</span></strong></span><em>Без аренды беседки</em><span class="bk-opt__meta">Мини-беседка 1 × 1 м бесплатно</span><span class="bk-opt__more">Можно занять свободное место у пруда</span></span></label>
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="Гостиница"><span class="bk-opt__box"><span class="bk-opt__top"><b>Гостиница</b><strong>от 6 000 <span class="rub-symbol">₽</span></strong></span><em>2 места · за сутки</em><span class="bk-opt__meta">Кухня · спальня · мангал</span><span class="bk-opt__more">Заезд 14:00 · выезд 12:00</span></span></label>
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="Банный чан"><span class="bk-opt__box"><span class="bk-opt__top"><b>Банный чан</b><strong>6 000 <span class="rub-symbol">₽</span></strong></span><em>3 часа · на дровах</em><span class="bk-opt__meta">Тёплая вода · травы · хвоя</span><span class="bk-opt__more">Продление 1 000 <span class="rub-symbol">₽</span>/час</span></span></label>
               </div>
-            </div>
-            <div class="bf-field bk-nights" id="bkNights" hidden><label for="bfNights">Сколько ночей в гостинице</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfNights" aria-label="Меньше">−</button><input id="bfNights" type="number" inputmode="numeric" min="1" max="14" value="1" aria-label="Сколько ночей"><button type="button" data-step="1" data-for="bfNights" aria-label="Больше">+</button></div></div>
-          </fieldset>
+            </fieldset>
 
-          <fieldset class="bk-step">
-            <legend><span class="bk-num">4</span> Как с вами связаться?</legend>
-            <div class="bk-row">
-              <div class="bf-field"><label for="bfName">Ваше имя</label><input id="bfName" name="Имя" type="text" autocomplete="name" placeholder="Например, Иван" required></div>
-              <div class="bf-field"><label for="bfPhone">Телефон</label><input id="bfPhone" name="Телефон" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></div>
-            </div>
-            <div class="bk-pills bk-pills--small">
-              <label class="bk-pill"><input type="radio" name="Способ связи" value="Позвонить" checked><span><b>Позвоните мне</b></span></label>
-              <label class="bk-pill"><input type="radio" name="Способ связи" value="WhatsApp"><span><b>WhatsApp</b></span></label>
-              <label class="bk-pill"><input type="radio" name="Способ связи" value="Telegram"><span><b>Telegram</b></span></label>
-            </div>
-            <details class="bk-more"><summary>Добавить пожелание</summary>
-              <textarea id="bfComment" name="Комментарий" rows="2" placeholder="Например: приедем в 10 утра, остаёмся на 2 ночи"></textarea>
-            </details>
-          </fieldset>
+            <fieldset class="bk-step">
+              <legend><span class="bk-num">2</span><span><strong id="bkFishLegend">Будете рыбачить?</strong><small>Если да — выберите подходящий тариф</small></span></legend>
+              <div class="bk-pills">
+                <label class="bk-pill"><input type="radio" name="Рыбалка" value="Без рыбалки" checked><span><b>Без рыбалки</b><em>только отдых</em></span></label>
+                <label class="bk-pill"><input type="radio" name="Рыбалка" value="День 07:00–19:00"><span><b>На день</b><em>07:00–19:00 · 3 000 <span class="rub-symbol">₽</span>/чел.</em></span></label>
+                <label class="bk-pill"><input type="radio" name="Рыбалка" value="Полдня 13:00–19:00"><span><b>На полдня</b><em>13:00–19:00 · 2 500 <span class="rub-symbol">₽</span>/чел.</em></span></label>
+                <label class="bk-pill"><input type="radio" name="Рыбалка" value="Ночь 20:00–06:00"><span><b>Ночная</b><em>20:00–06:00 · 3 000 <span class="rub-symbol">₽</span>/чел.</em></span></label>
+                <label class="bk-pill"><input type="radio" name="Рыбалка" value="Сутки 07:00–06:00"><span><b>Сутки</b><em>07:00–06:00 · 5 000 <span class="rub-symbol">₽</span>/чел.</em></span></label>
+              </div>
+              <div class="bk-tackle" id="bkTackle" hidden>
+                <div class="bk-tackle__head"><div><b>Рыбалка</b><span>Укажите количество рыбаков и, при необходимости, добавьте прокат снастей.</span></div><div class="bf-field bk-fishers"><label for="bfFishers">Рыбачат</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfFishers" aria-label="Меньше">−</button><input id="bfFishers" type="number" inputmode="numeric" min="1" max="30" value="2" aria-label="Сколько рыбачат"><button type="button" data-step="1" data-for="bfFishers" aria-label="Больше">+</button></div></div></div>
+                <div class="bk-sub">Прокат снастей <small>по желанию</small></div>
+                <div class="bk-chips"><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Подсачник"><span>Подсачник <small>200 <span class="rub-symbol">₽</span></small></span></label><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Садок"><span>Садок <small>200 <span class="rub-symbol">₽</span></small></span></label><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Комплект снастей"><span>Комплект снастей <small>500 <span class="rub-symbol">₽</span></small></span></label><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Спиннинг"><span>Спиннинг <small>1 000 <span class="rub-symbol">₽</span></small></span></label></div>
+              </div>
+            </fieldset>
 
-          <div class="bk-total" id="bkTotal" aria-live="polite">
-            <div class="bk-total__title">Ваша бронь</div>
-            <ul id="bkLines"></ul>
-            <div class="bk-total__sum"><span>Итого</span><strong id="bkSum">0 <span class="rub-symbol">₽</span></strong></div>
-            <p class="bk-total__note" id="bkNote"></p>
+            <fieldset class="bk-step">
+              <legend><span class="bk-num">3</span><span><strong>Когда приезжаете?</strong><small>Стоимость автоматически учитывает будни и выходные</small></span></legend>
+              <div class="bk-row bk-row--date">
+                <div class="bf-field"><label for="bfDate">Дата приезда</label><input id="bfDate" name="Дата" type="date" required></div>
+                <div class="bf-field" id="bkGuestsField"><label for="bfGuests">Всего гостей</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfGuests" aria-label="Меньше">−</button><input id="bfGuests" name="Гостей" type="number" inputmode="numeric" min="1" max="30" value="2" aria-label="Сколько всего человек"><button type="button" data-step="1" data-for="bfGuests" aria-label="Больше">+</button></div></div>
+              </div>
+              <div class="bk-nights" id="bkNights" hidden><div class="bf-field"><label for="bfNights">Ночей в гостинице</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfNights" aria-label="Меньше">−</button><input id="bfNights" type="number" inputmode="numeric" min="1" max="14" value="1" aria-label="Сколько ночей"><button type="button" data-step="1" data-for="bfNights" aria-label="Больше">+</button></div></div></div>
+            </fieldset>
+
+            <fieldset class="bk-step">
+              <legend><span class="bk-num">4</span><span><strong>Оставьте контакты</strong><small>Нужны только имя и телефон для подтверждения</small></span></legend>
+              <div class="bk-row">
+                <div class="bf-field"><label for="bfName">Ваше имя</label><input id="bfName" name="Имя" type="text" autocomplete="name" placeholder="Например, Иван" required></div>
+                <div class="bf-field"><label for="bfPhone">Телефон</label><input id="bfPhone" name="Телефон" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></div>
+              </div>
+              <div class="bk-contact-choice"><span>Как удобнее связаться?</span><div class="bk-pills bk-pills--small"><label class="bk-pill"><input type="radio" name="Способ связи" value="Позвонить" checked><span><b>Позвоните мне</b></span></label><label class="bk-pill"><input type="radio" name="Способ связи" value="WhatsApp"><span><b>WhatsApp</b></span></label><label class="bk-pill"><input type="radio" name="Способ связи" value="Telegram"><span><b>Telegram</b></span></label></div></div>
+              <details class="bk-more"><summary>Добавить пожелание <small>необязательно</small></summary><textarea id="bfComment" name="Комментарий" rows="3" placeholder="Например: приедем утром, нужен столик ближе к воде"></textarea></details>
+            </fieldset>
           </div>
 
-          <div class="bf-field bf-field--full">
-            <button type="submit" class="btn btn--green bf-submit" id="bfSubmit"><span>Отправить заявку</span></button>
-            <p class="bf-status" id="bfStatus" role="status" aria-live="polite"></p>
-            <p class="bf-note">Мы перезвоним и подтвердим бронь. Отправляя заявку, вы соглашаетесь с <a href="#privacyModal" id="bfPrivacy">политикой конфиденциальности</a>. Удобнее позвонить? <a href="tel:+79269267887">+7 926 926-78-87</a></p>
-          </div>
+          <aside class="booking-side">
+            <div class="booking-summary" id="bkTotal" aria-live="polite">
+              <div class="booking-summary__top"><span class="booking-summary__eyebrow">Ваша бронь</span><span class="booking-summary__status">Без предоплаты</span></div>
+              <h3>Что вы выбрали</h3>
+              <ul id="bkLines"></ul>
+              <div class="booking-summary__empty" aria-hidden="true">Выберите формат отдыха — здесь появится ваша заявка.</div>
+              <div class="bk-total__sum"><span>Ориентировочно</span><strong id="bkSum">0 <span class="rub-symbol">₽</span></strong></div>
+              <p class="bk-total__note" id="bkNote">Точную стоимость и наличие подтвердим по телефону.</p>
+              <div class="booking-summary__trust"><span>✓</span><div><b>Никакой оплаты сейчас</b><small>Сначала проверим наличие и свяжемся с вами.</small></div></div>
+            </div>
+            <div class="booking-submit">
+              <button type="submit" class="btn btn--green bf-submit" id="bfSubmit"><span>Отправить заявку</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+              <p class="bf-status" id="bfStatus" role="status" aria-live="polite"></p>
+              <p class="bf-note">Отправляя заявку, вы соглашаетесь с <a href="#privacyModal" id="bfPrivacy">политикой конфиденциальности</a>.</p>
+              <p class="booking-call">Или позвоните <a href="tel:+79269267887">+7 926 926-78-87</a></p>
+            </div>
+          </aside>
         </form>
-        <button type="button" class="bk-bar" id="bkBar" hidden><span>Итого</span><strong id="bkBarSum">0 <span class="rub-symbol">₽</span></strong><span aria-hidden="true">↓</span></button>
+        <button type="button" class="bk-bar" id="bkBar" hidden><span>Ваша бронь</span><strong id="bkBarSum">0 <span class="rub-symbol">₽</span></strong><span aria-hidden="true">↑</span></button>
         <div class="bf-success" id="bfSuccess" hidden>
           <div class="bf-success__icon" aria-hidden="true">✓</div>
           <h3>Заявка отправлена</h3>
-          <p>Мы свяжемся с вами в ближайшее время и подтвердим бронь.</p>
+          <p>Мы получили ваши данные. Свяжемся с вами в ближайшее время и подтвердим наличие.</p>
           <button type="button" class="btn btn--map" id="bfAgain">Отправить ещё одну</button>
         </div>
       </div>
@@ -984,7 +1008,9 @@
   function upd(){
     const r=compute(), ul=$('bkLines');
     nightsBox.hidden=!checked('Объект').includes('Гостиница');
-    ul.innerHTML=r.lines.length?r.lines.map(l=>'<li><span>'+l[0]+'</span><b>'+rub(l[1])+'</b></li>').join(''):'<li class="bk-empty">Выберите, что бронируем, и здесь появится сумма. Для варианта «Только рыбалка» аренда мини-беседки бесплатна.</li>';
+    ul.innerHTML=r.lines.length?r.lines.map(l=>'<li><span>'+l[0]+'</span><b>'+rub(l[1])+'</b></li>').join(''):'<li class="bk-empty">Выберите, что бронируем, и здесь появится сумма.</li>';
+    const emptySummary=form.querySelector('.booking-summary__empty');
+    if(emptySummary) emptySummary.hidden=!!r.lines.length;
     $('bkSum').innerHTML=rub(r.sum); $('bkBarSum').innerHTML=rub(r.sum);
     $('bkNote').innerHTML=r.notes.concat(['Сумма ориентировочная, точную подтвердим по телефону.']).join(' ');
     showBar();
