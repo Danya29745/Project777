@@ -373,7 +373,7 @@
             <div class="accom-price-box"><small>Будни</small><strong>3 000 <span class="rub"><span class="rub-symbol">₽</span></span></strong></div>
             <div class="accom-price-box"><small>Выходные и праздники</small><strong>4 000 <span class="rub"><span class="rub-symbol">₽</span></span></strong></div>
           </div>
-          <div class="accom-actions"><a class="btn btn--green" href="#booking" data-book="Стандартная беседка">Забронировать беседку <svg class="icon"><use href="#i-arrow-down"></use></svg></a><a class="btn btn--map" href="#territory-map">Посмотреть на карте <svg class="icon"><use href="#i-arrow"></use></svg></a></div>
+          <div class="accom-actions"><a class="btn btn--green" href="#booking" data-book="Стандартная беседка">Забронировать беседку <svg class="icon"><use href="#i-arrow-down"></use></svg></a><a class="btn btn--map" href="#territory-map" data-map="standard">Посмотреть на карте <svg class="icon"><use href="#i-arrow"></use></svg></a></div>
         </div>
       </article>
 
@@ -599,58 +599,67 @@
   <section class="section section--alt booking-section" id="booking">
     <div class="shell">
       <h2 class="reveal">Забронировать <em>отдых</em></h2>
-      <p class="section-lead reveal">Заполните за минуту: администратор подтвердит бронь по телефону или в мессенджере.</p>
+      <p class="section-lead reveal">Четыре простых шага, это займёт минуту. Оплата не нужна: мы перезвоним и всё подтвердим.</p>
       <div class="booking-card reveal">
         <form id="bookingForm" class="booking-form" novalidate>
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="bf-honey" aria-hidden="true">
-          <div class="bf-field bf-field--full">
-            <label for="bfObject">Что бронируем</label>
-            <select id="bfObject" name="Объект" required>
-              <option>Стандартная беседка</option>
-              <option>Средняя беседка</option>
-              <option>Большая беседка</option>
-              <option>VIP-беседка</option>
-              <option>Гостиница</option>
-              <option>Банный чан</option>
-              <option>Просто рыбалка</option>
-            </select>
-          </div>
-          <div class="bf-field">
-            <label for="bfDate">Дата</label>
-            <input id="bfDate" name="Дата" type="date" required>
-          </div>
-          <div class="bf-field">
-            <label for="bfGuests">Гостей</label>
-            <div class="bf-stepper">
-              <button type="button" data-step="-1" aria-label="Меньше гостей">−</button>
-              <input id="bfGuests" name="Гостей" type="number" inputmode="numeric" min="1" max="30" value="2" required>
-              <button type="button" data-step="1" aria-label="Больше гостей">+</button>
-            </div>
-          </div>
-          <div class="bf-field">
-            <label for="bfName">Имя</label>
-            <input id="bfName" name="Имя" type="text" autocomplete="name" placeholder="Как к вам обращаться" required>
-          </div>
-          <div class="bf-field">
-            <label for="bfPhone">Телефон</label>
-            <input id="bfPhone" name="Телефон" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required>
-          </div>
-          <fieldset class="bf-field bf-field--full bf-chips">
-            <legend>Как с вами связаться</legend>
-            <label><input type="radio" name="Способ связи" value="Позвонить" checked><span>Позвонить</span></label>
-            <label><input type="radio" name="Способ связи" value="WhatsApp"><span>WhatsApp</span></label>
-            <label><input type="radio" name="Способ связи" value="Telegram"><span>Telegram</span></label>
+
+          <fieldset class="bk-step" id="bkStep1">
+            <legend><span class="bk-num">1</span> Где будете отдыхать? <small>Можно выбрать несколько</small></legend>
+            <div class="bk-opts"><label class="bk-opt"><input type="checkbox" name="Объект" value="Стандартная беседка"><span class="bk-opt__box"><b>Стандартная беседка</b><em>до 6 человек · 3 000 ₽ будни, 4 000 ₽ выходные</em><ul><li>Беседка</li><li>Мангальная зона</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="Средняя беседка"><span class="bk-opt__box"><b>Средняя беседка</b><em>до 10 человек · 6 000 ₽ будни, 8 000 ₽ выходные</em><ul><li>Беседка</li><li>Домик</li><li>Мангальная зона</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="Большая беседка"><span class="bk-opt__box"><b>Большая беседка</b><em>до 15 человек · 8 000 ₽ в любой день</em><ul><li>Беседка</li><li>Домик</li><li>Мангальная зона</li><li>Микроволновка</li><li>Раковина</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="VIP-беседка"><span class="bk-opt__box"><b>VIP-беседка</b><em>до 10 человек · 15 000 ₽ в любой день</em><ul><li>Домик</li><li>Камин</li><li>Телевизор</li><li>Раковина</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="Гостиница"><span class="bk-opt__box"><b>Гостиница (домик на ночь)</b><em>2 места · 6 000 ₽ будни, 8 000 ₽ выходные за сутки</em><ul><li>Кухня</li><li>Спальня</li><li>Мангал бесплатно</li><li>Заезд 14:00, выезд 12:00</li></ul></span></label><label class="bk-opt"><input type="checkbox" name="Объект" value="Банный чан"><span class="bk-opt__box"><b>Банный чан на дровах</b><em>6 000 ₽ за 3 часа, продление 1 000 ₽/час</em><ul><li>Тёплая вода</li><li>Травы и хвоя</li></ul></span></label></div>
           </fieldset>
-          <div class="bf-field bf-field--full">
-            <label for="bfComment">Пожелания <small>(необязательно)</small></label>
-            <textarea id="bfComment" name="Комментарий" rows="2" placeholder="Время приезда, ночёвка, количество ночей…"></textarea>
+
+          <fieldset class="bk-step">
+            <legend><span class="bk-num">2</span> Будете рыбачить?</legend>
+            <div class="bk-pills"><label class="bk-pill"><input type="radio" name="Рыбалка" value="Без рыбалки" checked><span><b>Без рыбалки</b><em>только отдых</em></span></label><label class="bk-pill"><input type="radio" name="Рыбалка" value="День 07:00–19:00"><span><b>Рыбалка на день</b><em>07:00–19:00 · 3 000 ₽</em></span></label><label class="bk-pill"><input type="radio" name="Рыбалка" value="Полдня 13:00–19:00"><span><b>Рыбалка на полдня</b><em>13:00–19:00 · 2 500 ₽</em></span></label><label class="bk-pill"><input type="radio" name="Рыбалка" value="Ночь 20:00–06:00"><span><b>Ночная рыбалка</b><em>20:00–06:00 · 3 000 ₽</em></span></label><label class="bk-pill"><input type="radio" name="Рыбалка" value="Сутки 07:00–06:00"><span><b>Рыбалка на сутки</b><em>07:00–06:00 · 5 000 ₽</em></span></label></div>
+            <div class="bk-tackle" id="bkTackle" hidden>
+              <div class="bf-field bk-fishers"><label for="bfFishers">Сколько человек будут рыбачить</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfFishers" aria-label="Меньше">−</button><input id="bfFishers" type="number" inputmode="numeric" min="1" max="30" value="2" aria-label="Сколько рыбачат"><button type="button" data-step="1" data-for="bfFishers" aria-label="Больше">+</button></div></div>
+              <div class="bk-sub">Нужно взять напрокат?</div>
+              <div class="bk-chips"><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Подсачник"><span>Подсачник <small>200 ₽</small></span></label><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Садок"><span>Садок <small>200 ₽</small></span></label><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Комплект снастей"><span>Комплект снастей <small>500 ₽</small></span></label><label class="bk-chip"><input type="checkbox" name="Напрокат" value="Спиннинг"><span>Спиннинг <small>1 000 ₽</small></span></label></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="bk-step">
+            <legend><span class="bk-num">3</span> Когда и сколько вас?</legend>
+            <div class="bk-row">
+              <div class="bf-field"><label for="bfDate">Дата приезда</label><input id="bfDate" name="Дата" type="date" required></div>
+              <div class="bf-field"><label for="bfGuests">Сколько человек</label>
+                <div class="bf-stepper"><button type="button" data-step="-1" data-for="bfGuests" aria-label="Меньше">−</button><input id="bfGuests" name="Гостей" type="number" inputmode="numeric" min="1" max="30" value="2" aria-label="Сколько человек"><button type="button" data-step="1" data-for="bfGuests" aria-label="Больше">+</button></div>
+              </div>
+            </div>
+            <div class="bf-field bk-nights" id="bkNights" hidden><label for="bfNights">Сколько ночей в гостинице</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfNights" aria-label="Меньше">−</button><input id="bfNights" type="number" inputmode="numeric" min="1" max="14" value="1" aria-label="Сколько ночей"><button type="button" data-step="1" data-for="bfNights" aria-label="Больше">+</button></div></div>
+          </fieldset>
+
+          <fieldset class="bk-step">
+            <legend><span class="bk-num">4</span> Как с вами связаться?</legend>
+            <div class="bk-row">
+              <div class="bf-field"><label for="bfName">Ваше имя</label><input id="bfName" name="Имя" type="text" autocomplete="name" placeholder="Например, Иван" required></div>
+              <div class="bf-field"><label for="bfPhone">Телефон</label><input id="bfPhone" name="Телефон" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></div>
+            </div>
+            <div class="bk-pills bk-pills--small">
+              <label class="bk-pill"><input type="radio" name="Способ связи" value="Позвонить" checked><span><b>Позвоните мне</b></span></label>
+              <label class="bk-pill"><input type="radio" name="Способ связи" value="WhatsApp"><span><b>WhatsApp</b></span></label>
+              <label class="bk-pill"><input type="radio" name="Способ связи" value="Telegram"><span><b>Telegram</b></span></label>
+            </div>
+            <details class="bk-more"><summary>Добавить пожелание</summary>
+              <textarea id="bfComment" name="Комментарий" rows="2" placeholder="Например: приедем в 10 утра, остаёмся на 2 ночи"></textarea>
+            </details>
+          </fieldset>
+
+          <div class="bk-total" id="bkTotal" aria-live="polite">
+            <div class="bk-total__title">Ваша бронь</div>
+            <ul id="bkLines"></ul>
+            <div class="bk-total__sum"><span>Итого</span><strong id="bkSum">0 ₽</strong></div>
+            <p class="bk-total__note" id="bkNote"></p>
           </div>
+
           <div class="bf-field bf-field--full">
             <button type="submit" class="btn btn--green bf-submit" id="bfSubmit"><span>Отправить заявку</span></button>
-            <p class="bf-note">Отправляя заявку, вы соглашаетесь с <a href="#privacyModal" id="bfPrivacy">политикой конфиденциальности</a>. Или позвоните: <a href="tel:+79269267887">+7 926 926-78-87</a></p>
             <p class="bf-status" id="bfStatus" role="status" aria-live="polite"></p>
+            <p class="bf-note">Мы перезвоним и подтвердим бронь. Отправляя заявку, вы соглашаетесь с <a href="#privacyModal" id="bfPrivacy">политикой конфиденциальности</a>. Удобнее позвонить? <a href="tel:+79269267887">+7 926 926-78-87</a></p>
           </div>
         </form>
+        <button type="button" class="bk-bar" id="bkBar" hidden><span>Итого</span><strong id="bkBarSum">0 ₽</strong><span aria-hidden="true">↓</span></button>
         <div class="bf-success" id="bfSuccess" hidden>
           <div class="bf-success__icon" aria-hidden="true">✓</div>
           <h3>Заявка отправлена</h3>
@@ -996,23 +1005,20 @@
 <script>
 (function(){
   const BOOKING_EMAIL='danya.zhitnikov29@gmail.com';
-
-  const form=document.getElementById('bookingForm');
-  if(!form) return;
+  const form=document.getElementById('bookingForm'); if(!form) return;
   const $=id=>document.getElementById(id);
-  const objSel=$('bfObject'), dateEl=$('bfDate'), guests=$('bfGuests'), nameEl=$('bfName'), phoneEl=$('bfPhone');
-  const status=$('bfStatus'), btn=$('bfSubmit'), success=$('bfSuccess');
+  const dateEl=$('bfDate'), guests=$('bfGuests'), nameEl=$('bfName'), phoneEl=$('bfPhone');
+  const status=$('bfStatus'), btn=$('bfSubmit'), success=$('bfSuccess'), tackle=$('bkTackle'), step1=$('bkStep1');
   const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  const objs=()=>[...form.querySelectorAll('input[name="Объект"]')];
+  const checked=n=>[...form.querySelectorAll('input[name="'+n+'"]:checked')].map(i=>i.value);
 
-  /* дата: сегодня и позже */
   const d=new Date(), pad=n=>String(n).padStart(2,'0');
   dateEl.min=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 
-  /* запоминаем имя/телефон/способ связи */
   nameEl.value=store.get('bf_name')||''; phoneEl.value=store.get('bf_phone')||'';
-  const savedC=store.get('bf_contact'); if(savedC){const r=form.querySelector('input[name="Способ связи"][value="'+savedC+'"]'); if(r) r.checked=true;}
+  const sc=store.get('bf_contact'); if(sc){const r=form.querySelector('input[name="Способ связи"][value="'+sc+'"]'); if(r) r.checked=true;}
 
-  /* маска телефона */
   function fmt(v){
     let x=v.replace(/\D/g,''); if(!x) return '';
     if(x[0]==='8') x='7'+x.slice(1); else if(x[0]!=='7') x='7'+x;
@@ -1025,67 +1031,161 @@
   phoneEl.addEventListener('blur',()=>{if(phoneEl.value.replace(/\D/g,'').length<2) phoneEl.value='';});
   if(phoneEl.value) phoneEl.value=fmt(phoneEl.value);
 
-  /* гости +/- */
+  const fishers=$('bfFishers'), nights=$('bfNights'), nightsBox=$('bkNights'), bar=$('bkBar'), total=$('bkTotal');
+  let fishTouched=false;
+  const clamp=(el,v)=>Math.min(parseInt(el.max,10),Math.max(parseInt(el.min,10),v||1));
   form.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{
-    const v=Math.min(30,Math.max(1,(parseInt(guests.value,10)||1)+parseInt(b.dataset.step,10))); guests.value=v;
+    const el=$(b.dataset.for); el.value=clamp(el,(parseInt(el.value,10)||1)+parseInt(b.dataset.step,10));
+    if(el===fishers) fishTouched=true;
+    el.dispatchEvent(new Event('input',{bubbles:true}));
   }));
+  fishers.addEventListener('input',()=>{fishTouched=true;});
+  guests.addEventListener('input',()=>{ if(!fishTouched){ fishers.value=clamp(fishers,parseInt(guests.value,10)); } });
 
-  /* кнопки «Забронировать» в карточках подставляют объект */
+  /* ---------- расчёт суммы ---------- */
+  const PR={'Стандартная беседка':[3000,4000],'Средняя беседка':[6000,8000],'Большая беседка':[8000,8000],'VIP-беседка':[15000,15000],'Гостиница':[6000,8000],'Банный чан':[6000,6000]};
+  const FP={'День 07:00–19:00':3000,'Полдня 13:00–19:00':2500,'Ночь 20:00–06:00':3000,'Сутки 07:00–06:00':5000};
+  const TP={'Подсачник':200,'Садок':200,'Комплект снастей':500,'Спиннинг':1000};
+  const HOL=['01-01','01-02','01-03','01-04','01-05','01-06','01-07','01-08','02-23','03-08','05-01','05-09','06-12','11-04'];
+  const rub=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00a0')+'\u00a0₽';
+  const pd=s=>{const a=s.split('-');return new Date(+a[0],+a[1]-1,+a[2]);};
+  const isWe=dt=>{const g=dt.getDay();return g===0||g===6||HOL.includes(pad(dt.getMonth()+1)+'-'+pad(dt.getDate()));};
+  let calc={lines:[],sum:0,notes:[]};
+  function compute(){
+    const lines=[],notes=[]; let sum=0;
+    const hasDate=!!dateEl.value, dt=hasDate?pd(dateEl.value):null;
+    const o=checked('Объект'), f=checked('Рыбалка')[0], t=checked('Напрокат');
+    o.forEach(name=>{
+      const p=PR[name]; if(!p) return;
+      if(name==='Гостиница'){
+        const n=parseInt(nights.value,10)||1; let s=0;
+        for(let i=0;i<n;i++){const x=hasDate?new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()+i):null; s+=x&&isWe(x)?p[1]:p[0];}
+        lines.push([name+', '+n+' '+(n===1?'ночь':n<5?'ночи':'ночей'),s]); sum+=s;
+      }else{
+        const v=hasDate&&isWe(dt)?p[1]:p[0]; lines.push([name,v]); sum+=v;
+      }
+      if(name==='Большая беседка') notes.push('Дополнительный гость в большой беседке: +500\u00a0₽ с человека.');
+      if(name==='Банный чан') notes.push('Чан: 6\u00a0000\u00a0₽ за 3 часа, продление 1\u00a0000\u00a0₽ в час.');
+    });
+    if(FP[f]){
+      const n=parseInt(fishers.value,10)||1, s=FP[f]*n;
+      lines.push(['Рыбалка ('+f.split(' ')[0].toLowerCase()+'), '+n+' чел. × '+rub(FP[f]),s]); sum+=s;
+    }
+    t.forEach(x=>{lines.push([x+' напрокат',TP[x]]); sum+=TP[x];});
+    if(o.some(x=>x!=='Большая беседка'&&x!=='VIP-беседка'&&x!=='Банный чан')&&!hasDate) notes.push('Укажите дату: в выходные и праздники беседки и гостиница дороже.');
+    calc={lines,sum,notes};
+    return calc;
+  }
+  function upd(){
+    const r=compute(), ul=$('bkLines');
+    nightsBox.hidden=!checked('Объект').includes('Гостиница');
+    ul.innerHTML=r.lines.length?r.lines.map(l=>'<li><span>'+l[0]+'</span><b>'+rub(l[1])+'</b></li>').join(''):'<li class="bk-empty">Выберите, что бронируем, и здесь появится сумма.</li>';
+    $('bkSum').textContent=rub(r.sum); $('bkBarSum').textContent=rub(r.sum);
+    $('bkNote').innerHTML=r.notes.concat(['Сумма ориентировочная, точную подтвердим по телефону.']).join(' ');
+    showBar();
+  }
+  let totalVisible=false, formVisible=false;
+  function showBar(){ bar.hidden=!(calc.sum>0 && formVisible && !totalVisible && !form.hidden); }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(es=>{totalVisible=es[0].isIntersecting;showBar();}).observe(total);
+    new IntersectionObserver(es=>{formVisible=es[0].isIntersecting;showBar();},{threshold:.05}).observe(form);
+  }
+  bar.addEventListener('click',()=>total.scrollIntoView({behavior:'smooth',block:'center'}));
+  form.addEventListener('input',upd); form.addEventListener('change',upd);
+
+  /* снасти показываем только если выбрана рыбалка */
+  function syncFish(){
+    const on=checked('Рыбалка')[0]!=='Без рыбалки';
+    tackle.hidden=!on;
+    if(!on) tackle.querySelectorAll('input').forEach(i=>i.checked=false);
+  }
+  form.querySelectorAll('input[name="Рыбалка"]').forEach(i=>i.addEventListener('change',syncFish));
+  syncFish(); upd();
+  objs().forEach(i=>i.addEventListener('change',()=>step1.classList.remove('bf-invalid')));
+
+  /* кнопки «Забронировать» в карточках выбирают объект в форме */
   document.querySelectorAll('[data-book]').forEach(a=>a.addEventListener('click',()=>{
-    const v=a.dataset.book; [...objSel.options].forEach(o=>{if(o.value===v||o.text===v) objSel.value=o.value;});
-    objSel.classList.remove('bf-flash'); void objSel.offsetWidth; objSel.classList.add('bf-flash');
+    const i=objs().find(x=>x.value===a.dataset.book);
+    if(i){i.checked=true; step1.classList.remove('bf-invalid'); const b=i.nextElementSibling; b.classList.remove('bf-flash'); void b.offsetWidth; b.classList.add('bf-flash');}
+    upd();
   }));
 
-  /* «Посмотреть на карте»: прокрутка к схеме и открытие нужной метки */
+  /* «Посмотреть на карте»: прокрутка к схеме, затем подсветка (стандартные беседки - все 6 сразу, один пульс) */
+  function afterScroll(cb){
+    let last=-1,still=0,n=0;
+    (function tick(){
+      const y=window.scrollY; still=(y===last)?still+1:0; last=y; n++;
+      if(still>=6||n>150) cb(); else requestAnimationFrame(tick);
+    })();
+  }
   document.querySelectorAll('[data-map]').forEach(a=>a.addEventListener('click',e=>{
     const map=document.getElementById('territoryMap'); if(!map) return;
     e.preventDefault();
     (document.getElementById('territory-map')||map).scrollIntoView({behavior:'smooth',block:'start'});
-    const mk=map.querySelector('[data-marker="'+a.dataset.map+'"]');
-    if(mk) setTimeout(()=>mk.click(),650);
+    const key=a.dataset.map;
+    afterScroll(()=>{
+      if(key==='standard'){
+        const list=[...map.querySelectorAll('.map-marker--standard')];
+        list.forEach(m=>{m.classList.remove('map-hl'); void m.offsetWidth; m.classList.add('map-hl');});
+        setTimeout(()=>list.forEach(m=>m.classList.remove('map-hl')),2800);
+      }else{
+        const mk=map.querySelector('[data-marker="'+key+'"]'); if(mk) mk.click();
+      }
+    });
   }));
-
   const pl=$('bfPrivacy'); if(pl) pl.addEventListener('click',e=>{e.preventDefault();const o=$('privacyOpen'); if(o) o.click();});
 
-  function setErr(el,on){el.classList.toggle('bf-invalid',on);}
+  const mark=(el,bad)=>el.classList.toggle('bf-invalid',bad);
+  [nameEl,phoneEl,dateEl].forEach(el=>el.addEventListener('input',()=>mark(el,false)));
+
   function validate(){
-    let bad=null;
-    const checks=[[nameEl,nameEl.value.trim().length>=2],[phoneEl,phoneEl.value.replace(/\D/g,'').length===11],[dateEl,!!dateEl.value&&dateEl.value>=dateEl.min]];
-    checks.forEach(([el,ok])=>{setErr(el,!ok); if(!ok&&!bad) bad=el;});
-    return bad;
+    const noPick=checked('Объект').length===0 && checked('Рыбалка')[0]==='Без рыбалки';
+    mark(step1,noPick);
+    const list=[[nameEl,nameEl.value.trim().length>=2],[phoneEl,phoneEl.value.replace(/\D/g,'').length===11],[dateEl,!!dateEl.value&&dateEl.value>=dateEl.min]];
+    list.forEach(([el,ok])=>mark(el,!ok));
+    if(noPick) return {el:step1,msg:'Выберите, где отдыхать, или рыбалку.'};
+    const bad=list.find(x=>!x[1]);
+    if(bad) return {el:bad[0],msg:'Проверьте выделенные поля.'};
+    return null;
   }
-  [nameEl,phoneEl,dateEl].forEach(el=>el.addEventListener('input',()=>setErr(el,false)));
 
   form.addEventListener('submit',async e=>{
     e.preventDefault(); status.textContent=''; status.className='bf-status';
-    const bad=validate();
-    if(bad){status.textContent='Проверьте выделенные поля.'; status.classList.add('is-error'); bad.focus(); return;}
+    const err=validate();
+    if(err){status.textContent=err.msg; status.classList.add('is-error'); err.el.scrollIntoView({behavior:'smooth',block:'center'}); if(err.el.focus&&err.el!==step1) err.el.focus({preventScroll:true}); return;}
     if(form.elements['_honey'].value) return;
-    const contact=form.querySelector('input[name="Способ связи"]:checked').value;
+    const contact=checked('Способ связи')[0];
     store.set('bf_name',nameEl.value.trim()); store.set('bf_phone',phoneEl.value); store.set('bf_contact',contact);
     const dateRu=dateEl.value.split('-').reverse().join('.');
+    const o=checked('Объект'), f=checked('Рыбалка')[0], t=checked('Напрокат'); compute();
     const payload={
-      _subject:'Бронь: '+objSel.value+' на '+dateRu,
+      _subject:'Бронь на '+dateRu+': '+(o.length?o.join(', '):f)+' ('+rub(calc.sum)+')',
       _template:'table', _captcha:'false',
-      'Объект':objSel.value, 'Дата':dateRu, 'Гостей':guests.value,
+      'Где отдыхаем':o.length?o.join(', '):'— только рыбалка',
+      'Рыбалка':f, 'Напрокат':t.length?t.join(', '):'—',
+      'Дата':dateRu, 'Гостей':guests.value,
+      'Рыбачат':(f!=='Без рыбалки'?fishers.value+' чел.':'—'), 'Ночей в гостинице':(o.includes('Гостиница')?nights.value:'—'),
+      'Расчёт':calc.lines.map(l=>l[0]+' — '+rub(l[1])).join('; ')||'—', 'Итого (ориентировочно)':rub(calc.sum),
       'Имя':nameEl.value.trim(), 'Телефон':phoneEl.value, 'Способ связи':contact,
-      'Комментарий':$('bfComment').value.trim()||'—'
+      'Пожелание':$('bfComment').value.trim()||'—'
     };
     btn.disabled=true; btn.classList.add('is-loading'); btn.firstElementChild.textContent='Отправляем…';
     try{
-      if(BOOKING_EMAIL.indexOf('@gmail.com')<1) throw new Error('no-email');
       const r=await fetch('https://formsubmit.co/ajax/'+encodeURIComponent(BOOKING_EMAIL),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
       const j=await r.json().catch(()=>({}));
       if(!r.ok||String(j.success)==='false') throw new Error('send');
       form.hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
-    }catch(err){
-      status.innerHTML='Не удалось отправить заявку. Позвоните нам: <a href="tel:+79269267887">+7 926 926-78-87</a>';
+    }catch(x){
+      status.innerHTML='Не удалось отправить. Позвоните нам: <a href="tel:+79269267887">+7 926 926-78-87</a>';
       status.classList.add('is-error');
     }finally{
       btn.disabled=false; btn.classList.remove('is-loading'); btn.firstElementChild.textContent='Отправить заявку';
     }
   });
-  $('bfAgain').addEventListener('click',()=>{success.hidden=true; form.hidden=false; $('bfComment').value='';});
+  $('bfAgain').addEventListener('click',()=>{
+    success.hidden=true; form.hidden=false; $('bfComment').value='';
+    objs().forEach(i=>i.checked=false); form.querySelector('input[name="Рыбалка"][value="Без рыбалки"]').checked=true; syncFish(); fishTouched=false; guests.value=2; fishers.value=2; nights.value=1; upd();
+  });
 })();
 </script>
 
