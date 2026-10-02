@@ -38,3 +38,8 @@
 .seo-footer-links a{text-decoration:underline;text-underline-offset:3px;}
 @media(max-width:900px){.seo-cards{grid-template-columns:1fr 1fr;}.seo-page .top nav#nav-menu{display:none;}}
 @media(max-width:600px){.seo-page .shell{width:min(100% - 28px,1180px);}.seo-cards{grid-template-columns:1fr;}.seo-page .page-hero{padding:52px 0 42px;}.seo-content{padding:40px 0 58px;}.seo-table{font-size:14px;display:block;overflow-x:auto;}.seo-table th,.seo-table td{padding:11px 10px;}.seo-hero-actions,.seo-cta-actions{flex-direction:column;}.seo-hero-actions .btn,.seo-cta .btn{width:100%;}}
+
+/* Official site CTA */
+.official-site-cta { text-align: center; }
+.official-site-cta p { max-width: 760px; margin-left: auto; margin-right: auto; }
+.official-site-cta .btn { display: inline-flex; }
