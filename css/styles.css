@@ -305,6 +305,16 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .reveal.in-view{opacity:1;transform:none;}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;} html{scroll-behavior:auto;} *,*::before,*::after{transition:none!important;}}
 
+/* ---------- mobile section reveal: lighter, without touching map interactions ---------- */
+@media (max-width:680px){
+  /* Only ordinary section shells get the lighter mobile entrance.
+     The shell containing the territory map keeps its existing timing so
+     map scrolling, markers, highlights and map controls remain untouched. */
+  .section > .shell.reveal.reveal-ready:not(:has(.territory-map-wrap)){
+    transition:opacity .34s ease,transform .34s ease;
+  }
+}
+
 /* ---------- responsive ---------- */
 @media (max-width:960px){
   header{gap:16px;} nav#nav-menu{gap:13px;} .contacts{font-size:11px;}
