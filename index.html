@@ -1398,3 +1398,29 @@
   .hero-actions .btn--about { font-size: 15px !important; }
 }
 </style>
+
+<style id="cta-clean-v8">
+.accom-actions .btn--green,
+.accom-actions .btn--map {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+.accom-actions .btn--green::before,
+.accom-actions .btn--green::after,
+.accom-actions .btn--map::before,
+.accom-actions .btn--map::after {
+  content: none !important;
+  display: none !important;
+}
+.accom-actions .btn--green svg,
+.accom-actions .btn--map svg,
+.accom-actions .btn--green .icon,
+.accom-actions .btn--map .icon,
+.accom-actions .btn--green .arrow,
+.accom-actions .btn--map .arrow {
+  display: none !important;
+}
+</style>
