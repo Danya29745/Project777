@@ -87,7 +87,7 @@ cp -r images/backgrounds ../Project777/images/
 ### ✨ Основные улучшения:
 
 **1. Оптимизация фона:**
-- ❌ Было: `<img src="./images/gallery/DSC00856.jpg">` в HTML
+- ❌ Было: `<img src="./images/gallery/pagebackground.webp">` в HTML
 - ✅ Стало: Фон загружается из CSS (`background-image: url()`)
 - 📊 Результат: Быстрее загрузка, меньше запросов, лучше кэширование
 
