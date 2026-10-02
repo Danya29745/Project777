@@ -35,7 +35,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
 body::before{content:'';pointer-events:none;position:fixed;inset:0;z-index:40;opacity:.025;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
 /* ---------- fixed page backdrop photo (visible through translucent sections while scrolling) ---------- */
-.page-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--p-river-deep) url('../images/backgrounds/pagebackground.webp') center/cover no-repeat fixed;pointer-events:none;}
+.page-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--p-river-deep) url('../images/backgrounds/pagebackground.webp') center/cover no-repeat;pointer-events:none;}
 .page-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:saturate(1.08);opacity:1;}
 .page-bg::after{content:'';position:absolute;inset:0;background:rgba(9,20,17,.65);}
 @media (max-width:680px){.page-bg{position:fixed;}}
@@ -290,8 +290,8 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 /* ---------- lightbox ---------- */
 .lightbox{position:fixed;inset:0;z-index:70;display:grid;place-items:center;background:rgba(9,20,17,.94);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s ease;}
 .lightbox[aria-hidden="false"]{opacity:1;pointer-events:auto;}
-.lb-figure{max-width:min(92vw,1100px);max-height:88vh;margin:0;display:grid;gap:10px;justify-items:center;}
-.lb-figure img{max-width:100%;max-height:80vh;border-radius:14px;box-shadow:var(--shadow-deep);}
+.lb-figure{max-width:min(92vw,1100px);max-height:88vh;max-height:88dvh;margin:0;display:grid;gap:10px;justify-items:center;}
+.lb-figure img{max-width:100%;max-height:80vh;max-height:80dvh;border-radius:14px;box-shadow:var(--shadow-deep);}
 .lb-figure figcaption{font-family:var(--font-mono);color:var(--fg-on-cover-soft);font-size:12px;letter-spacing:.06em;}
 .lb-close,.lb-nav{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:50%;cursor:pointer;display:grid;place-items:center;transition:background .2s ease;}
 .lb-close:hover,.lb-nav:hover{background:rgba(255,255,255,.25);}
@@ -338,7 +338,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 
 .about-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(5,12,10,.72);backdrop-filter:blur(8px);}
 .about-modal.is-open{display:flex;}
-.about-modal__panel{position:relative;width:min(860px,100%);max-height:min(82vh,760px);overflow:auto;background:#f5f1e8;color:#26322d;border:1px solid rgba(190,151,82,.65);border-radius:24px;box-shadow:0 30px 90px rgba(0,0,0,.45);padding:42px 46px;}
+.about-modal__panel{position:relative;width:min(860px,100%);max-height:min(82vh,760px);max-height:min(82dvh,760px);overflow:auto;background:#f5f1e8;color:#26322d;border:1px solid rgba(190,151,82,.65);border-radius:24px;box-shadow:0 30px 90px rgba(0,0,0,.45);padding:42px 46px;}
 .about-modal__close{position:absolute;top:16px;right:18px;width:40px;height:40px;border:1px solid rgba(38,50,45,.18);border-radius:50%;background:transparent;color:#26322d;font-size:26px;line-height:1;cursor:pointer;transition:.25s ease;}
 .about-modal__close:hover{background:#26322d;color:#fff;transform:rotate(90deg);}
 .about-modal__eyebrow{display:block;margin-bottom:10px;color:#a9823d;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
@@ -470,7 +470,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 
   /* About modal: use the screen better */
   .about-modal{padding:10px;}
-  .about-modal__panel{max-height:88vh;padding:30px 18px 22px;border-radius:17px;}
+  .about-modal__panel{max-height:88vh;max-height:88dvh;padding:30px 18px 22px;border-radius:17px;}
   .about-modal__close{top:10px;right:10px;width:36px;height:36px;font-size:23px;}
   .about-modal__text{font-size:13.5px;line-height:1.6;}
 
@@ -1152,3 +1152,18 @@ img{
 
 /* accessibility: no smooth scrolling for users who ask for reduced motion (overrides inline style on <html>) */
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important;}}
+
+/* ===== mobile performance: blur only on the header ===== */
+@media (max-width:900px), (hover:none) and (pointer:coarse){
+  /* noise overlay: full-screen blend layer at 2.5% opacity, invisible but forces blending on every scroll frame */
+  body::before{display:none;}
+  /* big translucent section panels: no blur, slightly denser flat fill instead */
+  .section::before{backdrop-filter:none;-webkit-backdrop-filter:none;background:color-mix(in srgb,var(--bg) 88%,transparent);}
+  .section--alt::before{backdrop-filter:none;-webkit-backdrop-filter:none;background:color-mix(in srgb,var(--bg-alt) 88%,transparent);}
+  .section:not(#price)::after{display:none;}
+  /* cards, badges, buttons, overlays: no blur (their own backgrounds stay) */
+  .btn--about,.btn--green,.ql-card,.stub,.stay-nav,.stay-counter,.tip-card,.rule,.contact-side,.rule-card,.ledger,.booking-card,
+  .reviews-widget,.accom-count,.accom-badge,.gallery-nav,.mb-back,.fish-card__hint,.lightbox,.about-modal{
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+  }
+}
