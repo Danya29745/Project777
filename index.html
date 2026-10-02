@@ -26,6 +26,7 @@
 <link rel="manifest" href="favicon/site.webmanifest">
 <link rel="preload" href="fonts/Manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/Bitter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="images/backgrounds/pagebackground.webp" as="image" type="image/webp">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Платная рыбалка в Щёлковском районе — Рыбалка у Иваныча">
 <meta property="og:description" content="Платная рыбалка у Иваныча в Щёлковском районе Подмосковья, деревня Большие Жеребцы. Карп, карась, форель и осётр, беседки у воды, домики и банный чан. Цены, адрес и бронирование.">
@@ -250,7 +251,52 @@
 .accom-price strong,.stay-price strong,.stay-price-single strong,.map-object-price{font-family:var(--font-display);font-weight:900;}
 .rub{font-family:inherit !important;font-weight:inherit;line-height:1;}
 </style>
-  <link rel="stylesheet" href="css/styles.css?v=20261002">
+  <link rel="stylesheet" href="css/styles.css?v=20261003">
+  <link rel="stylesheet" href="css/seo-pages.css?v=20261003">
+<style id="unified-hero-cta-v7">
+.hero-actions .btn--green,
+.hero-actions .btn--about {
+  font-family: var(--font-display) !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.1 !important;
+  text-transform: uppercase !important;
+}
+@media (max-width: 600px) {
+  .hero-actions .btn--green,
+  .hero-actions .btn--about { font-size: 16px !important; }
+}
+@media (max-width: 380px) {
+  .hero-actions .btn--green,
+  .hero-actions .btn--about { font-size: 15px !important; }
+}
+</style>
+<style id="cta-clean-v8">
+.accom-actions .btn--green,
+.accom-actions .btn--map {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+.accom-actions .btn--green::before,
+.accom-actions .btn--green::after,
+.accom-actions .btn--map::before,
+.accom-actions .btn--map::after {
+  content: none !important;
+  display: none !important;
+}
+.accom-actions .btn--green svg,
+.accom-actions .btn--map svg,
+.accom-actions .btn--green .icon,
+.accom-actions .btn--map .icon,
+.accom-actions .btn--green .arrow,
+.accom-actions .btn--map .arrow {
+  display: none !important;
+}
+</style>
 </head>
 <body id="top" style="">
 <div class="page-bg" aria-hidden="true"></div>
@@ -287,13 +333,13 @@
 
 <div class="top"><header class="shell">
   <a class="brand" href="#top" aria-label="Рыбалка у Иваныча — на главную">
-    <span class="stamp-mark"><img src="./images/embedded/embedded-0.webp" width="180" height="180" alt="Рыбалка у Иваныча" decoding="async" fetchpriority="high"></span>
+    <span class="stamp-mark"><img src="./images/embedded/embedded-0.webp" width="180" height="180" alt="Рыбалка у Иваныча" decoding="async"></span>
     <span class="brand-name">Рыбалка у Иваныча<small>Платная рыбалка в Подмосковье</small></span>
   </a>
   <nav id="nav-menu" aria-label="Основная навигация">
     <a href="#price">Цены</a><a href="#hotel">Беседки и отдых</a><a href="#tips">Что ловится</a><a href="#rules">Правила</a><a href="#contacts">Контакты</a>
   </nav>
-  <div class="contacts"><a href="tel:+79269267887">+7 926 926-78-87</a><br><a href="tel:+79269119407">+7 926 911-94-07</a><br><span class="online">Звоните в любое время</span></div>
+  <div class="contacts"><a href="tel:+79269267887">+7 926 926-78-87</a><br><a href="tel:+79269119407">+7 926 911-94-07</a><br><span class="online">Ежедневно 07:00–19:00</span></div>
   <button class="nav-toggle" id="nav-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
 </header></div>
 
@@ -301,7 +347,7 @@
   <div class="shell">
     <div class="hero-eyebrow">Щёлковский район, Подмосковье</div>
     <h1>Платная рыбалка в Щёлковском районе<br>у <em>Иваныча</em></h1>
-    <p>Платная рыбалка в Щёлковском районе Подмосковья: карп, щука и осётр, беседки над водой и тёплый домик на ночь - база, куда возвращаются семьёй, компанией и в одиночку, чтобы просто помолчать у воды.</p>
+    <p>Платная рыбалка в Щёлковском районе Подмосковья: карп, карась, форель и осётр, беседки над водой и тёплый домик на ночь - база, куда возвращаются семьёй, компанией и в одиночку, чтобы просто помолчать у воды.</p>
     <div class="hero-cta-stack">
       <div class="hero-actions">
         <a class="btn btn--green" href="#booking">Забронировать</a>
@@ -410,12 +456,12 @@
         <div class="accom-media">
           <span class="accom-count">6 беседок</span><div class="accom-badge" aria-label="до 6 человек"><small>до</small><b>6</b><span>человек</span></div>
           <div class="accom-mini-gallery" data-main-gallery>
-            <img fetchpriority="high" src="./images/rooms/standard-1.webp" width="1200" height="744" alt="Стандартная беседка №1" loading="eager" decoding="async">
-            <img src="./images/rooms/standard-2.webp" width="1197" height="800" alt="Беседка 2" loading="eager" decoding="async">
-            <img src="./images/rooms/standard-3.webp" width="1200" height="728" alt="Беседка 3" loading="eager" decoding="async">
-            <img src="./images/rooms/standard-4.webp" width="1197" height="800" alt="Беседка 4" loading="eager" decoding="async">
-            <img src="./images/rooms/standard-5.webp" width="1197" height="800" alt="Беседка 5" loading="eager" decoding="async">
-            <img src="./images/rooms/standard-6.webp" width="1200" height="800" alt="Стандартная беседка №6 — заглушка фото" loading="eager" decoding="async">
+            <img src="./images/rooms/standard-1.webp" srcset="./images/rooms/standard-1-640.webp 640w, ./images/rooms/standard-1.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1200" height="744" alt="Стандартная беседка №1" loading="lazy" decoding="async">
+            <img src="./images/rooms/standard-2.webp" srcset="./images/rooms/standard-2-640.webp 640w, ./images/rooms/standard-2.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1197" height="800" alt="Беседка 2" loading="lazy" decoding="async">
+            <img src="./images/rooms/standard-3.webp" srcset="./images/rooms/standard-3-640.webp 640w, ./images/rooms/standard-3.webp 1200w" sizes="(max-width:900px) 100vw, 600px" width="1200" height="728" alt="Беседка 3" loading="lazy" decoding="async">
+            <img src="./images/rooms/standard-4.webp" srcset="./images/rooms/standard-4-640.webp 640w, ./images/rooms/standard-4.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1197" height="800" alt="Беседка 4" loading="lazy" decoding="async">
+            <img src="./images/rooms/standard-5.webp" srcset="./images/rooms/standard-5-640.webp 640w, ./images/rooms/standard-5.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1197" height="800" alt="Беседка 5" loading="lazy" decoding="async">
+            <img src="./images/rooms/standard-6.webp" srcset="./images/rooms/standard-6-640.webp 640w, ./images/rooms/standard-6.webp 1200w" sizes="(max-width:900px) 100vw, 600px" width="1200" height="800" alt="Стандартная беседка №6 — заглушка фото" loading="lazy" decoding="async">
           </div>
         </div>
         <div class="accom-body">
@@ -435,9 +481,9 @@
       <article class="accom-card">
         <div class="accom-media"><span class="accom-count">1 объект</span><div class="accom-badge" aria-label="до 10 человек"><small>до</small><b>10</b><span>человек</span></div>
           <div class="accom-mini-gallery" data-main-gallery>
-            <img fetchpriority="high" src="./images/rooms/medium-1.webp" width="1197" height="800" alt="Средняя беседка до 10 человек" loading="eager" decoding="async">
-            <img src="./images/rooms/medium-2.webp" width="1197" height="800" alt="Средняя беседка — фото 2" loading="eager" decoding="async">
-            <img src="./images/rooms/medium-3.webp" width="1197" height="800" alt="Средняя беседка — фото 3" loading="eager" decoding="async">
+            <img src="./images/rooms/medium-1.webp" srcset="./images/rooms/medium-1-640.webp 640w, ./images/rooms/medium-1.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1197" height="800" alt="Средняя беседка до 10 человек" loading="lazy" decoding="async">
+            <img src="./images/rooms/medium-2.webp" srcset="./images/rooms/medium-2-640.webp 640w, ./images/rooms/medium-2.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1197" height="800" alt="Средняя беседка — фото 2" loading="lazy" decoding="async">
+            <img src="./images/rooms/medium-3.webp" srcset="./images/rooms/medium-3-640.webp 640w, ./images/rooms/medium-3.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1197" height="800" alt="Средняя беседка — фото 3" loading="lazy" decoding="async">
           </div>
         </div>
         <div class="accom-body">
@@ -457,8 +503,8 @@
       <article class="accom-card">
         <div class="accom-media"><span class="accom-count">1 объект</span><div class="accom-badge" aria-label="до 15 человек"><small>до</small><b>15</b><span>человек</span></div>
           <div class="accom-mini-gallery" data-main-gallery>
-            <img fetchpriority="high" src="./images/rooms/large-1.webp" width="1200" height="900" alt="Большая беседка до 15 человек" loading="eager" decoding="async">
-            <img src="./images/rooms/large-2.webp" width="1200" height="800" alt="Большая беседка — фото 2" loading="eager" decoding="async">
+            <img src="./images/rooms/large-1.webp" srcset="./images/rooms/large-1-640.webp 640w, ./images/rooms/large-1.webp 1200w" sizes="(max-width:900px) 100vw, 600px" width="1200" height="900" alt="Большая беседка до 15 человек" loading="lazy" decoding="async">
+            <img src="./images/rooms/large-2.webp" srcset="./images/rooms/large-2-640.webp 640w, ./images/rooms/large-2.webp 1200w" sizes="(max-width:900px) 100vw, 600px" width="1200" height="800" alt="Большая беседка — фото 2" loading="lazy" decoding="async">
           </div>
         </div>
         <div class="accom-body">
@@ -481,10 +527,10 @@
       <article class="accom-card accom-card--vip">
         <div class="accom-media"><span class="accom-count">VIP</span><div class="accom-badge" aria-label="до 10 человек"><small>до</small><b>10</b><span>человек</span></div>
           <div class="accom-mini-gallery" data-main-gallery>
-            <img fetchpriority="high" src="./images/rooms/vip-1.webp" width="1200" height="675" alt="VIP-беседка" loading="eager" decoding="async">
-            <img src="./images/rooms/vip-2.webp" width="1197" height="800" alt="VIP-беседка — фото 2" loading="eager" decoding="async">
-            <img src="./images/rooms/vip-3.webp" width="1197" height="800" alt="VIP-беседка — фото 3" loading="eager" decoding="async">
-            <img src="./images/rooms/vip-4.webp" width="1197" height="800" alt="VIP-беседка — фото 4" loading="eager" decoding="async">
+            <img src="./images/rooms/vip-1.webp" srcset="./images/rooms/vip-1-640.webp 640w, ./images/rooms/vip-1.webp 1200w" sizes="(max-width:900px) 100vw, 600px" width="1200" height="675" alt="VIP-беседка" loading="lazy" decoding="async">
+            <img src="./images/rooms/vip-2.webp" srcset="./images/rooms/vip-2-640.webp 640w, ./images/rooms/vip-2.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1197" height="800" alt="VIP-беседка — фото 2" loading="lazy" decoding="async">
+            <img src="./images/rooms/vip-3.webp" srcset="./images/rooms/vip-3-640.webp 640w, ./images/rooms/vip-3.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1197" height="800" alt="VIP-беседка — фото 3" loading="lazy" decoding="async">
+            <img src="./images/rooms/vip-4.webp" srcset="./images/rooms/vip-4-640.webp 640w, ./images/rooms/vip-4.webp 1197w" sizes="(max-width:900px) 100vw, 600px" width="1197" height="800" alt="VIP-беседка — фото 4" loading="lazy" decoding="async">
           </div>
         </div>
         <div class="accom-body">
@@ -729,6 +775,20 @@
     </div>
   </section>
 
+  <section class="section section--alt seo-links-section" aria-labelledby="seoLinksTitle"><div class="shell">
+    <span class="eyebrow">Полезная информация</span>
+    <h2 id="seoLinksTitle">Рыбалка, цены и отдых у Иваныча</h2>
+    <p class="section-lead">Подробная информация по отдельным услугам помогает заранее выбрать формат отдыха и подготовиться к поездке.</p>
+    <div class="seo-links-grid">
+      <a href="fishing/"><strong>Платная рыбалка</strong><span>Условия, виды рыбы и формат ловли.</span></a>
+      <a href="prices/"><strong>Цены</strong><span>Тарифы на рыбалку, снасти и услуги.</span></a>
+      <a href="gazebos/"><strong>Беседки</strong><span>Варианты размещения для компаний.</span></a>
+      <a href="hotel/"><strong>Гостиница и чан</strong><span>Проживание и банный чан на дровах.</span></a>
+      <a href="rules/"><strong>Правила рыбалки</strong><span>Что важно знать до приезда.</span></a>
+      <a href="contacts/"><strong>Адрес и контакты</strong><span>Как найти базу в Больших Жеребцах.</span></a>
+    </div>
+  </div></section>
+
   <section class="section" id="contacts"><div class="shell"><div class="contact-grid">
     <div class="contact-main">
       <h2>Костёр, тишина<br>и клёв на рассвете</h2>
@@ -737,7 +797,7 @@
         <a href="https://wa.me/79269267887" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(37,211,102,.24);border:1.5px solid rgba(37,211,102,.42);border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:background .2s,border-color .2s;">WhatsApp</a>
         <a href="https://t.me/+79269267887" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,136,204,.24);border:1.5px solid rgba(0,136,204,.42);border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:background .2s,border-color .2s;">Telegram</a>
       </div>
-      <p style="color:var(--fg-on-cover-soft);margin-top:14px;">Отвечаем круглосуточно - звонок для нас не рано и не поздно.</p>
+      <p style="color:var(--fg-on-cover-soft);margin-top:14px;">Телефоны администратора доступны ежедневно с 07:00 до 19:00.</p>
     </div>
     <div class="contact-side">
       <div class="row"><b>Адрес</b>Московская область, Щёлковский район, деревня Большие Жеребцы, СПК «Ромашка»</div>
@@ -756,7 +816,7 @@
     <span class="stamp-mark" style="width:38px;height:38px;"><img src="./images/embedded/embedded-0.webp" width="180" height="180" alt="Рыбалка у Иваныча" decoding="async"></span>
     <span class="brand-name">Рыбалка у Иваныча<small>Платная рыбалка в Подмосковье</small></span>
   </a>
-  <div class="footer-links"><span>GPS: 55.865551, 38.050037</span><button type="button" class="footer-about-link" id="aboutOpen">О нас</button><a href="#privacyModal" id="privacyOpen">Политика конфиденциальности</a></div>
+  <div class="footer-links"><span>GPS: 55.865551, 38.050037</span><a href="prices/">Цены</a><a href="fishing/">Рыбалка</a><a href="gazebos/">Беседки и отдых</a><a href="hotel/">Гостиница и чан</a><a href="rules/">Правила</a><a href="contacts/">Контакты</a><button type="button" class="footer-about-link" id="aboutOpen">О нас</button><a href="#privacyModal" id="privacyOpen">Политика конфиденциальности</a></div>
 </div></footer>
 
 <script>
@@ -1427,65 +1487,7 @@
 
 
 
-<script>
-/* Preload all accommodation gallery images so switching photos on mobile is instant. */
-(function(){
-  const urls = [];
-  document.querySelectorAll('.accom-mini-gallery img').forEach(img => {
-    if (img.currentSrc) urls.push(img.currentSrc);
-    else if (img.src) urls.push(img.src);
-  });
-  urls.forEach(src => {
-    const pre = new Image();
-    pre.decoding = 'async';
-    pre.src = src;
-  });
-})();
-</script>
-
 </body></html>
-<style id="unified-hero-cta-v7">
-.hero-actions .btn--green,
-.hero-actions .btn--about {
-  font-family: var(--font-display) !important;
-  font-size: 16px !important;
-  font-weight: 900 !important;
-  letter-spacing: 0 !important;
-  line-height: 1.1 !important;
-  text-transform: uppercase !important;
-}
-@media (max-width: 600px) {
-  .hero-actions .btn--green,
-  .hero-actions .btn--about { font-size: 16px !important; }
-}
-@media (max-width: 380px) {
-  .hero-actions .btn--green,
-  .hero-actions .btn--about { font-size: 15px !important; }
-}
-</style>
 
-<style id="cta-clean-v8">
-.accom-actions .btn--green,
-.accom-actions .btn--map {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 0;
-}
-.accom-actions .btn--green::before,
-.accom-actions .btn--green::after,
-.accom-actions .btn--map::before,
-.accom-actions .btn--map::after {
-  content: none !important;
-  display: none !important;
-}
-.accom-actions .btn--green svg,
-.accom-actions .btn--map svg,
-.accom-actions .btn--green .icon,
-.accom-actions .btn--map .icon,
-.accom-actions .btn--green .arrow,
-.accom-actions .btn--map .arrow {
-  display: none !important;
-}
-</style>
+
+
