@@ -211,7 +211,7 @@ h2{margin:10px 0 0;font:800 clamp(32px,4.2vw,54px)/1.1 var(--font-display);color
 .stay-price-single{padding:16px 18px;border-radius:13px;background:color-mix(in srgb,var(--p-river) 6%,transparent);border:1px solid var(--border);display:flex;align-items:baseline;gap:10px;margin-bottom:8px;}
 .stay-price-single strong{font:900 clamp(26px,5vw,36px) var(--font-display);color:var(--accent);line-height:1;letter-spacing:-.02em;} .stay-price-single strong .rub{font-family:inherit;font-size:.72em;font-weight:inherit;line-height:1;color:currentColor;margin-left:.06em;}
 .stay-price-single > span{font:700 10px var(--font-body);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-soft) !important;}
-.stay-info-note{display:block;font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--fg-soft);margin-bottom:18px;} .stay-info-note .rub{font-family:inherit;font-size:1em;font-weight:inherit;line-height:1;color:currentColor;} .stay-info-note-geoform{font-family:'Geoform',sans-serif;font-weight:900;}
+.stay-info-note{display:block;font-family:var(--font-display);font-size:14px;font-weight:900;text-transform:none;letter-spacing:0;color:var(--fg-soft);margin-bottom:18px;line-height:1.25;} .stay-info-note .rub{font-family:inherit;font-size:1em;font-weight:inherit;line-height:1;color:currentColor;} .stay-info-note-geoform{font-family:var(--font-display);font-weight:900;}
 .stay-info-list{margin:0 0 24px;padding:0;list-style:none;display:grid;gap:11px;}
 .stay-info-list li{position:relative;padding-left:19px;font-size:14px;font-weight:600;line-height:1.55;color:var(--fg);}
 .stay-info-list li::before{content:'';position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:var(--accent);}
@@ -574,11 +574,45 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .accom-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
 .accom-meta span{padding:8px 12px;border-radius:18px;border:none;font-size:12px;font-weight:600;color:var(--text-accent);background:var(--bg-accent);display:flex;align-items:center;gap:6px;letter-spacing:.02em;}
 .accom-meta i{font-size:14px;flex-shrink:0;}
-.accom-included{border-left:3px solid var(--p-brass);padding:2px 0 2px 16px;margin:2px 0 0;}
-.accom-included__title{font:800 10px var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--p-brass);margin-bottom:8px;}
-.accom-included__list{display:flex;flex-wrap:wrap;gap:7px 16px;margin:0;padding:0;list-style:none;}
-.accom-included__list li{position:relative;padding-left:16px;font-size:12px;font-weight:700;color:var(--fg);line-height:1.45;}
-.accom-included__list li::before{content:'✓';position:absolute;left:0;top:0;color:var(--accent);font-weight:900;}
+.accom-included{
+  margin:2px 0 0;
+  padding:12px 14px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:color-mix(in srgb,var(--p-river) 5%,transparent);
+  box-sizing:border-box;
+}
+.accom-included__title{
+  font:800 10px var(--font-body);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--p-brass);
+  margin-bottom:9px;
+}
+.accom-included__list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px 16px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.accom-included__list li{
+  position:relative;
+  padding-left:16px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--fg);
+  line-height:1.45;
+}
+.accom-included__list li::before{
+  content:'✓';
+  position:absolute;
+  left:0;
+  top:0;
+  color:var(--accent);
+  font-weight:900;
+}
 .accom-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto;padding-top:10px;margin-bottom:0;}
 .accom-price-box{padding:14px 16px;border-radius:13px;background:color-mix(in srgb,var(--p-river) 6%,transparent);border:1px solid var(--border);display:flex;flex-direction:column;gap:5px;min-width:0;}
 .accom-price-box small,.accom-price-single small{font:700 10px var(--font-body);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-soft);}
@@ -773,33 +807,35 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 /* Доплата за дополнительного гостя — блок для карточки беседки */
 
 /* Компактный блок доплаты за дополнительного гостя */
-.pavilion-extra-guest {
-  display: inline-block;
-  width: fit-content;
-  max-width: 100%;
-  margin-top: 14px;
-  margin-bottom: 2px;
-  padding: 8px 12px;
-  border: 1px solid rgba(31, 61, 52, 0.28);
-  border-radius: 9px;
-  background: rgba(255, 255, 255, 0.16);
-  box-sizing: border-box;
+.pavilion-extra-guest{
+  width:100%;
+  max-width:100%;
+  margin-top:12px;
+  margin-bottom:0;
+  padding:12px 14px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:color-mix(in srgb,var(--p-river) 5%,transparent);
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
-
-.pavilion-extra-guest__title {
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.25;
-  color: #53635c;
+.pavilion-extra-guest__title{
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:800;
+  line-height:1.3;
+  color:var(--fg);
 }
-
-.pavilion-extra-guest__price {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.3;
-  color: #39483f;
+.pavilion-extra-guest__price{
+  font-family:var(--font-display);
+  font-size:15px;
+  font-weight:800;
+  line-height:1.3;
+  color:var(--accent);
+  white-space:nowrap;
 }
 
 
@@ -1317,3 +1353,260 @@ img{
 @media (prefers-reduced-motion:reduce){.bk-step--reveal.is-open,.bk-toast{transition:none}}
 /* Booking flow: options that do not belong to the selected scenario are removed from the layout. */
 #bkNoFishingPill[hidden]{display:none!important}
+
+
+/* Mobile typography refinements */
+@media (max-width: 600px) {
+  /* Hotel price note: keep the Bitter heading style, but make it easier to read on phones. */
+  .stay-info-note {
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  /* Additional services */
+  .additional-item,
+  .extra-item {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .additional-item .description,
+  .extra-item .description {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .additional-item .price,
+  .extra-item .price {
+    font-size: 15px;
+  }
+}
+
+
+/* Mobile: included and guest boxes */
+@media (max-width:600px){
+  .accom-included{padding:12px 13px;}
+  .accom-included__title{font-size:10px;margin-bottom:8px;}
+  .accom-included__list{gap:6px 14px;}
+  .accom-included__list li{font-size:13px;}
+  .pavilion-extra-guest{padding:12px 13px;}
+  .pavilion-extra-guest__title{font-size:13px;}
+  .pavilion-extra-guest__price{font-size:16px;}
+}
+
+
+/* CTA buttons + contact card refinement */
+.cta-actions .btn,
+.hero-actions .btn,
+a[href="#booking"].btn,
+a[href="#prices"].btn {
+  min-height: 48px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* Make the two primary CTAs visually identical. */
+a[href="#booking"].btn,
+a[href="#prices"].btn {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  box-shadow: 0 8px 20px rgba(0,0,0,.10);
+}
+
+a[href="#booking"].btn:hover,
+a[href="#prices"].btn:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Contact/admin prompt */
+.contact-prompt,
+.admin-contact,
+.question-contact {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border: 1px solid rgba(31,61,52,.16);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--p-river) 5%, transparent);
+  box-shadow: 0 8px 24px rgba(15,35,30,.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.contact-prompt a,
+.admin-contact a,
+.question-contact a {
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.contact-prompt .contact-title,
+.admin-contact .contact-title,
+.question-contact .contact-title {
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.contact-prompt .contact-subtitle,
+.admin-contact .contact-subtitle,
+.question-contact .contact-subtitle {
+  margin-top: 4px;
+  color: var(--fg-soft);
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .cta-actions .btn,
+  .hero-actions .btn,
+  a[href="#booking"].btn,
+  a[href="#prices"].btn {
+    min-height: 52px;
+    font-size: 16px !important;
+    line-height: 1.2;
+    padding: 12px 18px;
+  }
+
+  .contact-prompt,
+  .admin-contact,
+  .question-contact {
+    padding: 16px;
+    border-radius: 15px;
+    display: block;
+  }
+
+  .contact-prompt a,
+  .admin-contact a,
+  .question-contact a {
+    display: block;
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  .contact-prompt .contact-title,
+  .admin-contact .contact-title,
+  .question-contact .contact-title {
+    font-size: 16px;
+  }
+}
+
+
+/* Refined accommodation typography */
+.accom-included__title {
+  color: #000 !important;
+}
+
+/* Keep the guest surcharge visually strong, but proportional to the site */
+.pavilion-extra-guest {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pavilion-extra-guest__price,
+.pavilion-extra-guest__title {
+  font-family: var(--font-display, 'Bitter', Georgia, serif) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+.pavilion-extra-guest__price {
+  font-size: 18px;
+  color: var(--accent, #1f7a4d);
+}
+
+.pavilion-extra-guest__title {
+  font-size: 18px;
+  color: #000;
+}
+
+@media (max-width: 640px) {
+  .pavilion-extra-guest {
+    gap: 6px 8px;
+  }
+
+  .pavilion-extra-guest__price,
+  .pavilion-extra-guest__title {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+}
+
+
+/* Final visual refinement */
+.accom-included__title {
+  font-family: var(--font-body, Inter, Arial, sans-serif) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.3 !important;
+  color: #000 !important;
+}
+
+/* All booking CTAs use the same green treatment */
+.hero-actions .btn--green,
+.accom-actions .btn--green {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border: 1px solid var(--accent) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .08) !important;
+}
+
+.hero-actions .btn--green:hover,
+.hero-actions .btn--green:focus-visible,
+.accom-actions .btn--green:hover,
+.accom-actions .btn--green:focus-visible {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-color: var(--accent) !important;
+  transform: translateY(-1px);
+}
+
+
+/* Included items: subtle background surface for depth */
+.accom-included {
+  position: relative;
+  background: rgba(0, 0, 0, 0.035) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 12px !important;
+  padding: 13px 15px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 3px 10px rgba(0, 0, 0, 0.035) !important;
+}
+
+.accom-included__title {
+  margin-bottom: 7px !important;
+}
+
+.accom-included__list {
+  margin: 0 !important;
+}
+
+.accom-included__list li {
+  background: rgba(255, 255, 255, 0.62);
+  border-radius: 7px;
+  padding: 5px 8px;
+}
+
+@media (max-width: 640px) {
+  .accom-included {
+    padding: 11px 12px !important;
+    border-radius: 11px !important;
+  }
+
+  .accom-included__list li {
+    padding: 5px 7px;
+  }
+}
