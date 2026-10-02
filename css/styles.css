@@ -1317,3 +1317,31 @@ img{
 @media (prefers-reduced-motion:reduce){.bk-step--reveal.is-open,.bk-toast{transition:none}}
 /* Booking flow: options that do not belong to the selected scenario are removed from the layout. */
 #bkNoFishingPill[hidden]{display:none!important}
+
+
+/* Mobile typography refinements */
+@media (max-width: 600px) {
+  /* Hotel price note: keep the Bitter heading style, but make it easier to read on phones. */
+  .stay-info-note {
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  /* Additional services */
+  .additional-item,
+  .extra-item {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .additional-item .description,
+  .extra-item .description {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .additional-item .price,
+  .extra-item .price {
+    font-size: 15px;
+  }
+}
