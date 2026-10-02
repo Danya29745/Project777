@@ -1297,3 +1297,5 @@ img{
 .bk-toast.is-visible{opacity:1;transform:translate(-50%,0)}
 @media (max-width:700px){.bk-toast{bottom:18px;font-size:13px;padding:13px 15px}}
 @media (prefers-reduced-motion:reduce){.bk-step--reveal.is-open,.bk-toast{transition:none}}
+/* Booking flow: options that do not belong to the selected scenario are removed from the layout. */
+#bkNoFishingPill[hidden]{display:none!important}
