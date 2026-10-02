@@ -1743,3 +1743,29 @@ a[href="#prices"].btn:hover {
 @media (max-width: 680px) {
   .accom-actions .btn--green { font-size: 16px !important; }
 }
+
+/* Unified accommodation action typography */
+.accom-actions .btn--green,
+.accom-actions .btn--map {
+  font-family: var(--font-display) !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.15 !important;
+  text-transform: uppercase !important;
+}
+
+@media (max-width: 680px) {
+  .accom-actions .btn--green,
+  .accom-actions .btn--map {
+    font-size: 16px !important;
+    line-height: 1.15 !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .accom-actions .btn--green,
+  .accom-actions .btn--map {
+    font-size: 15px !important;
+  }
+}
