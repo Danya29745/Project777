@@ -1075,3 +1075,78 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 
 /* Booking price symbols: never inherit pill/card borders */
 .bk-pill .rub-symbol,.bk-chip .rub-symbol{display:inline;font:inherit;width:auto;height:auto;min-height:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;vertical-align:baseline;}
+
+
+/* =========================================================
+   PERFORMANCE LAYER — 2026-10
+   Keeps the existing visual design while reducing:
+   • initial image transfer
+   • off-screen rendering cost
+   • layout shifts
+   • mobile paint/compositing work
+   ========================================================= */
+
+/* Let the browser skip layout/paint for distant sections until needed. */
+.section{
+  content-visibility:auto;
+  contain-intrinsic-size:760px;
+}
+
+/* Keep image decoding off the main rendering path where supported. */
+img{
+  image-rendering:auto;
+}
+
+/* The map image is intentionally a separate compositing surface. */
+.territory-map-picture,
+.territory-map-picture img{
+  display:block;
+  width:100%;
+}
+.territory-map-picture{
+  line-height:0;
+}
+
+/* The desktop map is capped by its real intrinsic ratio. */
+#territoryMapImage{
+  aspect-ratio:1200 / 742;
+  height:auto;
+}
+
+/* Avoid expensive hover transforms on touch devices. */
+@media (hover:none){
+  .map-pin:hover,
+  .ql-card:hover,
+  .accom-card:hover{
+    transform:none;
+  }
+}
+
+/* Smaller background asset on phones = much less image decoding/memory. */
+@media (max-width:760px){
+  .page-bg{
+    background-image:url('../images/backgrounds/pagebackground-mobile.webp');
+    background-attachment:scroll;
+  }
+
+  /* Don't reserve GPU compositing for static elements on mobile. */
+  .territory-map{
+    will-change:auto;
+  }
+}
+
+/* Respect reduced motion and avoid unnecessary animation work. */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+/* Reduce accidental text/image selection work during map interaction. */
+.territory-map img{
+  -webkit-user-drag:none;
+  user-select:none;
+}
