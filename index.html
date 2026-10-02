@@ -606,7 +606,7 @@
             <fieldset class="bk-step bk-step--locked" id="bkStep2" hidden>
               <legend><span class="bk-num">2</span><span><strong id="bkFishLegend">Будете рыбачить?</strong><small>Если да — выберите подходящий тариф</small></span></legend>
               <div class="bk-pills">
-                <label class="bk-pill"><input type="radio" name="Рыбалка" value="Без рыбалки" required><span><b>Без рыбалки</b><em>только отдых</em></span></label>
+                <label class="bk-pill" id="bkNoFishingPill"><input type="radio" name="Рыбалка" value="Без рыбалки" required><span><b>Без рыбалки</b><em>только отдых</em></span></label>
                 <label class="bk-pill"><input type="radio" name="Рыбалка" value="День 07:00–19:00"><span><b>На день</b><em>07:00–19:00 · 3 000 <span class="rub-symbol">₽</span>/чел.</em></span></label>
                 <label class="bk-pill"><input type="radio" name="Рыбалка" value="Полдня 13:00–19:00"><span><b>На полдня</b><em>13:00–19:00 · 2 500 <span class="rub-symbol">₽</span>/чел.</em></span></label>
                 <label class="bk-pill"><input type="radio" name="Рыбалка" value="Ночь 20:00–06:00"><span><b>Ночная</b><em>20:00–06:00 · 3 000 <span class="rub-symbol">₽</span>/чел.</em></span></label>
@@ -1094,31 +1094,46 @@
     requestAnimationFrame(()=>el.classList.add('is-open'));
   }
   function updateFlow(){
+    const fishingOnly=checked('Объект').includes('Только рыбалка');
     const hasObject=!!primaryObject() || checked('Объект').includes('Банный чан');
     const fishing=checked('Рыбалка')[0];
-    const hasFishingChoice=!!fishing;
+    /* Для любого сценария шаг 2 должен быть явно пройден.
+       Для «Только рыбалка» это обязательный выбор тарифа, а не вопрос «да/нет». */
+    const hasFishingChoice=fishingOnly ? !!fishing && fishing!=='Без рыбалки' : !!fishing;
     const hasDate=!!dateEl.value;
     if(hasObject) revealStep(step2);
     if(hasObject && hasFishingChoice) revealStep(step3);
     if(hasObject && hasFishingChoice && hasDate) revealStep(step4);
-    step3.hidden=!hasObject;
+    step3.hidden=!(hasObject && hasFishingChoice);
     step4.hidden=!(hasObject && hasFishingChoice && hasDate);
     step2.hidden=!hasObject;
   }
-  /* снасти показываем только если выбрана рыбалка */
+  /* Логика веток: «Только рыбалка» сразу переходит к выбору тарифа рыбалки. */
   function syncFish(){
     const fishingOnly=checked('Объект').includes('Только рыбалка');
-    const on=checked('Рыбалка')[0]!=='Без рыбалки';
-    tackle.hidden=!on;
-    if(!on) tackle.querySelectorAll('input').forEach(i=>i.checked=false);
+    const fishingInput=checked('Рыбалка')[0];
+    const on=!!fishingInput && fishingInput!=='Без рыбалки';
 
-    /* Для «Только рыбалка» количество людей уже указано в блоке «Сколько человек будут рыбачить».
-       Поэтому второй раз спрашивать общее количество гостей не нужно. */
-    guestsFieldEl.hidden=fishingOnly;
-    guests.required=!fishingOnly;
-    if(fishLegend) fishLegend.textContent=fishingOnly?'Как будете рыбачить?':'Будете рыбачить?';
-    if(noFishingPill) noFishingPill.hidden=fishingOnly;
-    if(fishingOnly) fishTouched=true;
+    if(fishingOnly){
+      /* Нельзя оставить старое значение «Без рыбалки» после смены объекта.
+         Для рыбалки клиент обязан выбрать конкретный тариф. */
+      const noFish=form.querySelector('input[name="Рыбалка"][value="Без рыбалки"]');
+      if(noFish) noFish.checked=false;
+      if(noFishingPill) noFishingPill.hidden=true;
+      if(fishLegend) fishLegend.textContent='Как будете рыбачить?';
+      tackle.hidden=!on;
+      guestsFieldEl.hidden=true;
+      guests.required=false;
+      fishTouched=true;
+    }else{
+      if(noFishingPill) noFishingPill.hidden=false;
+      if(fishLegend) fishLegend.textContent='Будете рыбачить?';
+      tackle.hidden=!on;
+      guestsFieldEl.hidden=false;
+      guests.required=true;
+    }
+
+    if(!on) tackle.querySelectorAll('input[name="Напрокат"]').forEach(i=>i.checked=false);
   }
   form.querySelectorAll('input[name="Рыбалка"]').forEach(i=>i.addEventListener('change',()=>{syncFish(); updateFlow(); upd();}));
   syncFish(); syncGuestLimit(); updateFlow(); upd();
@@ -1182,7 +1197,9 @@
     const list=[[nameEl,nameEl.value.trim().length>=2],[phoneEl,phoneEl.value.replace(/\D/g,'').length===11],[dateEl,!!dateEl.value&&dateEl.value>=dateEl.min]];
     list.forEach(([el,ok])=>mark(el,!ok));
     if(noPick) return {el:step1,msg:'Сначала выберите, где будете отдыхать.'};
-    if(noFishing) return {el:step2,msg:'Выберите, будете ли вы рыбачить.'};
+    const fishingOnly=checked('Объект').includes('Только рыбалка');
+    if(noFishing) return {el:step2,msg:fishingOnly?'Выберите тариф рыбалки.':'Выберите, будете ли вы рыбачить.'};
+    if(fishingOnly && checked('Рыбалка')[0]==='Без рыбалки') return {el:step2,msg:'Для варианта «Только рыбалка» нужно выбрать тариф рыбалки.'};
     const bad=list.find(x=>!x[1]);
     if(bad) return {el:bad[0],msg:'Проверьте выделенные поля.'};
     return null;
