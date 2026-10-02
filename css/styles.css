@@ -724,7 +724,11 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 
 /* Reliable fish images: explicit IMG layer instead of background-only rendering. */
 .fish-card__front{position:relative;isolation:isolate;overflow:hidden!important;background:#173a32!important;}
-.fish-card__image{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:block!important;object-fit:cover!important;z-index:-2!important;opacity:1!important;visibility:visible!important;}
+.fish-card__image{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:block!important;object-fit:cover!important;object-position:82% center!important;z-index:-2!important;opacity:1!important;visibility:visible!important;}
+.fish-card__image--karp{object-position:78% center!important;}
+.fish-card__image--karas{object-position:80% center!important;}
+.fish-card__image--forel{object-position:80% center!important;}
+.fish-card__image--osetr{object-position:100% center!important;}
 .fish-card__front::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,38,34,.58),rgba(23,58,50,.52));z-index:-1;pointer-events:none;}
 .fish-card__front>*:not(.fish-card__image){position:relative;z-index:1;}
 .fish-card__front > div[style*="flex:1"]{min-height:0;}
