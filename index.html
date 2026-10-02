@@ -591,11 +591,11 @@
 
           <div class="booking-main">
             <fieldset class="bk-step" id="bkStep1">
-              <legend><span class="bk-num">1</span><span><strong>Где будете отдыхать?</strong><small>Выберите один или несколько вариантов</small></span></legend>
+              <legend><span class="bk-num">1</span><span><strong>Где будете отдыхать?</strong><small>Сначала выберите формат отдыха</small></span></legend>
               <div class="bk-opts">
                 <label class="bk-opt"><input type="checkbox" name="Объект" value="Стандартная беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Стандартная беседка</b><strong>от 3 000 <span class="rub-symbol">₽</span></strong></span><em>До 6 человек · 10 м²</em><span class="bk-opt__meta">Беседка · мангал · у воды</span><span class="bk-opt__more">Будни 3 000 <span class="rub-symbol">₽</span> · выходные 4 000 <span class="rub-symbol">₽</span></span></span></label>
                 <label class="bk-opt"><input type="checkbox" name="Объект" value="Средняя беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Средняя беседка</b><strong>от 6 000 <span class="rub-symbol">₽</span></strong></span><em>До 10 человек · 18 + 7 м²</em><span class="bk-opt__meta">Домик · беседка · мангал</span><span class="bk-opt__more">Будни 6 000 <span class="rub-symbol">₽</span> · выходные 8 000 <span class="rub-symbol">₽</span></span></span></label>
-                <label class="bk-opt"><input type="checkbox" name="Объект" value="Большая беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Большая беседка</b><strong>8 000 <span class="rub-symbol">₽</span></strong></span><em>До 15 человек · 20 + 14 м²</em><span class="bk-opt__meta">Домик · мангал · кухня</span><span class="bk-opt__more">+500 <span class="rub-symbol">₽</span> за каждого гостя сверх 15</span></span></label>
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="Большая беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Большая беседка</b><strong>8 000 <span class="rub-symbol">₽</span></strong></span><em>До 15 человек · 20 + 14 м²</em><span class="bk-opt__meta">Домик · мангал · кухня</span><span class="bk-opt__more">До 15 гостей · каждый следующий +500 <span class="rub-symbol">₽</span></span></span></label>
                 <label class="bk-opt"><input type="checkbox" name="Объект" value="VIP-беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>VIP-беседка</b><strong>15 000 <span class="rub-symbol">₽</span></strong></span><em>До 10 человек · 16 м²</em><span class="bk-opt__meta">Камин · телевизор · раковина</span><span class="bk-opt__more">Стоимость не зависит от дня недели</span></span></label>
                 <label class="bk-opt bk-opt--fishing-only"><input type="checkbox" name="Объект" value="Только рыбалка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Только рыбалка</b><strong>от 2 500 <span class="rub-symbol">₽</span></strong></span><em>Без аренды беседки</em><span class="bk-opt__meta">Мини-беседка 1 × 1 м бесплатно</span><span class="bk-opt__more">Можно занять свободное место у пруда</span></span></label>
                 <label class="bk-opt"><input type="checkbox" name="Объект" value="Гостиница"><span class="bk-opt__box"><span class="bk-opt__top"><b>Гостиница</b><strong>от 6 000 <span class="rub-symbol">₽</span></strong></span><em>2 места · за сутки</em><span class="bk-opt__meta">Кухня · спальня · мангал</span><span class="bk-opt__more">Заезд 14:00 · выезд 12:00</span></span></label>
@@ -603,10 +603,10 @@
               </div>
             </fieldset>
 
-            <fieldset class="bk-step">
+            <fieldset class="bk-step bk-step--locked" id="bkStep2" hidden>
               <legend><span class="bk-num">2</span><span><strong id="bkFishLegend">Будете рыбачить?</strong><small>Если да — выберите подходящий тариф</small></span></legend>
               <div class="bk-pills">
-                <label class="bk-pill"><input type="radio" name="Рыбалка" value="Без рыбалки" checked><span><b>Без рыбалки</b><em>только отдых</em></span></label>
+                <label class="bk-pill"><input type="radio" name="Рыбалка" value="Без рыбалки" required><span><b>Без рыбалки</b><em>только отдых</em></span></label>
                 <label class="bk-pill"><input type="radio" name="Рыбалка" value="День 07:00–19:00"><span><b>На день</b><em>07:00–19:00 · 3 000 <span class="rub-symbol">₽</span>/чел.</em></span></label>
                 <label class="bk-pill"><input type="radio" name="Рыбалка" value="Полдня 13:00–19:00"><span><b>На полдня</b><em>13:00–19:00 · 2 500 <span class="rub-symbol">₽</span>/чел.</em></span></label>
                 <label class="bk-pill"><input type="radio" name="Рыбалка" value="Ночь 20:00–06:00"><span><b>Ночная</b><em>20:00–06:00 · 3 000 <span class="rub-symbol">₽</span>/чел.</em></span></label>
@@ -619,7 +619,7 @@
               </div>
             </fieldset>
 
-            <fieldset class="bk-step">
+            <fieldset class="bk-step bk-step--locked" id="bkStep3" hidden>
               <legend><span class="bk-num">3</span><span><strong>Когда приезжаете?</strong><small>Стоимость автоматически учитывает будни и выходные</small></span></legend>
               <div class="bk-row bk-row--date">
                 <div class="bf-field"><label for="bfDate">Дата приезда</label><input id="bfDate" name="Дата" type="date" required></div>
@@ -628,7 +628,7 @@
               <div class="bk-nights" id="bkNights" hidden><div class="bf-field"><label for="bfNights">Ночей в гостинице</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfNights" aria-label="Меньше">−</button><input id="bfNights" type="number" inputmode="numeric" min="1" max="14" value="1" aria-label="Сколько ночей"><button type="button" data-step="1" data-for="bfNights" aria-label="Больше">+</button></div></div></div>
             </fieldset>
 
-            <fieldset class="bk-step">
+            <fieldset class="bk-step bk-step--locked" id="bkStep4" hidden>
               <legend><span class="bk-num">4</span><span><strong>Оставьте контакты</strong><small>Нужны только имя и телефон для подтверждения</small></span></legend>
               <div class="bk-row">
                 <div class="bf-field"><label for="bfName">Ваше имя</label><input id="bfName" name="Имя" type="text" autocomplete="name" placeholder="Например, Иван" required></div>
@@ -658,6 +658,7 @@
           </aside>
         </form>
         <button type="button" class="bk-bar" id="bkBar" hidden><span>Ваша бронь</span><strong id="bkBarSum">0 <span class="rub-symbol">₽</span></strong><span aria-hidden="true">↑</span></button>
+        <div class="bk-toast" id="bkToast" role="status" aria-live="polite" aria-atomic="true"></div>
         <div class="bf-success" id="bfSuccess" hidden>
           <div class="bf-success__icon" aria-hidden="true">✓</div>
           <h3>Заявка отправлена</h3>
@@ -930,6 +931,7 @@
   const $=id=>document.getElementById(id);
   const dateEl=$('bfDate'), guests=$('bfGuests'), nameEl=$('bfName'), phoneEl=$('bfPhone');
   const status=$('bfStatus'), btn=$('bfSubmit'), success=$('bfSuccess'), tackle=$('bkTackle'), step1=$('bkStep1'), guestsField=$('bkGuestsField'), fishLegend=$('bkFishLegend');
+  const step2=$('bkStep2'), step3=$('bkStep3'), step4=$('bkStep4'), toast=$('bkToast');
   const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
   const objs=()=>[...form.querySelectorAll('input[name="Объект"]')];
   const checked=n=>[...form.querySelectorAll('input[name="'+n+'"]:checked')].map(i=>i.value);
@@ -957,13 +959,69 @@
   const noFishingPill=form.querySelector('input[name="Рыбалка"][value="Без рыбалки"]')?.closest('.bk-pill');
   let fishTouched=false;
   const clamp=(el,v)=>Math.min(parseInt(el.max,10),Math.max(parseInt(el.min,10),v||1));
+  const CAP={
+    'Стандартная беседка':6,
+    'Средняя беседка':10,
+    'Большая беседка':30,
+    'VIP-беседка':10,
+    'Гостиница':2,
+    'Только рыбалка':30
+  };
+  const PRIMARY=['Стандартная беседка','Средняя беседка','Большая беседка','VIP-беседка','Гостиница','Только рыбалка'];
+  function primaryObject(){return checked('Объект').find(x=>PRIMARY.includes(x))||null;}
+  function guestLimit(){const o=primaryObject(); return o?CAP[o]:30;}
+  function guestName(n){return n===1?'гость':(n<5?'гостя':'гостей');}
+  let toastTimer;
+  function showToast(message){
+    if(!toast)return;
+    toast.textContent=message; toast.classList.add('is-visible');
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>toast.classList.remove('is-visible'),4200);
+  }
+  function syncGuestLimit({notify=false}={}){
+    const o=primaryObject(), max=guestLimit(), old=parseInt(guests.value,10)||1;
+    guests.max=String(max);
+    guests.setAttribute('aria-valuemax',String(max));
+    const plus=guests.parentElement?.querySelector('[data-step="1"]');
+    if(plus) plus.disabled=old>=max;
+    if(old>max){
+      guests.value=max;
+      if(notify && o){
+        const alt=o==='Стандартная беседка'?'Если гостей больше 6, выберите «Среднюю» или «Большую беседку».':o==='Средняя беседка'||o==='VIP-беседка'?'Если гостей больше 10, выберите «Большую беседку».':o==='Гостиница'?'Для гостиницы доступно до 2 гостей.':'Для выбранного формата доступно до '+max+' гостей.';
+        showToast('Для «'+o+'» максимум '+max+' '+guestName(max)+'. '+alt);
+      }
+    }
+    return max;
+  }
   form.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{
-    const el=$(b.dataset.for); el.value=clamp(el,(parseInt(el.value,10)||1)+parseInt(b.dataset.step,10));
+    const el=$(b.dataset.for);
+    if(el===guests){
+      const max=guestLimit(), current=parseInt(el.value,10)||1, next=current+parseInt(b.dataset.step,10);
+      if(next>max){
+        const o=primaryObject();
+        if(o){
+          const alt=o==='Стандартная беседка'?' Если вас больше 6, выберите «Среднюю» или «Большую беседку».':o==='Средняя беседка'||o==='VIP-беседка'?' Если вас больше 10, выберите «Большую беседку».':o==='Гостиница'?' Для гостиницы максимум 2 гостя.':'';
+          showToast('Для «'+o+'» максимум '+max+' '+guestName(max)+'.'+alt);
+        }
+        el.value=max; el.dispatchEvent(new Event('input',{bubbles:true})); return;
+      }
+    }
+    el.value=clamp(el,(parseInt(el.value,10)||1)+parseInt(b.dataset.step,10));
     if(el===fishers) fishTouched=true;
     el.dispatchEvent(new Event('input',{bubbles:true}));
   }));
   fishers.addEventListener('input',()=>{fishTouched=true;});
-  guests.addEventListener('input',()=>{ if(!fishTouched){ fishers.value=clamp(fishers,parseInt(guests.value,10)); } });
+  guests.addEventListener('input',()=>{
+    const max=guestLimit(), v=parseInt(guests.value,10)||1;
+    if(v>max){
+      guests.value=max; syncGuestLimit();
+      const o=primaryObject();
+      if(o){
+        const alt=o==='Стандартная беседка'?' Если вас больше 6, выберите «Среднюю» или «Большую беседку».':o==='Средняя беседка'||o==='VIP-беседка'?' Если гостей больше 10, выберите «Большую беседку».':o==='Гостиница'?' Для гостиницы максимум 2 гостя.':'';
+        showToast('Для «'+o+'» максимум '+max+' '+guestName(max)+'.'+alt);
+      }
+    }
+    if(!fishTouched){ fishers.value=clamp(fishers,parseInt(guests.value,10)); }
+  });
 
   /* ---------- расчёт суммы ---------- */
   const PR={'Стандартная беседка':[3000,4000],'Средняя беседка':[6000,8000],'Большая беседка':[8000,8000],'VIP-беседка':[15000,15000],'Гостиница':[6000,8000],'Банный чан':[6000,6000]};
@@ -988,9 +1046,14 @@
         for(let i=0;i<n;i++){const x=hasDate?new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()+i):null; s+=x&&isWe(x)?p[1]:p[0];}
         lines.push([name+', '+n+' '+(n===1?'ночь':n<5?'ночи':'ночей'),s]); sum+=s;
       }else{
-        const v=hasDate&&isWe(dt)?p[1]:p[0]; lines.push([name,v]); sum+=v;
+        const v=hasDate&&isWe(dt)?p[1]:p[0];
+        lines.push([name,v]); sum+=v;
+        if(name==='Большая беседка'){
+          const g=parseInt(guests.value,10)||1, extra=Math.max(0,g-15)*500;
+          if(extra){ lines.push(['Доп. гости ('+(g-15)+' × 500 ₽)',extra]); sum+=extra; }
+        }
       }
-      if(name==='Большая беседка') notes.push('Дополнительный гость в большой беседке: +'+rub(500)+' с человека.');
+      if(name==='Большая беседка') notes.push('До 15 гостей включено. С 16-го гостя — +'+rub(500)+' за каждого.');
       if(name==='Банный чан') notes.push('Чан: '+rub(6000)+' за 3 часа, продление '+rub(1000)+' в час.');
     });
     if(FP[f]){
@@ -1023,7 +1086,25 @@
   }
   bar.addEventListener('click',()=>total.scrollIntoView({behavior:'smooth',block:'center'}));
   form.addEventListener('input',upd); form.addEventListener('change',upd);
+  dateEl.addEventListener('change',()=>{updateFlow(); upd();});
 
+  function revealStep(el){
+    if(!el || !el.hidden) return;
+    el.hidden=false; el.classList.add('bk-step--reveal');
+    requestAnimationFrame(()=>el.classList.add('is-open'));
+  }
+  function updateFlow(){
+    const hasObject=!!primaryObject() || checked('Объект').includes('Банный чан');
+    const fishing=checked('Рыбалка')[0];
+    const hasFishingChoice=!!fishing;
+    const hasDate=!!dateEl.value;
+    if(hasObject) revealStep(step2);
+    if(hasObject && hasFishingChoice) revealStep(step3);
+    if(hasObject && hasFishingChoice && hasDate) revealStep(step4);
+    step3.hidden=!hasObject;
+    step4.hidden=!(hasObject && hasFishingChoice && hasDate);
+    step2.hidden=!hasObject;
+  }
   /* снасти показываем только если выбрана рыбалка */
   function syncFish(){
     const fishingOnly=checked('Объект').includes('Только рыбалка');
@@ -1039,20 +1120,23 @@
     if(noFishingPill) noFishingPill.hidden=fishingOnly;
     if(fishingOnly) fishTouched=true;
   }
-  form.querySelectorAll('input[name="Рыбалка"]').forEach(i=>i.addEventListener('change',syncFish));
-  syncFish(); upd();
+  form.querySelectorAll('input[name="Рыбалка"]').forEach(i=>i.addEventListener('change',()=>{syncFish(); updateFlow(); upd();}));
+  syncFish(); syncGuestLimit(); updateFlow(); upd();
   objs().forEach(i=>i.addEventListener('change',()=>{
     step1.classList.remove('bf-invalid');
-    if(i.value==='Только рыбалка' && i.checked){
-      objs().forEach(x=>{if(x!==i) x.checked=false;});
-      /* В режиме «Только рыбалка» сразу выбираем дневную рыбалку как понятный стартовый вариант. */
-      const day=form.querySelector('input[name="Рыбалка"][value="День 07:00–19:00"]');
-      if(day) day.checked=true;
-    }else if(i.value!=='Только рыбалка' && i.checked){
-      const only=objs().find(x=>x.value==='Только рыбалка');
-      if(only) only.checked=false;
+    if(i.checked){
+      if(i.value==='Только рыбалка'){
+        objs().forEach(x=>{if(x!==i) x.checked=false;});
+      }else if(PRIMARY.includes(i.value)){
+        /* Один основной формат за раз. Банный чан можно добавить отдельно. */
+        objs().forEach(x=>{if(x!==i && PRIMARY.includes(x.value)) x.checked=false;});
+        const only=objs().find(x=>x.value==='Только рыбалка');
+        if(only) only.checked=false;
+      }
     }
     syncFish();
+    syncGuestLimit();
+    updateFlow();
     upd();
   }));
 
@@ -1060,7 +1144,7 @@
   document.querySelectorAll('[data-book]').forEach(a=>a.addEventListener('click',()=>{
     const i=objs().find(x=>x.value===a.dataset.book);
     if(i){i.checked=true; step1.classList.remove('bf-invalid'); const b=i.nextElementSibling; b.classList.remove('bf-flash'); void b.offsetWidth; b.classList.add('bf-flash');}
-    upd();
+    syncFish(); syncGuestLimit(); updateFlow(); upd();
   }));
 
   /* «Посмотреть на карте»: прокрутка к схеме, затем подсветка (стандартные беседки - все 6 сразу, один пульс) */
@@ -1092,11 +1176,13 @@
   [nameEl,phoneEl,dateEl].forEach(el=>el.addEventListener('input',()=>mark(el,false)));
 
   function validate(){
-    const noPick=checked('Объект').length===0 && checked('Рыбалка')[0]==='Без рыбалки';
+    const noPick=checked('Объект').length===0;
+    const noFishing=!checked('Рыбалка').length;
     mark(step1,noPick);
     const list=[[nameEl,nameEl.value.trim().length>=2],[phoneEl,phoneEl.value.replace(/\D/g,'').length===11],[dateEl,!!dateEl.value&&dateEl.value>=dateEl.min]];
     list.forEach(([el,ok])=>mark(el,!ok));
-    if(noPick) return {el:step1,msg:'Выберите, где отдыхать, или рыбалку.'};
+    if(noPick) return {el:step1,msg:'Сначала выберите, где будете отдыхать.'};
+    if(noFishing) return {el:step2,msg:'Выберите, будете ли вы рыбачить.'};
     const bad=list.find(x=>!x[1]);
     if(bad) return {el:bad[0],msg:'Проверьте выделенные поля.'};
     return null;
