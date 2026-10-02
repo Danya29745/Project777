@@ -7,7 +7,7 @@
   window.__mapEdit = 1;
 
   var KEY = 'mapEditorState_v1';
-  var ICON_DIR = './images/map-icons/', N_ICONS = 15;
+  var ICON_DIR = './images/map-icons/', N_ICONS = 16;
   var inFrame = false;
   try { inFrame = window.self !== window.top; } catch (e) { inFrame = true; }
   var mq = window.matchMedia('(max-width:760px)');
