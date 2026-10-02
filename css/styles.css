@@ -894,3 +894,11 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 @keyframes mbPulse{0%{box-shadow:0 0 0 0 rgba(240,207,131,0)}28%{box-shadow:0 0 0 5px rgba(240,207,131,.95),0 0 46px 12px rgba(240,207,131,.5)}100%{box-shadow:0 0 0 0 rgba(240,207,131,0)}}
 .mb-pulse{animation:mbPulse 1.4s ease-out 1;border-radius:18px}
 @media(prefers-reduced-motion:reduce){.mb{transition:opacity .2s}.mb-pulse{animation-duration:.01s}}
+
+/* ===== "Назад к схеме" ===== */
+.mb-back{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:1400;display:inline-flex;align-items:center;gap:9px;padding:13px 22px 13px 16px;border-radius:999px;border:1px solid rgba(240,207,131,.6);background:rgba(15,38,34,.94);color:#f0cf83;font:800 13.5px/1 var(--font-body,system-ui);letter-spacing:.02em;cursor:pointer;box-shadow:0 14px 34px rgba(6,15,12,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transform:translate(-50%,24px);opacity:0;visibility:hidden;pointer-events:none;transition:transform .45s cubic-bezier(.2,.9,.25,1),opacity .3s,visibility .3s}
+.mb-back.is-show{transform:translate(-50%,0);opacity:1;visibility:visible;pointer-events:auto}
+.mb-back svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;animation:mbBackNudge 1.8s ease-in-out infinite}
+.mb-back:active{transform:translate(-50%,0) scale(.96)}
+@keyframes mbBackNudge{0%,100%{transform:translateY(1px)}50%{transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.mb-back svg{animation:none}}
