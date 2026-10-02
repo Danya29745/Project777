@@ -598,7 +598,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .map-marker{position:absolute;transform:translate(-50%,-100%);z-index:5;cursor:grab;touch-action:none;user-select:none;line-height:1;}
 .map-marker:active{cursor:grabbing;}
 .map-marker:focus-visible{outline:2px solid #f0cf83;outline-offset:4px;border-radius:12px;}
-.map-pin{position:relative;width:44px;height:44px;border-radius:50%;transform:none;background:var(--p-river-deep);border:2px solid var(--p-brass-light);box-shadow:0 6px 18px rgba(6,12,8,.34),0 0 0 3px rgba(239,230,209,.18);display:grid;place-items:center;color:var(--p-brass-light);cursor:pointer;transition:all .2s ease;}
+.map-pin{position:relative;width:44px;height:44px;border-radius:50%;transform:none;background:var(--p-river-deep);border:2px solid var(--p-brass-light);box-shadow:0 6px 18px rgba(6,12,8,.34),0 0 0 3px rgba(239,230,209,.18);display:grid;place-items:center;color:var(--p-brass-light);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;}
 .map-pin:hover{transform:scale(1.15);box-shadow:0 8px 24px rgba(6,12,8,.45),0 0 0 4px rgba(239,230,209,.25);}
 .map-pin svg{width:28px;height:28px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 .map-pin img{width:28px;height:28px;display:block;object-fit:contain;pointer-events:none;user-select:none;-webkit-user-drag:none;}
@@ -612,10 +612,6 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .map-marker--chan{--marker-color:#7c3618;}
 .map-marker--facility{--marker-color:#5e7a45;}
 .map-label{position:absolute;left:50%;top:51px;transform:translateX(-50%);white-space:nowrap;padding:6px 10px;border-radius:8px;background:rgba(15,38,34,.94);border:1px solid rgba(203,171,108,.55);color:var(--p-paper);font-size:10px;font-weight:800;letter-spacing:.01em;box-shadow:0 5px 15px rgba(6,12,8,.22);display:block;opacity:1;transition:opacity .2s ease;}
-.map-editor{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center;}
-.map-editor button{border:1px solid var(--border);background:transparent;color:var(--fg);border-radius:10px;padding:10px 13px;font:700 12px var(--font-body);cursor:pointer;}
-.map-editor button:hover{border-color:var(--accent);color:var(--accent);}
-.map-editor .map-save{background:var(--accent);color:#17352e;border-color:var(--accent);}
 .map-help{font-size:11px;color:var(--fg-soft);margin-left:auto;}
 .map-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
 .map-list span{font-size:10px;color:var(--fg-soft);padding:5px 8px;border-radius:7px;background:color-mix(in srgb,var(--p-river) 7%,transparent);}
@@ -976,10 +972,14 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .bk-num{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font:900 16px var(--font-display);flex:none;}
 .bk-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .bk-opt,.bk-pill,.bk-chip{position:relative;display:block;margin:0;text-transform:none;letter-spacing:0;cursor:pointer;}
-.bk-opt--fishing-only{grid-column:1/-1;}\n.bk-opt--fishing-only .bk-opt__box{background:color-mix(in srgb,var(--green) 5%,#fff);}\n.bk-opt--fishing-only .bk-opt__box em{color:var(--green);}\n.bk-opt--fishing-only .bk-opt__box li::before{color:var(--green);}\n
+.bk-opt--fishing-only{grid-column:1/-1;}
+.bk-opt--fishing-only .bk-opt__box{background:color-mix(in srgb,var(--green) 5%,#fff);}
+.bk-opt--fishing-only .bk-opt__box em{color:var(--green);}
+.bk-opt--fishing-only .bk-opt__box li::before{color:var(--green);}
+
 .bk-opt input,.bk-pill input,.bk-chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer;appearance:none;-webkit-appearance:none;}
 /* Больше никаких видимых чекбоксов в левом верхнем углу карточек объектов. */
-.bk-opt > input{display:none;}
+.bk-opt > input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer;appearance:none;-webkit-appearance:none;}
 .bk-opt__box{display:flex;flex-direction:column;gap:4px;height:100%;padding:16px 16px;border:2px solid var(--border);border-radius:14px;background:rgba(255,255,255,.78);position:relative;transition:.18s;}
 .bk-opt__box::before,.bk-opt__box::after{display:none;}
 .bk-opt__box b{font:900 17px/1.2 var(--font-display);color:var(--fg);}
@@ -1166,4 +1166,10 @@ img{
   .reviews-widget,.accom-count,.accom-badge,.gallery-nav,.mb-back,.fish-card__hint,.lightbox,.about-modal{
     backdrop-filter:none;-webkit-backdrop-filter:none;
   }
+}
+
+/* Final mobile performance pass: keep the header crisp instead of blurring the whole page behind it. */
+@media (max-width:900px), (hover:none) and (pointer:coarse){
+  .top{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(15,38,34,.97);}
+  .map-pin:hover{transform:none;}
 }
