@@ -1500,44 +1500,45 @@ a[href="#prices"].btn:hover {
 }
 
 
-/* Final typography: included label + extra guest */
+/* Refined accommodation typography */
 .accom-included__title {
   color: #000 !important;
 }
 
+/* Keep the guest surcharge visually strong, but proportional to the site */
 .pavilion-extra-guest {
   display: flex;
   align-items: baseline;
-  justify-content: flex-start;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .pavilion-extra-guest__price,
 .pavilion-extra-guest__title {
   font-family: var(--font-display, 'Bitter', Georgia, serif) !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
 }
 
 .pavilion-extra-guest__price {
-  font-size: clamp(20px, 2vw, 27px);
+  font-size: 18px;
   color: var(--accent, #1f7a4d);
 }
 
 .pavilion-extra-guest__title {
-  font-size: clamp(20px, 2vw, 27px);
+  font-size: 18px;
   color: #000;
 }
 
 @media (max-width: 640px) {
   .pavilion-extra-guest {
-    gap: 7px 9px;
+    gap: 6px 8px;
   }
 
   .pavilion-extra-guest__price,
   .pavilion-extra-guest__title {
-    font-size: 21px;
+    font-size: 16px;
+    line-height: 1.2;
   }
 }
