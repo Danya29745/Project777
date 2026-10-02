@@ -4,7 +4,7 @@
 @font-face{font-family:'JetBrains Mono';src:url('../fonts/JetBrainsMono.ttf') format('truetype');font-style:normal;font-weight:100 800;font-display:swap;}
 
 /* Символ рубля с красивым шрифтом */
-.rub-symbol{display:inline-block;width:auto;height:auto;vertical-align:baseline;overflow:visible;white-space:nowrap;text-indent:0;color:inherit;background:none;font-family:'Manrope',Arial,sans-serif;font-weight:700;line-height:1;-webkit-text-stroke:.7px currentColor;text-rendering:geometricPrecision;}
+.rub-symbol{display:inline-block;width:auto;height:auto;vertical-align:baseline;overflow:visible;white-space:nowrap;text-indent:0;color:inherit;background:none;font-family:'Manrope',Arial,sans-serif;font-weight:600;line-height:1;-webkit-text-stroke:0;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;}
 /* цельный знак рубля: единая SVG-маска вместо глифа шрифта */
 
 /* ============================================================
@@ -50,6 +50,7 @@ svg.sprite{position:absolute;width:0;height:0;overflow:hidden;}
 
 /* ---------- section headings with display font ---------- */
 h2{font-family:var(--font-display);}
+.booking-section > .shell > h2 em{font:inherit;font-style:normal;}
 
 /* ---------- section eyebrow label ---------- */
 .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--font-body);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
@@ -785,20 +786,6 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   color: #39483f;
 }
 
-.pavilion-extra-guest__price .guest-ruble {
-  display: inline-block;
-  margin-left: 1px;
-  font-family: 'Manrope',Arial,sans-serif;
-  font-size: 1.1em;
-  font-weight: 700;
-  line-height: 1;
-  color: inherit;
-  opacity: 1;
-  text-shadow: none;
-  -webkit-text-stroke: .7px currentColor;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: geometricPrecision;
-}
 
 
 
@@ -918,7 +905,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .lr span{flex:none;max-width:68%}.lr small{display:block;font-size:11.5px;font-weight:600;color:var(--fg-soft);margin-top:1px}
 .lr i{flex:1;min-width:14px;border-bottom:2px dotted color-mix(in srgb,var(--fg) 30%,transparent);transform:translateY(-4px)}
 .lr b{flex:none;font:900 18px var(--font-display);color:var(--brand);white-space:nowrap}
-.lr b u{text-decoration:none;font:800 .8em var(--font-body)}.lr b em{font:700 11.5px var(--font-body);color:var(--fg-soft);font-style:normal;margin-left:2px}
+.lr b .rub-symbol{font-size:.8em;}.lr b em{font:700 11.5px var(--font-body);color:var(--fg-soft);font-style:normal;margin-left:2px}
 .pv-link{display:inline-block;margin-top:24px;padding:13px 20px;border-radius:12px;border:1.5px dashed color-mix(in srgb,var(--brand) 45%,transparent);color:var(--brand);font-weight:800;font-size:13.5px;text-decoration:none;background:color-mix(in srgb,var(--bg) 60%,transparent)}
 .pv-h{order:-2}
 @media(max-width:860px){.pv1{grid-template-columns:1fr}.lr{font-size:14px}.lr span{max-width:62%}.pv-link{display:block}}
