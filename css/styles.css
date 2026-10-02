@@ -32,12 +32,12 @@
 html{scroll-behavior:smooth;--header-h:78px;}
 section[id],#main-content [id]{scroll-margin-top:calc(var(--header-h) + 14px);}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-weight:600;font-style:normal;line-height:1.55;font-size:16.5px;position:relative;overflow-x:hidden;}
-body::before{content:'';pointer-events:none;position:fixed;inset:0;z-index:40;opacity:.025;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+body::before{display:none;}
 
 /* ---------- fixed page backdrop photo (visible through translucent sections while scrolling) ---------- */
 .page-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--p-river-deep) url('../images/backgrounds/pagebackground.webp') center/cover no-repeat;pointer-events:none;}
 .page-bg::after{content:'';position:absolute;inset:0;background:rgba(9,20,17,.65);}
-@media (max-width:680px){.page-bg{position:fixed;}}
+@media (max-width:680px){.page-bg{position:fixed;background-image:url('../images/backgrounds/pagebackground-mobile.webp');}}
 
 a{color:inherit;text-decoration:none;}
 a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;}
@@ -148,11 +148,11 @@ nav#nav-menu a:hover{color:#fff;border-color:var(--accent);}
 @media (prefers-reduced-motion:reduce){.ql-card,.ql-card::before,.ql-card::after,.ql-card .ql-icon,.ql-card .ql-arrow{transition:none!important;}}
 @media (max-width:680px){.ql-grid{grid-template-columns:1fr;} .quicklinks{padding:18px 0 22px;margin-top:-36px;}.quicklinks::after{height:90px;bottom:-55px;}}
 .section{padding:calc(var(--space-section) - 28px) 0 var(--space-section);position:relative;}
-.section::before{content:'';position:absolute;inset:0;z-index:-1;background:color-mix(in srgb,var(--bg) 74%,transparent);backdrop-filter:blur(9px) saturate(1.1);-webkit-backdrop-filter:blur(9px) saturate(1.1);}
+.section::before{content:'';position:absolute;inset:0;z-index:-1;background:color-mix(in srgb,var(--bg) 74%,transparent);backdrop-filter:blur(5px) saturate(1.05);-webkit-backdrop-filter:blur(5px) saturate(1.05);}
 .section--alt::before{background:color-mix(in srgb,var(--bg-alt) 74%,transparent);}
 .section::before{mask-image:linear-gradient(to bottom,transparent 0,#000 26px,#000 calc(100% - 26px),transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 26px,#000 calc(100% - 26px),transparent 100%);}
 .section:not(#price){margin-top:-26px;}
-.section:not(#price)::after{content:'';position:absolute;left:0;right:0;top:-34px;height:68px;z-index:-1;pointer-events:none;backdrop-filter:blur(20px) saturate(1.1);-webkit-backdrop-filter:blur(20px) saturate(1.1);mask-image:linear-gradient(to bottom,transparent 0,#000 40%,#000 60%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 40%,#000 60%,transparent 100%);}
+.section:not(#price)::after{content:'';position:absolute;left:0;right:0;top:-34px;height:68px;z-index:-1;pointer-events:none;backdrop-filter:blur(8px) saturate(1.05);-webkit-backdrop-filter:blur(8px) saturate(1.05);mask-image:linear-gradient(to bottom,transparent 0,#000 40%,#000 60%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 40%,#000 60%,transparent 100%);}
 @media (max-width:680px){.section::before{mask-image:linear-gradient(to bottom,transparent 0,#000 16px,#000 calc(100% - 16px),transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 16px,#000 calc(100% - 16px),transparent 100%);}.section:not(#price){margin-top:-16px;}.section:not(#price)::after{top:-24px;height:48px;}}
 main{padding:0;}
 .intro{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:32px;}
@@ -1175,6 +1175,32 @@ img{
 @media (max-width:900px), (hover:none) and (pointer:coarse){
   .top{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(15,38,34,.97);}
   .map-pin:hover{transform:none;}
+}
+
+
+/* Mobile smoothness pass: avoid scroll-linked compositing and reveal transforms on touch devices. */
+@media (hover:none) and (pointer:coarse){
+  /* content-visibility can produce visible jumps while the browser is pinch-zooming; keep mobile flow stable. */
+  .section{content-visibility:visible;contain-intrinsic-size:auto;}
+
+  /* Reveal-on-scroll is decorative only; do not animate opacity/transform during touch scrolling. */
+  .reveal,.reveal.reveal-ready,.reveal.in-view{opacity:1!important;transform:none!important;transition:none!important;}
+
+  /* Keep the page background cheap while scrolling/zooming. */
+  .page-bg{
+    background-image:none!important;
+    background-color:var(--p-river-deep);
+  }
+
+  /* Remove the last mobile blur/compositing hotspots. */
+  .page-bg::after{background:rgba(9,20,17,.32);}
+  .lightbox,.about-modal{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+  .top{box-shadow:none;}
+}
+
+/* Phones/tablets: do not run the infinite decorative nudge animation. */
+@media (hover:none) and (pointer:coarse){
+  .mb-back svg,.mb-back.is-up svg{animation:none!important;}
 }
 
 /* =========================================================
