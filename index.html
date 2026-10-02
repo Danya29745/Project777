@@ -850,7 +850,7 @@
     /* "Назад к схеме" button: appears after jumping to a description */
     const back=document.createElement('button');
     back.type='button'; back.className='mb-back'; back.setAttribute('aria-label','Назад к схеме территории');
-    back.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span>Назад к схеме</span>';
+    back.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg><span>Назад к схеме</span>';
     document.body.appendChild(back);
     function hideBack(){back.classList.remove('is-show');}
     back.addEventListener('click',()=>{
