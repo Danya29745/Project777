@@ -203,7 +203,21 @@
 .rub{font-family:inherit !important;font-weight:inherit;line-height:1;}
 </style>
   <link rel="stylesheet" href="css/styles.css?v=20261002">
-</head>
+<style>
+/* Premium map banner */
+.iv-banner{position:fixed;z-index:9999;right:30px;bottom:30px;width:360px;border-radius:24px;overflow:hidden;background:#111;color:#fff;box-shadow:0 25px 70px #0009;display:none;font-family:Manrope,Arial,sans-serif}
+.iv-banner.show{display:block;animation:ivUp .35s ease}
+@keyframes ivUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.iv-banner img{width:100%;height:210px;object-fit:cover}
+.iv-body{padding:22px;background:linear-gradient(#14231f,#0d1715)}
+.iv-logo{color:#d9b66b;font-weight:800;letter-spacing:2px;font-size:13px}
+.iv-close{position:absolute;right:15px;top:15px;border:0;border-radius:50%;width:34px;height:34px;background:#0008;color:white;font-size:20px;cursor:pointer}
+.iv-buttons{display:flex;gap:10px;margin-top:18px}
+.iv-buttons button{flex:1;padding:12px;border-radius:20px;border:0;cursor:pointer;font-weight:700}
+.iv-go{background:#d9b66b}
+.iv-target-pulse{animation:ivPulse 1s}
+@keyframes ivPulse{0%{box-shadow:0 0 0 0 #d9b66b}50%{box-shadow:0 0 0 15px transparent}100%{box-shadow:0 0 0 0 transparent}}
+</style></head>
 <body style="">
 <div class="page-bg" aria-hidden="true"></div>
 <svg class="sprite" aria-hidden="true">
@@ -1017,4 +1031,47 @@
 
 <script>if(/[?&]edit=1(&|$)/.test(location.search)){var s=document.createElement('script');s.src='./js/map-editor.js';document.body.appendChild(s);}</script>
 
+
+<script>
+(function(){
+const data={
+besedka1:{title:'Стандартная беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
+besedka2:{title:'Стандартная беседка',img:'./images/besedka_2.jpg',target:'panel-gazebo'},
+besedka3:{title:'Стандартная беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
+besedka4:{title:'Стандартная беседка',img:'./images/besedka_2.jpg',target:'panel-gazebo'},
+besedka5:{title:'Стандартная беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
+besedka6:{title:'Стандартная беседка',img:'./images/besedka_2.jpg',target:'panel-gazebo'},
+besedka7:{title:'Средняя беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
+besedka8:{title:'VIP-беседка',img:'./images/besedka_2.jpg',target:'panel-gazebo'},
+besedka9:{title:'Большая беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
+hotel:{title:'Гостиница для комфортного отдыха',img:'./images/rooms/hotel-1.webp',target:'accommodation'},
+chan:{title:'Банный чан на дровах',img:'./images/facilities/chan-1.webp',target:'extras'},
+bath1:{title:'Баня — скоро открытие',img:'./images/facilities/chan-1.webp',target:'extras'},
+bath2:{title:'Баня — скоро открытие',img:'./images/facilities/chan-1.webp',target:'extras'},
+toilet:{title:'Туалет',img:'./images/map/territory-map-generated.png',target:'territoryMap'},
+parking:{title:'Парковка',img:'./images/map/territory-map-generated.png',target:'territoryMap'},
+admin:{title:'Администрация',img:'./images/backgrounds/pagebackground.webp',target:'contacts'}
+};
+const map=document.getElementById('territoryMap');
+if(!map)return;
+const b=document.createElement('div');
+b.className='iv-banner';
+b.innerHTML='<button class="iv-close">×</button><img><div class="iv-body"><div class="iv-logo">У ИВАНЫЧА</div><h2></h2><p>Отдых на природе</p><div class="iv-buttons"><button class="iv-go">Перейти</button><button class="iv-hide">Закрыть</button></div></div>';
+document.body.appendChild(b);
+let current=null;
+function open(x){
+let d=data[x]; if(!d)return;
+current=d;b.querySelector('img').src=d.img;b.querySelector('h2').textContent=d.title;b.classList.add('show');
+}
+map.querySelectorAll('.map-marker').forEach(m=>{
+m.addEventListener('click',()=>open(m.dataset.marker));
+});
+b.querySelectorAll('.iv-close,.iv-hide').forEach(x=>x.onclick=()=>b.classList.remove('show'));
+b.querySelector('.iv-go').onclick=()=>{
+if(!current)return;
+let el=document.getElementById(current.target);
+if(el){el.scrollIntoView({behavior:'smooth'});el.classList.add('iv-target-pulse');setTimeout(()=>el.classList.remove('iv-target-pulse'),1000);}
+};
+})();
+</script>
 </body></html>
