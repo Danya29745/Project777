@@ -1286,3 +1286,14 @@ img{
   .booking-summary h3{font-size:21px}
   .booking-submit .bf-submit{min-height:54px}
 }
+
+/* ---------- Booking progressive flow + guest limits ---------- */
+.bk-step[hidden]{display:none!important}
+.bk-step--locked{opacity:.0;transform:translateY(12px)}
+.bk-step--reveal{opacity:0;transform:translateY(14px);}
+.bk-step--reveal.is-open{opacity:1;transform:translateY(0);transition:opacity .35s ease,transform .35s ease;}
+.bf-stepper button:disabled{opacity:.35;cursor:not-allowed;transform:none!important}
+.bk-toast{position:fixed;left:50%;bottom:28px;z-index:9999;max-width:min(620px,calc(100vw - 32px));padding:14px 18px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(24,27,25,.96);box-shadow:0 14px 40px rgba(0,0,0,.28);color:#fff;font:700 14px/1.45 var(--font-body);text-align:center;opacity:0;pointer-events:none;transform:translate(-50%,14px);transition:opacity .22s ease,transform .22s ease}
+.bk-toast.is-visible{opacity:1;transform:translate(-50%,0)}
+@media (max-width:700px){.bk-toast{bottom:18px;font-size:13px;padding:13px 15px}}
+@media (prefers-reduced-motion:reduce){.bk-step--reveal.is-open,.bk-toast{transition:none}}
