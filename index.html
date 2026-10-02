@@ -228,7 +228,7 @@
     <span class="brand-name">Рыбалка у Иваныча<small>Платная рыбалка в Подмосковье</small></span>
   </a>
   <nav id="nav-menu" aria-label="Основная навигация">
-    <a href="#price">Цены</a><a href="#tips">Рыбалка</a><a href="#hotel">Отдых</a><a href="#rules">Правила</a><a href="#contacts">Контакты</a>
+    <a href="#price">Цены</a><a href="#hotel">Беседки и отдых</a><a href="#tips">Что ловится</a><a href="#rules">Правила</a><a href="#contacts">Контакты</a>
   </nav>
   <div class="contacts"><a href="tel:+79269267887">+7 926 926-78-87</a><br><a href="tel:+79269119407">+7 926 911-94-07</a><br><span class="online">Звоните в любое время</span></div>
   <button class="nav-toggle" id="nav-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
@@ -240,24 +240,14 @@
     <h1>Платная рыбалка<br>у <em>Иваныча</em></h1>
     <p>Платная рыбалка в Щёлковском районе Подмосковья: карп, щука и осётр, беседки над водой и тёплый домик на ночь - база, куда возвращаются семьёй, компанией и в одиночку, чтобы просто помолчать у воды.</p>
     <div class="hero-actions">
-      <button class="btn btn--about" type="button" id="aboutOpen">О нас</button>
       <a class="btn btn--green" href="#booking">Забронировать <svg class="icon"><use href="#i-arrow-down"></use></svg></a>
+      <a class="btn btn--about" href="#price">Посмотреть цены</a>
     </div>
+    <button class="hero-contact-link" type="button" id="contactOpen">Есть вопросы? Связаться с администратором</button>
   </div>
 </section>
 <div class="seam seam--cover" aria-hidden="true"></div>
 
-<div class="quicklinks"><div class="shell"><div class="ql-grid">
-  <a class="ql-card ql-effect-two" href="#price">
-    <span class="ql-left"><span class="ql-text"><span class="ql-label">Цены и условия</span></span></span>
-    <svg class="icon ql-arrow"><use href="#i-arrow"></use></svg>
-  </a>
-    <a class="ql-card ql-effect-two" href="#rules">
-    <span class="ql-left"><span class="ql-text"><span class="ql-label">Правила посещения</span></span></span>
-    <svg class="icon ql-arrow"><use href="#i-arrow"></use></svg>
-  </a>
-</div></div></div>
-<div class="seam seam--bg" aria-hidden="true"></div>
 
 
 <div class="about-modal" id="aboutModal" aria-hidden="true">
@@ -293,6 +283,23 @@
       <p><strong>4. Аналитика и реклама</strong><br>На сайте не используются системы рекламного отслеживания и сторонние системы аналитики для сбора информации о посетителях.</p>
       <p><strong>5. Изменения политики</strong><br>Политика конфиденциальности может обновляться при изменении работы сайта.</p>
       <p><strong>Дата обновления:</strong> 28 сентября 2026 г.</p>
+    </div>
+  </div>
+</div>
+
+<div class="about-modal" id="contactModal" aria-hidden="true">
+  <div class="about-modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+    <button class="about-modal__close" type="button" id="contactClose" aria-label="Закрыть">×</button>
+    <span class="about-modal__eyebrow">Связь с администрацией</span>
+    <h2 id="contactTitle">Связаться с администратором</h2>
+    <div class="about-modal__text contact-modal__actions">
+      <p>Выберите удобный способ связи:</p>
+      <div class="contact-modal__buttons">
+        <a class="btn btn--green" href="tel:+79269267887">Позвонить · +7 926 926-78-87</a>
+        <a class="btn btn--map" href="tel:+79269119407">Позвонить · +7 926 911-94-07</a>
+        <a class="btn btn--map" href="https://wa.me/79269267887" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a class="btn btn--map" href="https://t.me/+79269267887" target="_blank" rel="noopener noreferrer">Telegram</a>
+      </div>
     </div>
   </div>
 </div>
@@ -689,7 +696,7 @@
     <span class="stamp-mark" style="width:38px;height:38px;"><img src="./images/embedded/embedded-0.webp" width="180" height="180" alt="Рыбалка у Иваныча" decoding="async"></span>
     <span class="brand-name">Рыбалка у Иваныча<small>Платная рыбалка в Подмосковье</small></span>
   </a>
-  <div class="footer-links"><span>GPS: 55.865551, 38.050037</span><a href="#privacyModal" id="privacyOpen">Политика конфиденциальности</a></div>
+  <div class="footer-links"><span>GPS: 55.865551, 38.050037</span><button type="button" class="footer-about-link" id="aboutOpen">О нас</button><a href="#privacyModal" id="privacyOpen">Политика конфиденциальности</a></div>
 </div></footer>
 
 <script>
@@ -885,6 +892,19 @@
 
 
 
+<script>
+(function(){
+  const modal=document.getElementById('contactModal');
+  const open=document.getElementById('contactOpen');
+  const close=document.getElementById('contactClose');
+  if(!modal||!open||!close)return;
+  function show(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';close.focus();}
+  function hide(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';open.focus();}
+  open.addEventListener('click',show); close.addEventListener('click',hide);
+  modal.addEventListener('click',e=>{if(e.target===modal)hide();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('is-open'))hide();});
+})();
+</script>
 <script>
 (function(){
   const modal=document.getElementById('aboutModal');
