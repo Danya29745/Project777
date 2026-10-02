@@ -917,14 +917,13 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .ledger{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:16px;padding:12px 22px 16px}
 .ledger h4{font:800 11px var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:14px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .ledger h4:first-child{margin-top:6px}
-.lr{display:flex;align-items:baseline;gap:8px;margin:0;padding:8px 0;font-size:15px;font-weight:700;color:var(--fg)}
-.lr span{flex:none;max-width:68%}.lr small{display:block;font-size:11.5px;font-weight:600;color:var(--fg-soft);margin-top:1px}
-.lr i{flex:1;min-width:14px;border-bottom:2px dotted color-mix(in srgb,var(--fg) 30%,transparent);transform:translateY(-4px)}
-.lr b{flex:none;font:900 18px var(--font-display);color:var(--brand);white-space:nowrap}
-.lr b .rub-symbol{font-size:.8em;}.lr b em{font:700 11.5px var(--font-body);color:var(--fg-soft);font-style:normal;margin-left:2px}
+.lr{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin:0;padding:8px 0;font-size:15px;font-weight:700;color:var(--fg)}
+.lr span{min-width:0;max-width:calc(100% - 88px);line-height:1.35}.lr small{display:block;font-size:11.5px;font-weight:600;line-height:1.45;color:var(--fg-soft);margin-top:3px}
+.lr b{flex:none;display:inline-flex;align-items:baseline;gap:1px;padding:5px 9px;border-radius:999px;background:color-mix(in srgb,var(--brand) 9%,transparent);color:var(--brand);font:900 15px/1 var(--font-display);white-space:nowrap;letter-spacing:-.01em}
+.lr b .rub-symbol{font-size:.8em;}.lr b em{font:700 10px var(--font-body);color:var(--fg-soft);font-style:normal;margin-left:1px}
 .pv-link{display:inline-block;margin-top:24px;padding:13px 20px;border-radius:12px;border:1.5px dashed color-mix(in srgb,var(--brand) 45%,transparent);color:var(--brand);font-weight:800;font-size:13.5px;text-decoration:none;background:color-mix(in srgb,var(--bg) 60%,transparent)}
 .pv-h{order:-2}
-@media(max-width:860px){.pv1{grid-template-columns:1fr}.lr{font-size:14px}.lr span{max-width:62%}.pv-link{display:block}}
+@media(max-width:860px){.pv1{grid-template-columns:1fr}.lr{font-size:14px;gap:12px;padding:7px 0}.lr span{max-width:calc(100% - 82px)}.lr b{font-size:14px;padding:5px 8px}.lr small{font-size:11px}.pv-link{display:block}}
 .mb-back.is-up svg{transform:rotate(180deg);animation:mbBackNudgeUp 1.8s ease-in-out infinite}
 @keyframes mbBackNudgeUp{0%,100%{transform:rotate(180deg) translateY(-2px)}50%{transform:rotate(180deg) translateY(3px)}}
 
