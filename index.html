@@ -25,6 +25,8 @@
 <link rel="manifest" href="favicon/site.webmanifest">
 <link rel="preload" href="fonts/Manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/Bitter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="images/backgrounds/pagebackground.webp" as="image" media="(min-width:681px)" fetchpriority="high">
+<link rel="preload" href="images/backgrounds/pagebackground-mobile.webp" as="image" media="(max-width:680px)" fetchpriority="high">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Рыбалка у Иваныча — платная рыбалка в Щёлковском районе">
 <meta property="og:description" content="Платная рыбалка у Иваныча в Щёлковском районе: цены, рыбалка на карпа, щуку и осетра, беседки, домики, банный чан и контакты.">
@@ -867,8 +869,9 @@
   /* Lightweight scroll reveal: native IntersectionObserver, no animation library. */
   document.addEventListener('DOMContentLoaded',()=>{
     const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const touchDevice=window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     const groups=[...document.querySelectorAll('.section .shell > *:not(.rate-panel)')];
-    if(reduceMotion || !('IntersectionObserver' in window)){
+    if(reduceMotion || touchDevice || !('IntersectionObserver' in window)){
       groups.forEach(el=>el.classList.add('reveal-ready','in-view'));
       return;
     }
@@ -903,11 +906,12 @@
 (function(){
   const modal=document.getElementById('privacyModal');
   const open=document.getElementById('privacyOpen');
+  const bookingOpen=document.getElementById('bfPrivacy');
   const close=document.getElementById('privacyClose');
   if(!modal||!open||!close)return;
   function show(e){if(e)e.preventDefault();modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';close.focus();}
-  function hide(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';open.focus();}
-  open.addEventListener('click',show); close.addEventListener('click',hide);
+  function hide(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';(document.activeElement===close?(bookingOpen||open):open).focus();}
+  open.addEventListener('click',show); if(bookingOpen) bookingOpen.addEventListener('click',show); close.addEventListener('click',hide);
   modal.addEventListener('click',e=>{if(e.target===modal)hide();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('is-open'))hide();});
 })();
@@ -1209,7 +1213,7 @@
       _template:'table', _captcha:'false',
       'Где отдыхаем':o.length?o.join(', '):'— только рыбалка',
       'Рыбалка':f, 'Напрокат':t.length?t.join(', '):'—',
-      'Дата':dateRu, 'Гостей':guests.value,
+      'Дата':dateRu, 'Гостей':(o.includes('Только рыбалка')?'—':guests.value),
       'Рыбачат':(f!=='Без рыбалки'?fishers.value+' чел.':'—'), 'Ночей в гостинице':(o.includes('Гостиница')?nights.value:'—'),
       'Расчёт':calc.lines.map(l=>stripHtml(l[0])+' — '+rubText(l[1])).join('; ')||'—', 'Итого (ориентировочно)':rubText(calc.sum),
       'Имя':nameEl.value.trim(), 'Телефон':phoneEl.value, 'Способ связи':contact,
