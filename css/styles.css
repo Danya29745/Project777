@@ -1,7 +1,7 @@
 
-@font-face{font-family:'Bitter';src:url('../fonts/Bitter.ttf') format('truetype');font-style:normal;font-weight:100 900;font-display:swap;}
-@font-face{font-family:'Manrope';src:url('../fonts/Manrope.ttf') format('truetype');font-style:normal;font-weight:200 800;font-display:swap;}
-@font-face{font-family:'JetBrains Mono';src:url('../fonts/JetBrainsMono.ttf') format('truetype');font-style:normal;font-weight:100 800;font-display:swap;}
+@font-face{font-family:'Bitter';src:url('../fonts/Bitter.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap;}
+@font-face{font-family:'Manrope';src:url('../fonts/Manrope.woff2') format('woff2');font-style:normal;font-weight:200 800;font-display:swap;}
+@font-face{font-family:'JetBrains Mono';src:url('../fonts/JetBrainsMono.woff2') format('woff2');font-style:normal;font-weight:100 800;font-display:swap;}
 
 /* Символ рубля с красивым шрифтом */
 .rub-symbol{display:inline-block;width:auto;height:auto;vertical-align:baseline;overflow:visible;white-space:nowrap;text-indent:0;color:inherit;background:none;font-family:'Manrope',Arial,sans-serif;font-weight:600;line-height:1;-webkit-text-stroke:0;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;}
@@ -1149,3 +1149,6 @@ img{
   -webkit-user-drag:none;
   user-select:none;
 }
+
+/* accessibility: no smooth scrolling for users who ask for reduced motion (overrides inline style on <html>) */
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important;}}
