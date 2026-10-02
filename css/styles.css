@@ -36,7 +36,6 @@ body::before{content:'';pointer-events:none;position:fixed;inset:0;z-index:40;op
 
 /* ---------- fixed page backdrop photo (visible through translucent sections while scrolling) ---------- */
 .page-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--p-river-deep) url('../images/backgrounds/pagebackground.webp') center/cover no-repeat;pointer-events:none;}
-.page-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:saturate(1.08);opacity:1;}
 .page-bg::after{content:'';position:absolute;inset:0;background:rgba(9,20,17,.65);}
 @media (max-width:680px){.page-bg{position:fixed;}}
 
@@ -1177,38 +1176,6 @@ img{
   .top{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(15,38,34,.97);}
   .map-pin:hover{transform:none;}
 }
-
-
-/* =========================================================
-   FINAL PERFORMANCE PASS — desktop + mobile
-   Keeps the visual style but removes the most expensive
-   full-screen/compositing effects.
-   ========================================================= */
-
-/* The SVG turbulence texture was a fixed full-screen blend layer.
-   It adds paint/blending work on every scroll frame for almost no
-   perceptible visual benefit. */
-body::before{display:none!important;}
-
-/* Desktop: keep translucency, but use lighter blur radii on large
-   surfaces. Mobile/touch already disables these effects below. */
-@media (min-width:901px) and (hover:hover){
-  .section::before{
-    backdrop-filter:blur(5px) saturate(1.05);
-    -webkit-backdrop-filter:blur(5px) saturate(1.05);
-  }
-  .section:not(#price)::after{
-    backdrop-filter:blur(8px) saturate(1.05);
-    -webkit-backdrop-filter:blur(8px) saturate(1.05);
-  }
-  .stub,.tip-card,.rule,.contact-side{
-    backdrop-filter:blur(4px);
-    -webkit-backdrop-filter:blur(4px);
-  }
-}
-
-/* Avoid promoting static elements to their own GPU layers. */
-.stay-track{will-change:auto;}
 
 /* =========================================================
    Premium booking refresh — 2026-10
