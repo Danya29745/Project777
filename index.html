@@ -221,6 +221,11 @@
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9v7a2 2 0 01-2 2h-4v-5h-6v5H5a2 2 0 01-2-2v-7z" stroke-linejoin="round"></path></symbol>
   <symbol id="i-camera" viewBox="0 0 32 32"><rect x="3.5" y="8.5" width="25" height="19" rx="4" stroke-linejoin="round"></rect><path d="M10 8.5l2-4h8l2 4" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="16" cy="18" r="6" stroke-linejoin="round"></circle><circle cx="16" cy="18" r="2" fill="currentColor" stroke="none"></circle><circle cx="24" cy="13.5" r="1.3" fill="currentColor" stroke="none"></circle></symbol>
   <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 4h4M3 10h4M3 16h4M10 4h11M10 10h11M10 16h11" stroke-linecap="round"></path></symbol>
+  <symbol id="r-bait" viewBox="0 0 32 32"><rect x="8" y="11" width="16" height="15" rx="3"/><path d="M12 11V6h8v5"/><path d="M12 17h.01M20 17h.01M16 21h.01M12 22h.01M20 22h.01" stroke-width="3.2"/></symbol>
+  <symbol id="r-hook" viewBox="0 0 32 32"><path d="M20 4v16a7 7 0 0 1-14 0v-3"/><path d="M6 17l-3 3.5"/><circle cx="20" cy="4.5" r="1.2"/></symbol>
+  <symbol id="r-place" viewBox="0 0 32 32"><path d="M3 14 16 5l13 9"/><path d="M7 14v12M25 14v12M3 26h26M11 14h10"/></symbol>
+  <symbol id="r-net" viewBox="0 0 32 32"><circle cx="13" cy="12" r="8.5"/><path d="M4.5 12h17M13 3.5v17M7 6l12 12M19 6 7 18" stroke-width="1.3"/><path d="M19.5 18.5 28 27"/></symbol>
+  <symbol id="r-fam" viewBox="0 0 32 32"><circle cx="10" cy="7" r="3.2"/><path d="M4 28V19a6 6 0 0 1 12 0v9"/><circle cx="23.5" cy="15" r="2.6"/><path d="M19 28v-5a4.5 4.5 0 0 1 9 0v5"/></symbol>
   <symbol id="map-gazebo" viewBox="0 0 32 32"><path d="M3 12 16 4l13 8"/><path d="M5 12h22"/><path d="M7 12v13M11 12v13M21 12v13M25 12v13"/><path d="M4 25h24"/><path d="M9 8h14"/><path d="M8 17h16M8 20h16"/></symbol>
   <symbol id="map-gazebo-big" viewBox="0 0 32 32"><path d="M2.5 12 16 3.5 29.5 12"/><path d="M4 12h24"/><path d="M6 12v14M10 12v14M22 12v14M26 12v14"/><path d="M3.5 26h25"/><path d="M8 8h16"/><path d="M7 17h18M7 21h18"/><path d="M12 26v-5M20 26v-5"/></symbol>
   <symbol id="map-vip" viewBox="0 0 32 32"><path d="M2.5 12 16 3.5 29.5 12"/><path d="M4 12h24"/><path d="M6 12v14M10 12v14M22 12v14M26 12v14"/><path d="M3.5 26h25"/><path d="M8 8h16"/><path d="m16 7 1.5 3.1 3.4.5-2.45 2.4.58 3.4-3.03-1.6-3.03 1.6.58-3.4-2.45-2.4 3.4-.5Z"/></symbol>
@@ -586,12 +591,12 @@
   <section class="section section--alt" id="rules"><div class="shell">
     <h2 class="reveal reveal-ready">Коротко о том, что<br>важно знать до выезда</h2>
     <p class="section-lead reveal reveal-ready in-view">Четыре правила - не для галочки, а чтобы клёв и отдых у всех гостей был одинаково хорош.</p>
-    <div class="rules reveal reveal-ready in-view">
-      <div class="rule"><i>01</i><span><b>Прикормка</b> - только в кормушке, не вразброс.</span></div>
-      <div class="rule"><i>02</i><span>На одной снасти - <b>не больше трёх крючков</b>.</span></div>
-      <div class="rule"><i>03</i><span><b>Не занимайте места</b> напротив чужих беседок.</span></div>
-      <div class="rule"><i>04</i><span><b>Ловля без подсачника запрещена</b>; отпускать рыбу - только при администраторе.</span></div>
-      <div class="rule rule--perk"><i aria-hidden="true">&#9733;</i><span><b>Женщина и ребёнок до 10 лет</b> рыбачат на снасти рыбака бесплатно.</span></div>
+    <div class="rules-grid reveal reveal-ready in-view">
+      <article class="rule-card"><span class="rule-ico"><svg aria-hidden="true"><use href="#r-bait"></use></svg></span><div><h3>Прикормка</h3><p>Только в кормушке, не вразброс.</p></div></article>
+      <article class="rule-card"><span class="rule-ico"><svg aria-hidden="true"><use href="#r-hook"></use></svg></span><div><h3>Не больше трёх крючков</h3><p>На одной снасти.</p></div></article>
+      <article class="rule-card"><span class="rule-ico"><svg aria-hidden="true"><use href="#r-place"></use></svg></span><div><h3>Не занимайте чужие места</h3><p>Напротив чужих беседок ловить нельзя.</p></div></article>
+      <article class="rule-card"><span class="rule-ico"><svg aria-hidden="true"><use href="#r-net"></use></svg></span><div><h3>Подсачник обязателен</h3><p>Ловля без него запрещена. Рыбу отпускаем только при администраторе.</p></div></article>
+      <div class="rule-perk"><span class="rule-ico rule-ico--perk"><svg aria-hidden="true"><use href="#r-fam"></use></svg></span><div><h3>Женщина и ребёнок до 10 лет</h3><p>Рыбачат на снасти рыбака, отдельная оплата не нужна.</p></div><span class="rule-perk__tag">Бесплатно</span></div>
     </div>
     <p class="rules-note reveal reveal-ready in-view">Полный свод правил - на стенде администратора при въезде.</p>
   </div></section>
