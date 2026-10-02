@@ -1730,3 +1730,16 @@ a[href="#prices"].btn:hover {
     font-size: 11px !important;
   }
 }
+
+
+/* Booking CTA typography: match the map button */
+.accom-actions .btn--green {
+  font-family: var(--font-display) !important;
+  font-size: 19px !important;
+  font-weight: 900 !important;
+  letter-spacing: .01em !important;
+  text-transform: uppercase !important;
+}
+@media (max-width: 680px) {
+  .accom-actions .btn--green { font-size: 16px !important; }
+}
