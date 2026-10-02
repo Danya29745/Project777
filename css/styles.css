@@ -803,19 +803,21 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 
 
 
-/* VIP: цена и кнопка карты подняты ещё на 8px вместе */
-.accom-card--vip .accom-price-single,
-.accom-card--vip .btn--green {
-    transform: translateY(-12px);
+/* VIP: выравнивание с соседней карточкой - только на десктопе (на телефоне сдвиги наезжали на цену) */
+@media (min-width:761px){
+  .accom-card--vip .accom-price-single,
+  .accom-card--vip .accom-actions{transform:translateY(-12px);}
+  .accom-card--vip .accom-included{transform:translateY(7px);}
+}
+@media (max-width:760px){
+  .accom-card--vip .accom-included{margin-bottom:14px;}
+  .accom-card--vip .accom-price-single{margin-top:auto;}
 }
 
 
 
 
-/* VIP: реальный блок "В стоимость входит" опущен на 7px */
-.accom-card--vip .accom-included {
-    transform: translateY(7px);
-}
+
 
 /* Map: temporary numbers ABOVE each icon (badge hidden to avoid duplicate numbers) */
 .map-pin .map-badge{display:none!important;}
@@ -922,3 +924,57 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 @media(max-width:860px){.pv1{grid-template-columns:1fr}.lr{font-size:14px}.lr span{max-width:62%}.pv-link{display:block}}
 .mb-back.is-up svg{transform:rotate(180deg);animation:mbBackNudgeUp 1.8s ease-in-out infinite}
 @keyframes mbBackNudgeUp{0%,100%{transform:rotate(180deg) translateY(-2px)}50%{transform:rotate(180deg) translateY(3px)}}
+
+
+/* ---------- кнопки карточек: бронь + карта ---------- */
+.accom-actions{display:flex;flex-wrap:wrap;gap:10px;width:100%;margin-top:16px;}
+.accom-actions .btn{flex:1 1 200px;margin:0!important;align-self:stretch!important;justify-content:center;min-height:50px;padding:12px 14px;font-size:15px;line-height:1.15;text-align:center;}
+.accom-card .accom-actions{margin-top:15px;}
+.btn--map{background:rgba(163,130,63,.9);color:#fff;border:1.5px solid rgba(214,184,121,.75);box-shadow:0 10px 24px rgba(60,44,12,.26),inset 0 1px 0 rgba(255,255,255,.14);font-family:var(--font-display);font-size:19px;font-weight:900;text-decoration:none;}
+.btn--map:hover{background:rgba(184,148,70,.97);border-color:#e0c387;transform:translateY(-2px);box-shadow:0 14px 30px rgba(60,44,12,.34);}
+.btn--map .icon{width:14px;height:14px;transition:transform .22s ease;}
+.btn--map:hover .icon{transform:translateX(4px);}
+.accom-actions .btn--map{font-size:15px;}
+@media (max-width:680px){.accom-actions{flex-direction:column;gap:8px}.accom-actions .btn{flex:none;width:100%;font-size:16px}.accom-actions .btn--map{font-size:16px}}
+
+/* ---------- форма бронирования ---------- */
+.booking-card{max-width:760px;margin:28px auto 0;padding:clamp(18px,3vw,32px);border:1px solid var(--border);border-radius:20px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:var(--shadow-card);}
+.booking-form{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.bf-field{display:flex;flex-direction:column;gap:6px;min-width:0;border:0;padding:0;margin:0;}
+.bf-field--full{grid-column:1/-1;}
+.bf-field label,.bf-field legend{font:800 11px var(--font-body);letter-spacing:.07em;text-transform:uppercase;color:var(--fg-soft);padding:0;}
+.bf-field label small{text-transform:none;letter-spacing:0;font-weight:600;}
+.booking-form input[type=text],.booking-form input[type=tel],.booking-form input[type=date],.booking-form input[type=number],.booking-form select,.booking-form textarea{width:100%;min-height:52px;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,.78);color:var(--fg);font:600 16px var(--font-body);appearance:none;-webkit-appearance:none;transition:border-color .2s,box-shadow .2s;}
+.booking-form select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%234d5646' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;}
+.booking-form textarea{resize:vertical;min-height:72px;}
+.booking-form input:focus,.booking-form select:focus,.booking-form textarea:focus{outline:0;border-color:var(--green);box-shadow:0 0 0 3px rgba(47,125,84,.22);}
+.booking-form .bf-invalid{border-color:#c0392b!important;box-shadow:0 0 0 3px rgba(192,57,43,.16);}
+.bf-honey{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0;}
+.bf-stepper{display:grid;grid-template-columns:52px 1fr 52px;gap:0;}
+.bf-stepper button{min-height:52px;border:1.5px solid var(--border);background:rgba(255,255,255,.78);color:var(--brand);font:800 24px/1 var(--font-body);cursor:pointer;}
+.bf-stepper button:first-child{border-radius:10px 0 0 10px;border-right:0}.bf-stepper button:last-child{border-radius:0 10px 10px 0;border-left:0}
+.bf-stepper input{border-radius:0!important;text-align:center;-moz-appearance:textfield;}
+.bf-stepper input::-webkit-outer-spin-button,.bf-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.bf-chips{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;}
+.bf-chips legend{width:100%;margin-bottom:6px;}
+.bf-chips label{position:relative;flex:1 1 90px;margin:0;text-transform:none;letter-spacing:0;}
+.bf-chips input{position:absolute;opacity:0;inset:0;}
+.bf-chips span{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,.78);font:700 14px var(--font-body);color:var(--fg);cursor:pointer;transition:.18s;}
+.bf-chips input:checked+span{background:var(--green);border-color:var(--green-dark);color:#fff;}
+.bf-chips input:focus-visible+span{box-shadow:0 0 0 3px rgba(47,125,84,.3);}
+.bf-submit{width:100%;justify-content:center;font-size:19px;}
+.bf-submit.is-loading{opacity:.75;pointer-events:none;}
+.bf-note{margin:12px 0 0;font-size:12.5px;line-height:1.5;color:var(--fg-soft);text-align:center;}
+.bf-note a{color:var(--accent);font-weight:700;}
+.bf-status{margin:10px 0 0;font-size:14px;font-weight:700;text-align:center;min-height:0;}
+.bf-status.is-error{color:#b03022;}
+.bf-status a{color:inherit;text-decoration:underline;}
+.bf-flash{animation:bfFlash 1.2s ease;}
+@keyframes bfFlash{0%,100%{box-shadow:none}30%{box-shadow:0 0 0 4px rgba(47,125,84,.45);border-color:var(--green)}}
+.bf-success{text-align:center;padding:18px 6px;}
+.bf-success[hidden],.booking-form[hidden]{display:none;}
+.bf-success__icon{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;background:var(--green);color:#fff;font-size:34px;line-height:64px;}
+.bf-success h3{margin:0 0 8px;font-family:var(--font-display);font-size:26px;}
+.bf-success p{margin:0 0 18px;color:var(--fg-soft);}
+@media (max-width:560px){.booking-form{grid-template-columns:1fr;gap:14px}.booking-card{border-radius:16px}}
+@media (prefers-reduced-motion:reduce){.bf-flash{animation:none}}
