@@ -203,21 +203,7 @@
 .rub{font-family:inherit !important;font-weight:inherit;line-height:1;}
 </style>
   <link rel="stylesheet" href="css/styles.css?v=20261002">
-<style>
-/* Premium map banner */
-.iv-banner{position:fixed;z-index:9999;right:30px;bottom:30px;width:360px;border-radius:24px;overflow:hidden;background:#111;color:#fff;box-shadow:0 25px 70px #0009;display:none;font-family:Manrope,Arial,sans-serif}
-.iv-banner.show{display:block;animation:ivUp .35s ease}
-@keyframes ivUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
-.iv-banner img{width:100%;height:210px;object-fit:cover}
-.iv-body{padding:22px;background:linear-gradient(#14231f,#0d1715)}
-.iv-logo{color:#d9b66b;font-weight:800;letter-spacing:2px;font-size:13px}
-.iv-close{position:absolute;right:15px;top:15px;border:0;border-radius:50%;width:34px;height:34px;background:#0008;color:white;font-size:20px;cursor:pointer}
-.iv-buttons{display:flex;gap:10px;margin-top:18px}
-.iv-buttons button{flex:1;padding:12px;border-radius:20px;border:0;cursor:pointer;font-weight:700}
-.iv-go{background:#d9b66b}
-.iv-target-pulse{animation:ivPulse 1s}
-@keyframes ivPulse{0%{box-shadow:0 0 0 0 #d9b66b}50%{box-shadow:0 0 0 15px transparent}100%{box-shadow:0 0 0 0 transparent}}
-</style></head>
+</head>
 <body style="">
 <div class="page-bg" aria-hidden="true"></div>
 <svg class="sprite" aria-hidden="true">
@@ -791,11 +777,10 @@
   });
 
 
-  /* interactive territory map: click a marker to open its object card */
+  /* interactive territory map: mini-banner on marker click (fix: no longer depends on #mapObjectModal order) */
   (function(){
     const map=document.getElementById('territoryMap');
-    const modal=document.getElementById('mapObjectModal');
-    if(!map||!modal) return;
+    if(!map) return;
     const data={
       besedka1:{title:'Стандартная беседка №1',meta:'до 6 человек · 10 м² · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-1.webp']},
       besedka2:{title:'Стандартная беседка №2',meta:'до 6 человек · 10 м² · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-2.webp']},
@@ -813,40 +798,60 @@
       banya1:{title:'В процессе',meta:'',price:'',note:'',photos:[]},
       banya2:{title:'В процессе',meta:'',price:'',note:'',photos:[]}
     };
-    const title=modal.querySelector('[data-map-title]');
-    const meta=modal.querySelector('[data-map-meta]');
-    const price=modal.querySelector('[data-map-price]');
-    const note=modal.querySelector('[data-map-note]');
-    const track=modal.querySelector('[data-map-track]');
-    const counter=modal.querySelector('[data-map-counter]');
-    let current=0, photos=[];
-    function render(i){
-      if(!photos.length){track.innerHTML='<div class="map-modal-empty">Фото для этого объекта не добавлены.</div>';counter.textContent='';return;}
-      current=(i+photos.length)%photos.length;
-      track.innerHTML='<img src="'+photos[current]+'" alt="">';
-      counter.textContent=(current+1)+' / '+photos.length;
+    const variant=(new URLSearchParams(location.search).get('banner')||'1').replace(/[^1-3]/g,'')||'1';
+    const el=document.createElement('aside');
+    el.className='mb'; el.dataset.v=variant; el.setAttribute('role','dialog'); el.setAttribute('aria-live','polite');
+    el.innerHTML='<div class="mb-photo" data-photo><span class="mb-logo"><img src="./images/embedded/embedded-0.png" alt="Рыбалка у Иваныча"></span><span class="mb-count" data-count></span></div>'+
+      '<div class="mb-body"><p class="mb-kicker" data-kicker></p><h3 data-title></h3><p class="mb-meta" data-meta></p>'+
+      '<div class="mb-row" data-row><div class="mb-price" data-price></div><div class="mb-note" data-note></div></div>'+
+      '<div class="mb-actions"><button type="button" class="mb-btn mb-btn--ghost" data-close>Закрыть</button><button type="button" class="mb-btn mb-btn--go" data-go>Перейти <span aria-hidden="true">→</span></button></div></div>';
+    document.body.appendChild(el);
+    const $=s=>el.querySelector(s);
+    const cards=[...document.querySelectorAll('.accom-card')];
+    const stay=[...document.querySelectorAll('.stay-info')].map(n=>n.parentElement);
+    const std={kicker:'Размещение у воды',go:'К беседкам',t:()=>cards[0]};
+    const T={medium:{kicker:'Размещение у воды',go:'К описанию беседки',t:()=>cards[1]},big:{kicker:'Размещение у воды',go:'К описанию беседки',t:()=>cards[2]},vip:{kicker:'VIP · размещение у воды',go:'К описанию беседки',t:()=>cards[3]},
+      hotel:{kicker:'Гостиница',go:'К описанию гостиницы',t:()=>stay[0]},chan:{kicker:'Банный чан',go:'К описанию чана',t:()=>stay[1]}};
+    for(let i=1;i<=6;i++) T['besedka'+i]=std;
+    const markers=[...map.querySelectorAll('.map-marker')];
+    const rub=s=>String(s||'').replace(/&(?!amp;)/g,'&amp;').replace(/₽/g,' <span class="rub-symbol">₽</span>');
+    let cur=null;
+    function open(m){
+      const id=m.dataset.marker, d=data[id]; if(!d) return;
+      cur=T[id]||null;
+      markers.forEach(x=>x.classList.toggle('is-selected',x===m));
+      const ph=d.photos||[];
+      $('[data-photo]').style.backgroundImage=ph.length?'url("'+ph[0]+'")':'';
+      el.classList.toggle('no-photo',!ph.length);
+      $('[data-count]').textContent=ph.length>1?ph.length+' фото':''; $('[data-count]').hidden=ph.length<2;
+      $('[data-kicker]').textContent=cur?cur.kicker:'Территория';
+      $('[data-title]').textContent=d.title;
+      $('[data-meta]').innerHTML=rub(d.meta); $('[data-meta]').hidden=!d.meta;
+      $('[data-price]').innerHTML=rub(d.price); $('[data-note]').innerHTML=rub(d.note);
+      $('[data-row]').hidden=!d.price;
+      const go=$('[data-go]'); go.hidden=!cur; if(cur) go.innerHTML=cur.go+' <span aria-hidden="true">→</span>';
+      el.classList.add('is-open');
     }
-    function open(id){
-      const d=data[id]; if(!d) return;
-      const rub=function(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/₽/g,' ₽');};
-      title.textContent=d.title; meta.innerHTML=rub(d.meta); price.innerHTML=rub(d.price); note.innerHTML=rub(d.note);
-      meta.style.display=d.meta?'':'none'; price.style.display=d.price?'':'none'; note.style.display=d.note?'':'none';
-      photos=d.photos||[]; render(0);
-      modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+    function close(){el.classList.remove('is-open');markers.forEach(x=>x.classList.remove('is-selected'));}
+    function settle(cb){let last=-1,t=0,n=0;(function tick(){const y=scrollY;if(y===last)t++;else t=0;last=y;if(t>=6||++n>120)cb();else requestAnimationFrame(tick);})();}
+    function go(){
+      const node=cur&&cur.t(); if(!node) return;
+      const h=document.querySelector('.top');
+      const off=(h?h.offsetHeight:70)+16;
+      const y=node.getBoundingClientRect().top+scrollY-off;
+      const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+      close();
+      scrollTo({top:Math.max(0,y),behavior:reduce?'auto':'smooth'});
+      const pulse=()=>{node.classList.remove('mb-pulse');void node.offsetWidth;node.classList.add('mb-pulse');node.addEventListener('animationend',()=>node.classList.remove('mb-pulse'),{once:true});};
+      settle(()=>{const dy=node.getBoundingClientRect().top-off;if(Math.abs(dy)>10){scrollBy({top:dy,behavior:reduce?'auto':'smooth'});settle(pulse);}else pulse();});
     }
-    function close(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-    const markers=map.querySelectorAll('.map-marker');
     markers.forEach(m=>{
-      const select=()=>{markers.forEach(x=>x.classList.remove('is-selected'));m.classList.add('is-selected');open(m.dataset.marker);};
-      m.addEventListener('click',select);
-      m.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
+      m.addEventListener('click',e=>{e.stopPropagation();open(m);});
+      m.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(m);}});
     });
-    modal.querySelector('[data-map-close]').addEventListener('click',()=>markers.forEach(x=>x.classList.remove('is-selected')));
-    modal.querySelector('[data-map-close]').addEventListener('click',close);
-    modal.addEventListener('click',e=>{if(e.target===modal)close();});
-    modal.querySelector('[data-map-prev]').addEventListener('click',()=>render(current-1));
-    modal.querySelector('[data-map-next]').addEventListener('click',()=>render(current+1));
-    document.addEventListener('keydown',e=>{if(modal.classList.contains('is-open')){if(e.key==='Escape')close();if(e.key==='ArrowLeft')render(current-1);if(e.key==='ArrowRight')render(current+1);}});
+    $('[data-close]').addEventListener('click',close);
+    $('[data-go]').addEventListener('click',go);
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
   })();
 
   /* hamburger */
@@ -1031,47 +1036,4 @@
 
 <script>if(/[?&]edit=1(&|$)/.test(location.search)){var s=document.createElement('script');s.src='./js/map-editor.js';document.body.appendChild(s);}</script>
 
-
-<script>
-(function(){
-const data={
-besedka1:{title:'Стандартная беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
-besedka2:{title:'Стандартная беседка',img:'./images/besedka_2.jpg',target:'panel-gazebo'},
-besedka3:{title:'Стандартная беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
-besedka4:{title:'Стандартная беседка',img:'./images/besedka_2.jpg',target:'panel-gazebo'},
-besedka5:{title:'Стандартная беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
-besedka6:{title:'Стандартная беседка',img:'./images/besedka_2.jpg',target:'panel-gazebo'},
-besedka7:{title:'Средняя беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
-besedka8:{title:'VIP-беседка',img:'./images/besedka_2.jpg',target:'panel-gazebo'},
-besedka9:{title:'Большая беседка',img:'./images/besedka_1.jpeg',target:'panel-gazebo'},
-hotel:{title:'Гостиница для комфортного отдыха',img:'./images/rooms/hotel-1.webp',target:'accommodation'},
-chan:{title:'Банный чан на дровах',img:'./images/facilities/chan-1.webp',target:'extras'},
-bath1:{title:'Баня — скоро открытие',img:'./images/facilities/chan-1.webp',target:'extras'},
-bath2:{title:'Баня — скоро открытие',img:'./images/facilities/chan-1.webp',target:'extras'},
-toilet:{title:'Туалет',img:'./images/map/territory-map-generated.png',target:'territoryMap'},
-parking:{title:'Парковка',img:'./images/map/territory-map-generated.png',target:'territoryMap'},
-admin:{title:'Администрация',img:'./images/backgrounds/pagebackground.webp',target:'contacts'}
-};
-const map=document.getElementById('territoryMap');
-if(!map)return;
-const b=document.createElement('div');
-b.className='iv-banner';
-b.innerHTML='<button class="iv-close">×</button><img><div class="iv-body"><div class="iv-logo">У ИВАНЫЧА</div><h2></h2><p>Отдых на природе</p><div class="iv-buttons"><button class="iv-go">Перейти</button><button class="iv-hide">Закрыть</button></div></div>';
-document.body.appendChild(b);
-let current=null;
-function open(x){
-let d=data[x]; if(!d)return;
-current=d;b.querySelector('img').src=d.img;b.querySelector('h2').textContent=d.title;b.classList.add('show');
-}
-map.querySelectorAll('.map-marker').forEach(m=>{
-m.addEventListener('click',()=>open(m.dataset.marker));
-});
-b.querySelectorAll('.iv-close,.iv-hide').forEach(x=>x.onclick=()=>b.classList.remove('show'));
-b.querySelector('.iv-go').onclick=()=>{
-if(!current)return;
-let el=document.getElementById(current.target);
-if(el){el.scrollIntoView({behavior:'smooth'});el.classList.add('iv-target-pulse');setTimeout(()=>el.classList.remove('iv-target-pulse'),1000);}
-};
-})();
-</script>
 </body></html>
