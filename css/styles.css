@@ -1610,3 +1610,38 @@ a[href="#prices"].btn:hover {
     padding: 5px 7px;
   }
 }
+
+
+/* Matching typography for pricing/support labels */
+.stay-info-note,
+.accom-price-box small,
+.accom-price-single small,
+.extension-note,
+.rental-duration,
+.price-note {
+  font-family: var(--font-display, 'Bitter', Georgia, serif) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+/* Keep the price-card labels compact while matching the display style */
+.accom-price-box small,
+.accom-price-single small {
+  font-size: 15px !important;
+}
+
+@media (max-width: 640px) {
+  .accom-price-box small,
+  .accom-price-single small {
+    font-size: 14px !important;
+  }
+}
+
+/* Exact pricing text blocks */
+.accom-price-grid .accom-price-box small,
+.accom-price-single small {
+  font-family: var(--font-display, 'Bitter', Georgia, serif) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em;
+}
