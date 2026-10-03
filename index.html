@@ -252,7 +252,7 @@
 .accom-price strong,.stay-price strong,.stay-price-single strong,.map-object-price{font-family:var(--font-display);font-weight:900;}
 .rub{font-family:inherit !important;font-weight:inherit;line-height:1;}
 </style>
-  <link rel="stylesheet" href="css/styles.css?v=20261011">
+  <link rel="stylesheet" href="css/styles.css?v=20261013">
   <link rel="stylesheet" href="css/seo-pages.css?v=20261010">
 <style id="unified-hero-cta-v7">
 .hero-actions .btn--green,
@@ -298,6 +298,18 @@
   display: none !important;
 }
 </style>
+<script>
+/* Обновление страницы всегда начинается с начала: без восстановления прокрутки и без старого #якоря */
+(function(){
+  try{ history.scrollRestoration='manual'; }catch(_){}
+  var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};
+  if(nav.type==='reload'||nav.type==='back_forward'){
+    if(location.hash){ try{ history.replaceState(null,'',location.pathname+location.search); }catch(_){} }
+    var top=function(){ window.scrollTo({top:0,left:0,behavior:'instant'}); };
+    top(); window.addEventListener('DOMContentLoaded',top); window.addEventListener('load',function(){ top(); setTimeout(top,120); });
+  }
+})();
+</script>
 </head>
 <body id="top" style="">
 <div class="page-bg" aria-hidden="true"></div>
@@ -1316,37 +1328,48 @@
     el.hidden=false; el.classList.add('bk-step--reveal');
     requestAnimationFrame(()=>el.classList.add('is-open'));
   }
-  /* Прокрутка к следующему шагу: останавливается точно на нём (под шапкой), после остановки шаг пульсирует. */
+  /* Плавная прокрутка, которая останавливается точно в нужном месте; после остановки вызывается done. */
   let focusToken=0;
   ['wheel','touchstart'].forEach(ev=>window.addEventListener(ev,()=>{focusToken++;},{passive:true}));
-  function focusStep(el){
-    if(!el || el.hidden) return;
+  function glide(topFn,done){
     const token=++focusToken;
     const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    const topFor=()=>{
-      const hdr=(document.querySelector('header')||{}).offsetHeight||62;
-      let ty=0; try{ ty=new DOMMatrix(getComputedStyle(el).transform).m42||0; }catch(_){}
-      return Math.max(0, Math.round(el.getBoundingClientRect().top - ty + window.scrollY - hdr - 12));
-    };
-    const pulse=()=>{
-      if(token!==focusToken) return;
-      el.classList.remove('bk-step--pulse'); void el.offsetWidth; el.classList.add('bk-step--pulse');
-      clearTimeout(el._pulseT); el._pulseT=setTimeout(()=>el.classList.remove('bk-step--pulse'),3400);
-    };
     requestAnimationFrame(()=>{
-      window.scrollTo({top:topFor(),behavior:reduce?'auto':'smooth'});
+      window.scrollTo({top:topFn(),behavior:reduce?'auto':'smooth'});
       let last=-1,still=0,n=0;
       (function tick(){
         if(token!==focusToken) return;
         const y=window.scrollY; still=(y===last)?still+1:0; last=y; n++;
-        if(still>=5||n>120){
-          const want=topFor();
-          if(Math.abs(want-window.scrollY)>2){ window.scrollTo({top:want,behavior:'auto'}); }
-          pulse();
+        if(still>=5||n>150){
+          const want=topFn();
+          if(Math.abs(want-window.scrollY)>2) window.scrollTo({top:want,behavior:'auto'});
+          done();
         }else requestAnimationFrame(tick);
       })();
     });
   }
+  function pulseEl(el,token){
+    const lg=el.querySelector(':scope > legend'); el.style.setProperty('--lg',(lg?lg.offsetHeight+parseFloat(getComputedStyle(lg).marginBottom||0):0)+'px');
+    el.classList.remove('bk-step--pulse'); void el.offsetWidth; el.classList.add('bk-step--pulse');
+    clearTimeout(el._pulseT); el._pulseT=setTimeout(()=>el.classList.remove('bk-step--pulse'),3800);
+  }
+  const hdrH=()=>((document.querySelector('header')||{}).offsetHeight||62);
+  /* Прокрутка к следующему шагу: останавливается точно на нём (под шапкой), после остановки шаг пульсирует. */
+  function focusStep(el){
+    if(!el || el.hidden) return;
+    const topFor=()=>{
+      let ty=0; try{ ty=new DOMMatrix(getComputedStyle(el).transform).m42||0; }catch(_){}
+      return Math.max(0, Math.round(el.getBoundingClientRect().top - ty + window.scrollY - hdrH() - 30));
+    };
+    glide(topFor,()=>pulseEl(el));
+  }
+  /* Любая кнопка «Забронировать» ведёт к разделу брони, останавливается точно на нём и пульсирует карточкой формы. */
+  const bookSec=document.getElementById('booking'), bookCard=document.querySelector('.booking-card');
+  document.querySelectorAll('a[href="#booking"]').forEach(a=>a.addEventListener('click',e=>{
+    if(!bookSec) return;
+    e.preventDefault();
+    glide(()=>Math.max(0,Math.round(bookSec.getBoundingClientRect().top+window.scrollY-hdrH()-14)),()=>{ if(bookCard) pulseEl(bookCard); });
+  }));
 
   function updateFlow(){
     const fishingOnly=checked('Объект').includes('Только рыбалка');
