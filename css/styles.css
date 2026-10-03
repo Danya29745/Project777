@@ -1960,3 +1960,43 @@ a[href="#prices"].btn:hover {
 .extras--fish .xn small+small{margin-top:5px;font-size:13px}
 .extras--fish .xn small:first-of-type{font:700 12px var(--font-mono);letter-spacing:.03em}
 @media(max-width:700px){.extras--fish{grid-template-columns:1fr}}
+
+/* ---------- Карточки беседок: удобства и стоимость в стиле блока «Дополнительно» ---------- */
+.accom-grid .accom-card{--xc:var(--p-river)}
+
+/* удобства: подпись + плашки */
+.accom-grid .accom-features{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px;padding:0;border:0;border-radius:0;background:none}
+.accom-grid .accom-features::before{content:'Что входит:';flex:0 0 100%;margin-bottom:2px;font:700 11.5px/1.2 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--fg-soft)}
+.accom-grid .accom-features span{padding:6px 12px;border:1px solid color-mix(in srgb,var(--xc) 35%,transparent);border-radius:6px;background:color-mix(in srgb,var(--xc) 8%,transparent);font:800 14px/1.3 var(--font-display);color:var(--fg)}
+.accom-grid .accom-features span::before{display:none}
+
+/* стоимость: шапка + строки, как в «Дополнительно» */
+.accom-grid .accom-price-grid,.accom-grid .accom-price-single{display:grid;grid-template-columns:minmax(0,1fr);gap:0;padding:0;min-height:0;overflow:hidden;border:1px solid color-mix(in srgb,var(--xc) 30%,var(--border));border-radius:14px;background:color-mix(in srgb,var(--bg) 85%,transparent)}
+.accom-grid .accom-price-box{flex-direction:row;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border:0;border-radius:0;background:none}
+.accom-grid .accom-price-box:nth-child(odd){background:color-mix(in srgb,var(--xc) 9%,transparent)}
+.accom-grid .accom-price-box small,.accom-grid .accom-price-single small{font:700 14px/1.25 var(--font-body);letter-spacing:0;text-transform:none;color:var(--fg)}
+.accom-grid .accom-price-box strong,.accom-grid .accom-price-single strong{font:900 26px/1 var(--font-display);color:var(--xc);white-space:nowrap}
+.accom-grid .accom-price-single{grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.accom-grid .accom-price-single small{padding:14px 0 14px 16px;background:none}
+.accom-grid .accom-price-single strong{padding:14px 16px 14px 0}
+.accom-grid .accom-price-single .pavilion-extra-guest,.accom-grid .accom-price-single .accom-price-note{grid-column:1/-1;margin:0;padding:11px 16px 12px;border-top:1px solid color-mix(in srgb,var(--xc) 22%,transparent);background:color-mix(in srgb,var(--xc) 9%,transparent);font:600 13.5px/1.45 var(--font-body);text-wrap:pretty}
+.accom-grid .pavilion-extra-guest__price{color:var(--xc)}
+.accom-grid .accom-body p{margin-bottom:14px}
+@media(max-width:760px){.accom-grid .accom-features span{font-size:13px;padding:5px 10px}.accom-grid .accom-price-box{padding:11px 14px}.accom-grid .accom-price-box strong,.accom-grid .accom-price-single strong{font-size:24px}.accom-grid .accom-price-single small{padding-left:14px}.accom-grid .accom-price-single strong{padding-right:14px}}
+.accom-grid .accom-features{margin-top:4px;margin-bottom:16px}
+.accom-grid .accom-price-grid,.accom-grid .accom-price-single{margin-bottom:auto}
+
+/* Блок стоимости: тёмный, как «featured»-карточки в «Ценах»; плашки удобств — тёплые */
+.accom-grid .accom-price-grid,.accom-grid .accom-price-single{background:var(--bg-cover);border-color:transparent;box-shadow:0 10px 24px rgba(15,38,34,.22)}
+.accom-grid .accom-price-box:nth-child(odd){background:none}
+.accom-grid .accom-price-box+.accom-price-box{border-top:1px solid rgba(255,255,255,.14)}
+.accom-grid .accom-price-box small,.accom-grid .accom-price-single small{color:var(--fg-on-cover)}
+.accom-grid .accom-price-box strong,.accom-grid .accom-price-single strong{color:var(--brass-light,var(--p-brass-light))}
+.accom-grid .accom-price-single .pavilion-extra-guest,.accom-grid .accom-price-single .accom-price-note{background:rgba(255,255,255,.07);border-top:1px solid rgba(255,255,255,.14);color:var(--fg-on-cover-soft)}
+.accom-grid .pavilion-extra-guest__price{color:var(--p-brass-light)}
+.accom-grid .accom-features span{border-color:color-mix(in srgb,var(--p-brass) 55%,transparent);background:color-mix(in srgb,var(--p-brass) 13%,transparent)}
+
+/* Карточки беседок: сплошная тёплая подложка вместо полупрозрачной (на размытом фоне она давала грязно-серый тон) */
+.accom-grid .accom-card{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none;border-color:color-mix(in srgb,var(--p-brass) 40%,var(--border))}
+.accom-grid .accom-body p{color:color-mix(in srgb,var(--fg) 78%,transparent)}
+.accom-grid .accom-features span{background:color-mix(in srgb,var(--p-brass) 12%,var(--bg))}
