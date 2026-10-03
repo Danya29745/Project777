@@ -1938,9 +1938,7 @@ a[href="#prices"].btn:hover {
 .extras .xg--gear{--xc:var(--p-river)}
 .extras .xg--catch{--xc:var(--p-rust)}
 .extras .xg--winter{--xc:#3b6a80}
-.extras .xg h4{display:flex;align-items:center;gap:10px;margin:0;padding:15px 20px;text-align:left;font:800 18px/1.2 var(--font-display);color:#fff;background:linear-gradient(135deg,var(--xc),color-mix(in srgb,var(--xc) 70%,#000))}
-.xg h4 svg{width:24px;height:24px;flex:none;fill:none;stroke:var(--p-brass-light);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.xg--catch h4 svg{fill:color-mix(in srgb,var(--p-brass-light) 25%,transparent)}
+.extras .xg h4{display:flex;align-items:center;justify-content:center;gap:10px;margin:0;padding:15px 20px;text-align:center;font:800 18px/1.2 var(--font-display);color:#fff;background:linear-gradient(135deg,var(--xc),color-mix(in srgb,var(--xc) 70%,#000))}
 .extras .xl{padding:6px 0}
 .extras .xr{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:14px;align-items:center;justify-content:stretch;padding:13px 20px;border-top:0}
 .extras .xr:nth-child(odd){background:var(--xt)}
