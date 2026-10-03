@@ -1946,3 +1946,17 @@ a[href="#prices"].btn:hover {
 .extras .xp{grid-column:2;grid-row:1;text-align:right;color:var(--xc);font-size:21px}
 .xg--catch .xp{color:var(--p-rust)}
 @media(max-width:560px){.extras{grid-template-columns:1fr;gap:14px}.extras .xr{grid-template-columns:minmax(0,1fr) auto;padding:12px 16px}.extras .xg h4{padding:13px 16px}}
+
+/* «Рыбалка»: карточки в том же стиле, что и «Дополнительно» */
+.extras .xg--day{--xc:var(--p-brass)}
+.extras .xg--night{--xc:var(--p-river-deep)}
+.extras .xg--day h4{background:linear-gradient(135deg,#a3823f,#7d6128)}
+.extras--fish{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.extras--fish .xg{display:flex;flex-direction:column}
+.extras--fish .xl{flex:1}
+.extras--fish .xp{font-size:26px}
+.extras--fish .xg--day .xp{color:#7d6128}
+.extras--fish .xr{align-items:start}
+.extras--fish .xn small+small{margin-top:5px;font-size:13px}
+.extras--fish .xn small:first-of-type{font:700 12px var(--font-mono);letter-spacing:.03em}
+@media(max-width:700px){.extras--fish{grid-template-columns:1fr}}
