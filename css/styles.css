@@ -1901,3 +1901,26 @@ a[href="#prices"].btn:hover {
 .bk-toast{top:14px;bottom:auto;transform:translate(-50%,-12px);}
 .bk-toast.is-visible{transform:translate(-50%,0);}
 @media (max-width:700px){.bk-toast{top:12px;bottom:auto;font-size:13px;padding:13px 15px;}}
+
+/* Календарь даты брони: одинаковый на ПК и телефоне */
+.bk-datefield{position:relative;}
+.bf-date-native{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+.bf-date-btn{width:100%;min-height:52px;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:space-between;gap:10px;font:800 16px var(--font-body);color:var(--fg-soft);cursor:pointer;text-align:left;box-sizing:border-box;}
+.bf-date-btn.has-value{color:var(--fg);}
+.bf-date-ico{width:20px;height:20px;flex:none;color:var(--accent,#2e7d5b);}
+.bf-cal{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:70;padding:12px;border-radius:14px;background:#fbf8ef;border:1px solid var(--border);box-shadow:0 16px 40px rgba(0,0,0,.25);}
+.bf-cal[hidden]{display:none;}
+.bf-cal__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font:900 16px var(--font-display);color:#1b2a24;}
+.bf-cal__nav{width:36px;height:36px;border:0;border-radius:10px;background:rgba(0,0,0,.06);font-size:20px;cursor:pointer;color:#1b2a24;}
+.bf-cal__nav:disabled{opacity:.3;cursor:default;}
+.bf-cal__grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;}
+.bf-cal__wd{font:800 11px var(--font-body);color:#5f6b66;padding:4px 0;}
+.bf-cal__day{height:38px;border:0;border-radius:10px;background:transparent;font:800 15px var(--font-body);color:#1b2a24;cursor:pointer;}
+.bf-cal__day.is-we{color:#a84c26;}
+.bf-cal__day:hover:not(:disabled){background:rgba(0,0,0,.06);}
+.bf-cal__day:disabled{opacity:.3;cursor:default;}
+.bf-cal__day.is-sel{background:var(--accent,#2e7d5b);color:#fff;}
+.bf-cal__legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font:600 12px var(--font-body);color:#5f6b66;}
+.bf-cal__legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle;}
+.lg-wd{background:rgba(0,0,0,.25);}
+.lg-we{background:#a84c26;}
