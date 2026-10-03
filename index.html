@@ -699,7 +699,10 @@
         </div>
       </div>
 
-      <div class="booking-card booking-card--premium">
+      <div class="bk-open-wrap" id="bkOpenWrap">
+        <button type="button" class="btn btn--green" id="bkOpen">Забронировать <svg class="icon"><use href="#i-arrow-down"></use></svg></button>
+      </div>
+      <div class="booking-card booking-card--premium" hidden>
         <form id="bookingForm" class="booking-form" novalidate>
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="bf-honey" aria-hidden="true">
 
@@ -1241,7 +1244,7 @@
   }
   bar.addEventListener('click',()=>total.scrollIntoView({behavior:'smooth',block:'center'}));
   form.addEventListener('input',upd); form.addEventListener('change',upd);
-  dateEl.addEventListener('change',()=>{updateFlow(); upd();});
+  dateEl.addEventListener('change',()=>{updateFlow(); upd(); setTimeout(()=>focusStep(step4),120);});
   /* ---------- свой календарь даты (одинаковый на ПК и телефоне) ---------- */
   const dateBtn=$('bfDateBtn'), dateText=$('bfDateText');
   const MNAMES=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
@@ -1300,8 +1303,22 @@
     if(!el || !el.hidden) return;
     el.hidden=false; el.classList.add('bk-step--reveal');
     requestAnimationFrame(()=>el.classList.add('is-open'));
-    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),60);
   }
+  /* Прокрутка к следующему шагу с пульсацией. Срабатывает при каждом выборе, а не только при первом открытии шага. */
+  function focusStep(el){
+    if(!el || el.hidden) return;
+    requestAnimationFrame(()=>{
+      el.classList.remove('bk-step--pulse'); void el.offsetWidth; el.classList.add('bk-step--pulse');
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+      clearTimeout(el._pulseT); el._pulseT=setTimeout(()=>el.classList.remove('bk-step--pulse'),3200);
+    });
+  }
+  const bookCard=document.querySelector('.booking-card--premium'), openWrap=$('bkOpenWrap');
+  function openBooking(){
+    if(bookCard.hidden){ bookCard.hidden=false; openWrap.hidden=true; }
+    requestAnimationFrame(()=>bookCard.scrollIntoView({behavior:'smooth',block:'start'}));
+  }
+  $('bkOpen').addEventListener('click',openBooking);
   function updateFlow(){
     const fishingOnly=checked('Объект').includes('Только рыбалка');
     const hasObject=!!primaryObject() || checked('Объект').includes('Банный чан');
@@ -1344,10 +1361,11 @@
 
     if(!on) tackle.querySelectorAll('input[name="Напрокат"]').forEach(i=>i.checked=false);
   }
-  form.querySelectorAll('input[name="Рыбалка"]').forEach(i=>i.addEventListener('change',()=>{syncFish(); updateFlow(); upd();}));
+  form.querySelectorAll('input[name="Рыбалка"]').forEach(i=>i.addEventListener('change',()=>{syncFish(); updateFlow(); upd(); if(i.checked) setTimeout(()=>focusStep(step3.hidden?step4:step3),120);}));
   syncFish(); syncGuestLimit(); updateFlow(); upd();
   objs().forEach(i=>i.addEventListener('change',()=>{
     step1.classList.remove('bf-invalid');
+    if(i.checked) setTimeout(()=>focusStep(step2),120);
     if(i.checked){
       if(i.value==='Только рыбалка'){
         objs().forEach(x=>{if(x!==i) x.checked=false;});
@@ -1367,6 +1385,7 @@
   /* кнопки «Забронировать» в карточках выбирают объект в форме */
   document.querySelectorAll('[data-book]').forEach(a=>a.addEventListener('click',()=>{
     const i=objs().find(x=>x.value===a.dataset.book);
+    openBooking();
     if(i){i.checked=true; step1.classList.remove('bf-invalid'); const b=i.nextElementSibling; b.classList.remove('bf-flash'); void b.offsetWidth; b.classList.add('bf-flash');}
     syncFish(); syncGuestLimit(); updateFlow(); upd();
   }));
