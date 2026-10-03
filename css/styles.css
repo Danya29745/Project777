@@ -2031,3 +2031,17 @@ a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipu
   .hero-cta-stack{display:inline-block;width:fit-content;max-width:100%;}
   .hero-cta-stack .hero-contact-link{margin:12px auto 0;text-align:center;}
 }
+
+/* Окно «Связаться с администратором»: только два телефона, одинаковые по цвету и размеру */
+#contactModal .about-modal__panel{width:min(600px,100%);}
+#contactModal h2{font-size:clamp(26px,3.6vw,38px);line-height:1.15;margin-bottom:14px;padding-right:44px;}
+#contactModal .contact-modal__buttons{grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+.contact-call{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:14px;background:#2f7a52;color:#f7f3e5;border:1.5px solid rgba(112,190,140,.55);box-shadow:0 10px 24px rgba(8,28,20,.22),inset 0 1px 0 rgba(255,255,255,.14);text-decoration:none;text-transform:none;letter-spacing:0;transition:background .2s ease,transform .2s ease,box-shadow .2s ease;}
+@media (hover:hover){.contact-call:hover{background:#38905f;transform:translateY(-2px);box-shadow:0 14px 30px rgba(8,28,20,.3);}}
+.contact-call:focus-visible{outline:3px solid rgba(155,214,174,.9);outline-offset:2px;}
+.contact-call:active{background:#38905f;}
+.contact-call .icon{width:26px;height:26px;flex:none;fill:currentColor;stroke:currentColor;}
+.contact-call span{display:flex;flex-direction:column;gap:2px;min-width:0;text-align:left;}
+.contact-call small{font:700 12px/1.2 var(--font-body);letter-spacing:.1em;text-transform:uppercase;opacity:.82;}
+.contact-call b{font:800 19px/1.2 var(--font-display);white-space:nowrap;font-variant-numeric:tabular-nums;}
+@media(max-width:640px){#contactModal .contact-modal__buttons{grid-template-columns:1fr;}.contact-call{padding:15px 16px;}.contact-call b{font-size:20px;}}
