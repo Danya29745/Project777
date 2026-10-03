@@ -1903,32 +1903,36 @@ a[href="#prices"].btn:hover {
 @media (max-width:700px){.bk-toast{top:12px;bottom:auto;font-size:13px;padding:13px 15px;}}
 
 /* Календарь даты брони: одинаковый на ПК и телефоне */
-.bk-datefield{position:relative;}
+.bk-row--date{position:relative;}
+.bk-datefield{position:static;}
+.bk-step.cal-open{position:relative;z-index:60;}
 .bf-date-native{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
 .bf-date-btn{width:100%;min-height:52px;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:space-between;gap:10px;font:800 16px var(--font-body);color:var(--fg-soft);cursor:pointer;text-align:left;box-sizing:border-box;}
 .bf-date-btn.has-value{color:var(--fg);}
 .bf-date-ico{width:20px;height:20px;flex:none;color:var(--accent,#2e7d5b);}
-.bf-cal{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:70;padding:12px;border-radius:14px;background:#fbf8ef;border:1px solid var(--border);box-shadow:0 16px 40px rgba(0,0,0,.25);}
+.bf-cal{position:absolute;top:calc(100% + 6px);left:0;right:0;max-width:420px;z-index:70;padding:14px;border-radius:14px;background:#fbf8ef;border:1px solid var(--border);box-shadow:0 16px 40px rgba(0,0,0,.25);}
 .bf-cal[hidden]{display:none;}
-.bf-cal__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font:900 16px var(--font-display);color:#1b2a24;}
-.bf-cal__nav{width:36px;height:36px;border:0;border-radius:10px;background:rgba(0,0,0,.06);font-size:20px;cursor:pointer;color:#1b2a24;}
+.bf-cal__head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;font:900 17px var(--font-display);color:#1b2a24;white-space:nowrap;}
+.bf-cal__nav{flex:none;width:42px;height:42px;border:0;border-radius:10px;background:rgba(0,0,0,.06);font-size:20px;cursor:pointer;color:#1b2a24;}
 .bf-cal__nav:disabled{opacity:.3;cursor:default;}
-.bf-cal__grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;}
+.bf-cal__grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;text-align:center;}
 .bf-cal__wd{font:800 11px var(--font-body);color:#5f6b66;padding:4px 0;}
-.bf-cal__day{height:38px;border:0;border-radius:10px;background:transparent;font:800 15px var(--font-body);color:#1b2a24;cursor:pointer;}
-.bf-cal__day.is-we{color:#a84c26;}
+.bf-cal__day{height:42px;padding:0;border:0;border-radius:10px;background:rgba(27,42,36,.07);font:800 16px var(--font-body);font-variant-numeric:tabular-nums;color:#1b2a24;cursor:pointer;}
+.bf-cal__day.is-we{color:#a84c26;background:rgba(168,76,38,.14);}
 .bf-cal__day:hover:not(:disabled){background:rgba(0,0,0,.06);}
-.bf-cal__day:disabled{opacity:.3;cursor:default;}
-.bf-cal__day.is-sel{background:var(--accent,#2e7d5b);color:#fff;}
+.bf-cal__day:disabled{opacity:.3;cursor:default;background:transparent;}
+.bf-cal__day.is-sel,.bf-cal__day.is-sel.is-we{background:var(--accent,#2e7d5b);color:#fff;}
 .bf-cal__legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font:600 12px var(--font-body);color:#5f6b66;}
 .bf-cal__legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle;}
-.lg-wd{background:rgba(0,0,0,.25);}
+.lg-wd{background:rgba(27,42,36,.25);}
 .lg-we{background:#a84c26;}
 
 /* Кнопка открытия анкеты брони и пульсация следующего шага */
-@keyframes bkStepPulse{0%,100%{box-shadow:0 0 0 0 rgba(46,125,91,0);}50%{box-shadow:0 0 0 8px rgba(46,125,91,.28);}}
-.bk-step--pulse{animation:bkStepPulse 1s ease-in-out 3;border-radius:14px;}
-.bk-step--pulse legend .bk-num{box-shadow:0 0 0 4px rgba(46,125,91,.35);}
+@keyframes bkStepPulse{0%,100%{box-shadow:0 0 0 0 rgba(46,125,91,0);background-color:rgba(46,125,91,0);}50%{box-shadow:0 0 0 3px rgba(46,125,91,.75);background-color:rgba(46,125,91,.10);}}
+@keyframes bkNumPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.22);}}
+.bk-step--pulse{animation:bkStepPulse 1.1s ease-in-out 3;border-radius:14px;padding:8px;margin:-8px;}
+.bk-step--pulse legend .bk-num{animation:bkNumPulse 1.1s ease-in-out 3;box-shadow:0 0 0 4px rgba(46,125,91,.35);}
+@media (prefers-reduced-motion:reduce){.bk-step--pulse,.bk-step--pulse legend .bk-num{animation:none;box-shadow:0 0 0 3px rgba(46,125,91,.6);}}
 
 /* ---------- «Дополнительно»: три карточки с цветными шапками ---------- */
 .extras{background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border:0;box-shadow:none;border-radius:0;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;align-items:start}
