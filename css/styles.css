@@ -605,13 +605,12 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   font-size:17px;
   font-weight:900;
 }
-.accom-features span::first-letter{color:transparent;}
-.accom-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto;padding-top:10px;margin-bottom:0;}
+.accom-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:0;padding-top:0;margin-bottom:auto;}
 .accom-price-box{padding:14px 16px;border-radius:13px;background:color-mix(in srgb,var(--p-river) 6%,transparent);border:1px solid var(--border);display:flex;flex-direction:column;gap:5px;min-width:0;}
 .accom-price-box small,.accom-price-single small{font:700 10px var(--font-body);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-soft);}
 .accom-price-box strong{font:900 clamp(24px,2.6vw,32px) var(--font-display);color:var(--accent);white-space:nowrap;line-height:1;letter-spacing:-.01em;}
 .accom-price-box strong .rub{font-family:inherit;font-size:.72em;font-weight:inherit;line-height:1;color:currentColor;margin-left:.06em;}
-.accom-price-single{padding:14px 16px;border-radius:13px;background:color-mix(in srgb,var(--p-river) 6%,transparent);border:1px solid var(--border);display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-top:auto;padding-top:14px;}
+.accom-price-single{padding:14px 16px;border-radius:13px;background:color-mix(in srgb,var(--p-river) 6%,transparent);border:1px solid var(--border);display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-top:0;margin-bottom:auto;padding-top:14px;}
 .accom-price-single strong{font:900 clamp(26px,2.8vw,36px) var(--font-display);color:var(--accent);line-height:1;letter-spacing:-.02em;white-space:nowrap;}
 .accom-price-single strong .rub{font-family:inherit;font-size:.72em;font-weight:inherit;line-height:1;color:currentColor;margin-left:.06em;}
 .accom-price-single small{flex:none;}
@@ -667,11 +666,11 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
   .accom-body{padding:14px 14px 12px;min-height:auto;display:flex;flex-direction:column;}
   .accom-body h3{font-size:clamp(18px,5vw,24px);margin-bottom:6px;}
   .accom-body p{font-size:13px;margin-bottom:10px;}
-  .accom-price-grid{gap:8px;padding-top:8px;}
+  .accom-price-grid{gap:8px;padding-top:0;}
   .accom-price-box{padding:11px 12px;border-radius:12px;gap:4px;}
   .accom-price-box small,.accom-price-single small{font-size:9px;letter-spacing:.07em;}
   .accom-price-box strong{font-size:clamp(22px,6vw,28px);}
-  .accom-price-single{padding:11px 12px;margin-top:auto;border-radius:12px;gap:5px;}
+  .accom-price-single{padding:11px 12px;margin-top:0;margin-bottom:auto;border-radius:12px;gap:5px;}
   .accom-price-single strong{font-size:clamp(24px,6vw,30px);}
   .accom-gallery-name{font-size:10px;}
   .accom-features{grid-template-columns:1fr;margin-top:4px;margin-bottom:2px;padding:7px 9px;}
@@ -776,15 +775,17 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .fish-card__front > div[style*="flex:1"]{min-height:0;}
 
 /* Keep the single-price frame aligned with the price area of the neighbouring gazebo cards. */
-.accom-price-single{width:100%;box-sizing:border-box;min-height:78px;margin-top:auto;}
+.accom-price-single{width:100%;box-sizing:border-box;min-height:78px;margin-top:0;margin-bottom:auto;}
 .accom-price-single strong{display:block;}
 .accom-price-single + .accom-gallery-name{min-height:18px;display:flex;align-items:center;}
 /* VIP: растягиваем тело карточки по высоте соседней беседки,
    чтобы цена и кнопка ушли заметно ниже, к самому низу карточки. */
-.accom-card--vip{display:flex;flex-direction:column;}
-.accom-card--vip .accom-body{flex:1;padding-bottom:10px;display:flex;flex-direction:column;}
+/* все карточки растягиваются по высоте ряда: цена сверху, кнопки прижаты к низу */
+.accom-card{display:flex;flex-direction:column;}
+.accom-card > .accom-media{flex:none;}
+.accom-card .accom-body{flex:1;display:flex;flex-direction:column;}
 @media(max-width:760px){
-  .accom-price-single{min-height:70px;padding:12px 12px;margin-top:auto;}
+  .accom-price-single{min-height:70px;padding:12px 12px;margin-top:0;margin-bottom:auto;}
   .accom-card--vip .accom-included{margin-bottom:auto;padding-left:12px;}
   .accom-card--vip .accom-body{padding:14px 14px 12px;}
 }
@@ -796,46 +797,46 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .accom-badge span{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.85;}
 @media (max-width:760px){.accom-badge{left:10px;bottom:10px;min-width:54px;padding:6px 11px 7px;}.accom-badge b{font-size:26px;}}
 
-/* Доплата за дополнительного гостя — блок для карточки беседки */
-
-/* Компактный блок доплаты за дополнительного гостя */
-.pavilion-extra-guest{
+/* Доплата за гостей сверх 15 — строка-условие внутри блока цены «Большой беседки» */
+.pavilion-extra-guest,
+.accom-price-note{
+  display:block;
   width:100%;
-  max-width:100%;
-  margin-top:12px;
-  margin-bottom:0;
-  padding:12px 14px;
-  border:1px solid var(--border);
-  border-radius:13px;
-  background:color-mix(in srgb,var(--p-river) 5%,transparent);
-  box-sizing:border-box;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  margin:0;
+  padding:0;
+  border:0;
+  background:none;
+  font:600 15px/1.45 var(--font-display);
+  color:var(--fg);
+  text-wrap:balance;
+}
+.accom-price-single .pavilion-extra-guest,
+.accom-price-single .accom-price-note{
+  margin-top:4px;
+  padding-top:10px;
+  border-top:1px dashed color-mix(in srgb,var(--p-ink) 28%,transparent);
 }
 .pavilion-extra-guest__price{
-  font-family:var(--font-display);
-  font-size:15px;
-  font-weight:800;
-  line-height:1.3;
+  font-weight:900;
   color:var(--accent);
   white-space:nowrap;
 }
-
-
-
-
-
-/* VIP: выравнивание с соседней карточкой - только на десктопе (на телефоне сдвиги наезжали на цену) */
-@media (min-width:761px){
-  .accom-card--vip .accom-price-single,
-  .accom-card--vip .accom-actions{transform:translateY(-12px);}
-  .accom-card--vip .accom-included{transform:translateY(7px);}
+.pavilion-extra-guest__price .rub-symbol{font-weight:700;}
+.mb .pavilion-extra-guest{margin-top:2px;font-size:13.5px;}
+.mb .pavilion-extra-guest__price{color:#16302a}
+.mb[data-v="3"] .pavilion-extra-guest{color:#f4eddf}
+.mb[data-v="3"] .pavilion-extra-guest__price{color:#f0cf83}
+@media (max-width:600px){
+  .pavilion-extra-guest,
+  .accom-price-note{font-size:14px;}
+  .accom-price-single .pavilion-extra-guest,
+  .accom-price-single .accom-price-note{padding-top:8px;}
 }
+
+
 @media (max-width:760px){
   .accom-card--vip .accom-included{margin-bottom:14px;}
-  .accom-card--vip .accom-price-single{margin-top:auto;}
+  .accom-card--vip .accom-price-single{margin-top:0;}
 }
 
 
@@ -1394,8 +1395,6 @@ img{
   .accom-included__title{font-size:10px;margin-bottom:8px;}
   .accom-included__list{gap:6px 14px;}
   .accom-included__list li{font-size:13px;}
-  .pavilion-extra-guest{padding:12px 13px;}
-  .pavilion-extra-guest__price{font-size:16px;}
 }
 
 
@@ -1508,39 +1507,6 @@ a[href="#prices"].btn:hover {
 .accom-included__title {
   color: #000 !important;
 }
-
-/* Keep the guest surcharge visually strong, but proportional to the site */
-.pavilion-extra-guest {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.pavilion-extra-guest__price {
-  font-family: var(--font-display, 'Bitter', Georgia, serif) !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
-}
-
-.pavilion-extra-guest__price {
-  font-size: 18px;
-  color: var(--accent, #1f7a4d);
-}
-
-
-@media (max-width: 640px) {
-  .pavilion-extra-guest {
-    gap: 6px 8px;
-  }
-
-  .pavilion-extra-guest__price {
-    font-size: 16px;
-    line-height: 1.2;
-  }
-}
-
 
 /* Final visual refinement */
 .accom-included__title {
