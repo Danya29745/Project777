@@ -1895,3 +1895,9 @@ a[href="#prices"].btn:hover {
   .stay-price-single > span{font:700 14px/1.2 var(--font-display, 'Bitter', Georgia, serif);letter-spacing:-0.015em;text-transform:none;color:var(--fg-soft) !important;}
   .stay-info-note{font-size:16px;}
 }
+
+/* Бронь: прокрутка к следующему шагу и уведомления, видимые на телефоне */
+.bk-step{scroll-margin-top:90px;}
+.bk-toast{top:14px;bottom:auto;transform:translate(-50%,-12px);}
+.bk-toast.is-visible{transform:translate(-50%,0);}
+@media (max-width:700px){.bk-toast{top:12px;bottom:auto;font-size:13px;padding:13px 15px;}}
