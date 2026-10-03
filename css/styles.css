@@ -2000,3 +2000,19 @@ a[href="#prices"].btn:hover {
 .accom-grid .accom-card{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none;border-color:color-mix(in srgb,var(--p-brass) 40%,var(--border))}
 .accom-grid .accom-body p{color:color-mix(in srgb,var(--fg) 78%,transparent)}
 .accom-grid .accom-features span{background:color-mix(in srgb,var(--p-brass) 12%,var(--bg))}
+
+/* ---------- 2026-10-03: исправления адаптива (планшет / телефон / ПК) ---------- */
+/* iOS/Android: не раздувать текст при повороте экрана */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+/* убирает задержку тапа и случайный зум по двойному тапу на кнопках и ссылках */
+a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipulation;}
+
+/* Шапка на 681–900px: раньше блок с телефонами вылезал за правый край (страница скроллилась вбок).
+   Теперь логотип и телефоны — в первой строке, меню — во второй, на всю ширину. */
+@media (min-width:681px) and (max-width:900px){
+  header{flex-wrap:wrap;gap:0 16px;padding:8px 0 0;}
+  .brand{order:1;flex:1 1 auto;min-width:0;}
+  .contacts{order:2;flex:none;}
+  nav#nav-menu{order:3;flex:1 0 100%;width:100%;justify-content:space-between;gap:12px;margin-top:4px;border-top:1px solid var(--border-cover);}
+  nav#nav-menu a{padding:11px 0;}
+}
