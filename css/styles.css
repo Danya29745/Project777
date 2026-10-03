@@ -1924,3 +1924,11 @@ a[href="#prices"].btn:hover {
 .bf-cal__legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle;}
 .lg-wd{background:rgba(0,0,0,.25);}
 .lg-we{background:#a84c26;}
+
+/* Кнопка открытия анкеты брони и пульсация следующего шага */
+.bk-open-wrap{display:flex;justify-content:center;margin:8px 0 4px;}
+.bk-open-wrap[hidden]{display:none;}
+.booking-card--premium[hidden]{display:none;}
+@keyframes bkStepPulse{0%,100%{box-shadow:0 0 0 0 rgba(46,125,91,0);}50%{box-shadow:0 0 0 8px rgba(46,125,91,.28);}}
+.bk-step--pulse{animation:bkStepPulse 1s ease-in-out 3;border-radius:14px;}
+.bk-step--pulse legend .bk-num{box-shadow:0 0 0 4px rgba(46,125,91,.35);}
