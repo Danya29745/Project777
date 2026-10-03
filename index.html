@@ -1086,6 +1086,7 @@
   const dateEl=$('bfDate'), guests=$('bfGuests'), nameEl=$('bfName'), phoneEl=$('bfPhone');
   const status=$('bfStatus'), btn=$('bfSubmit'), success=$('bfSuccess'), tackle=$('bkTackle'), step1=$('bkStep1'), guestsField=$('bkGuestsField'), fishLegend=$('bkFishLegend');
   const step2=$('bkStep2'), step3=$('bkStep3'), step4=$('bkStep4'), toast=$('bkToast');
+  if(toast && toast.parentElement!==document.body) document.body.appendChild(toast);
   const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
   const objs=()=>[...form.querySelectorAll('input[name="Объект"]')];
   const checked=n=>[...form.querySelectorAll('input[name="'+n+'"]:checked')].map(i=>i.value);
@@ -1246,6 +1247,7 @@
     if(!el || !el.hidden) return;
     el.hidden=false; el.classList.add('bk-step--reveal');
     requestAnimationFrame(()=>el.classList.add('is-open'));
+    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),60);
   }
   function updateFlow(){
     const fishingOnly=checked('Объект').includes('Только рыбалка');
