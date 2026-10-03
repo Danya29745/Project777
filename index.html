@@ -699,10 +699,7 @@
         </div>
       </div>
 
-      <div class="bk-open-wrap" id="bkOpenWrap">
-        <button type="button" class="btn btn--green" id="bkOpen">Забронировать <svg class="icon"><use href="#i-arrow-down"></use></svg></button>
-      </div>
-      <div class="booking-card booking-card--premium" hidden>
+      <div class="booking-card booking-card--premium">
         <form id="bookingForm" class="booking-form" novalidate>
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="bf-honey" aria-hidden="true">
 
@@ -1313,12 +1310,7 @@
       clearTimeout(el._pulseT); el._pulseT=setTimeout(()=>el.classList.remove('bk-step--pulse'),3200);
     });
   }
-  const bookCard=document.querySelector('.booking-card--premium'), openWrap=$('bkOpenWrap');
-  function openBooking(){
-    if(bookCard.hidden){ bookCard.hidden=false; openWrap.hidden=true; }
-    requestAnimationFrame(()=>bookCard.scrollIntoView({behavior:'smooth',block:'start'}));
-  }
-  $('bkOpen').addEventListener('click',openBooking);
+
   function updateFlow(){
     const fishingOnly=checked('Объект').includes('Только рыбалка');
     const hasObject=!!primaryObject() || checked('Объект').includes('Банный чан');
@@ -1385,7 +1377,6 @@
   /* кнопки «Забронировать» в карточках выбирают объект в форме */
   document.querySelectorAll('[data-book]').forEach(a=>a.addEventListener('click',()=>{
     const i=objs().find(x=>x.value===a.dataset.book);
-    openBooking();
     if(i){i.checked=true; step1.classList.remove('bf-invalid'); const b=i.nextElementSibling; b.classList.remove('bf-flash'); void b.offsetWidth; b.classList.add('bf-flash');}
     syncFish(); syncGuestLimit(); updateFlow(); upd();
   }));
