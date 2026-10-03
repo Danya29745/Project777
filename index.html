@@ -736,7 +736,7 @@
             <fieldset class="bk-step bk-step--locked" id="bkStep3" hidden>
               <legend><span class="bk-num">3</span><span><strong>Когда приезжаете?</strong><small>Стоимость автоматически учитывает будни и выходные</small></span></legend>
               <div class="bk-row bk-row--date">
-                <div class="bf-field"><label for="bfDate">Дата приезда</label><input id="bfDate" name="Дата" type="date" required></div>
+                <div class="bf-field bk-datefield"><label for="bfDateBtn">Дата приезда</label><button type="button" id="bfDateBtn" class="bf-date-btn" aria-haspopup="dialog" aria-expanded="false"><span id="bfDateText">Выберите дату</span><svg class="bf-date-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></button><input id="bfDate" name="Дата" type="date" tabindex="-1" aria-hidden="true" class="bf-date-native"></div>
                 <div class="bf-field" id="bkGuestsField"><label for="bfGuests">Всего гостей</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfGuests" aria-label="Меньше">−</button><input id="bfGuests" name="Гостей" type="number" inputmode="numeric" min="1" max="30" value="2" aria-label="Сколько всего человек"><button type="button" data-step="1" data-for="bfGuests" aria-label="Больше">+</button></div></div>
               </div>
               <div class="bk-nights" id="bkNights" hidden><div class="bf-field"><label for="bfNights">Ночей в гостинице</label><div class="bf-stepper"><button type="button" data-step="-1" data-for="bfNights" aria-label="Меньше">−</button><input id="bfNights" type="number" inputmode="numeric" min="1" max="14" value="1" aria-label="Сколько ночей"><button type="button" data-step="1" data-for="bfNights" aria-label="Больше">+</button></div></div></div>
@@ -1242,6 +1242,59 @@
   bar.addEventListener('click',()=>total.scrollIntoView({behavior:'smooth',block:'center'}));
   form.addEventListener('input',upd); form.addEventListener('change',upd);
   dateEl.addEventListener('change',()=>{updateFlow(); upd();});
+  /* ---------- свой календарь даты (одинаковый на ПК и телефоне) ---------- */
+  const dateBtn=$('bfDateBtn'), dateText=$('bfDateText');
+  const MNAMES=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  const MGEN=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  const WD=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+  const todayStart=new Date(); todayStart.setHours(0,0,0,0);
+  const curMonth=new Date(todayStart.getFullYear(),todayStart.getMonth(),1);
+  let view=curMonth;
+  const calPanel=document.createElement('div');
+  calPanel.className='bf-cal'; calPanel.hidden=true;
+  calPanel.setAttribute('role','dialog'); calPanel.setAttribute('aria-label','Выбор даты приезда');
+  dateBtn.closest('.bf-field').appendChild(calPanel);
+  const isoOf=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  function setDateText(){
+    if(dateEl.value){ const a=dateEl.value.split('-'); dateText.textContent=(+a[2])+' '+MGEN[+a[1]-1]+' '+a[0]; }
+    else dateText.textContent='Выберите дату';
+    dateBtn.classList.toggle('has-value',!!dateEl.value);
+  }
+  function renderCal(){
+    const y=view.getFullYear(), m=view.getMonth();
+    const first=(new Date(y,m,1).getDay()+6)%7, days=new Date(y,m+1,0).getDate();
+    const prevOff=view<=curMonth;
+    let h='<div class="bf-cal__head"><button type="button" class="bf-cal__nav" data-nav="-1" aria-label="Предыдущий месяц"'+(prevOff?' disabled':'')+'>‹</button>'
+      +'<b>'+MNAMES[m]+' '+y+'</b><button type="button" class="bf-cal__nav" data-nav="1" aria-label="Следующий месяц">›</button></div>';
+    h+='<div class="bf-cal__grid">'+WD.map(w=>'<span class="bf-cal__wd">'+w+'</span>').join('');
+    for(let i=0;i<first;i++) h+='<span></span>';
+    for(let d=1; d<=days; d++){
+      const dt=new Date(y,m,d), iso=isoOf(dt);
+      const cls=['bf-cal__day']; if(isWe(dt)) cls.push('is-we'); if(iso===dateEl.value) cls.push('is-sel');
+      h+='<button type="button" class="'+cls.join(' ')+'" data-iso="'+iso+'"'+(dt<todayStart?' disabled':'')+'>'+d+'</button>';
+    }
+    h+='</div><div class="bf-cal__legend"><span><i class="lg-wd"></i>будни</span><span><i class="lg-we"></i>выходные и праздники, дороже</span></div>';
+    calPanel.innerHTML=h;
+  }
+  function openCal(open){
+    if(open){ view=dateEl.value?pd(dateEl.value):curMonth; view=new Date(view.getFullYear(),view.getMonth(),1); renderCal(); }
+    calPanel.hidden=!open; dateBtn.setAttribute('aria-expanded',String(open));
+  }
+  dateBtn.addEventListener('click',()=>openCal(calPanel.hidden));
+  calPanel.addEventListener('click',e=>{
+    const nav=e.target.closest('[data-nav]'), day=e.target.closest('[data-iso]');
+    if(nav){ view=new Date(view.getFullYear(),view.getMonth()+(+nav.dataset.nav),1); renderCal(); return; }
+    if(day){
+      dateEl.value=day.dataset.iso; setDateText(); openCal(false);
+      dateEl.dispatchEvent(new Event('change',{bubbles:true}));
+      dateEl.dispatchEvent(new Event('input',{bubbles:true}));
+    }
+  });
+  document.addEventListener('click',e=>{ if(!calPanel.hidden && !e.target.closest('.bk-datefield')) openCal(false); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') openCal(false); });
+  form.addEventListener('reset',()=>setTimeout(setDateText,0));
+  setDateText();
+
 
   function revealStep(el){
     if(!el || !el.hidden) return;
