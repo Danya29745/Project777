@@ -252,7 +252,7 @@
 .accom-price strong,.stay-price strong,.stay-price-single strong,.map-object-price{font-family:var(--font-display);font-weight:900;}
 .rub{font-family:inherit !important;font-weight:inherit;line-height:1;}
 </style>
-  <link rel="stylesheet" href="css/styles.css?v=20261010">
+  <link rel="stylesheet" href="css/styles.css?v=20261011">
   <link rel="stylesheet" href="css/seo-pages.css?v=20261010">
 <style id="unified-hero-cta-v7">
 .hero-actions .btn--green,
@@ -1293,6 +1293,7 @@
   function openCal(open){
     if(open){ view=dateEl.value?pd(dateEl.value):curMonth; view=new Date(view.getFullYear(),view.getMonth(),1); renderCal(); }
     calPanel.hidden=!open; dateBtn.setAttribute('aria-expanded',String(open));
+    const st=dateBtn.closest('.bk-step'); if(st) st.classList.toggle('cal-open',open);
   }
   dateBtn.addEventListener('click',()=>openCal(calPanel.hidden));
   calPanel.addEventListener('click',e=>{
@@ -1315,13 +1316,35 @@
     el.hidden=false; el.classList.add('bk-step--reveal');
     requestAnimationFrame(()=>el.classList.add('is-open'));
   }
-  /* Прокрутка к следующему шагу с пульсацией. Срабатывает при каждом выборе, а не только при первом открытии шага. */
+  /* Прокрутка к следующему шагу: останавливается точно на нём (под шапкой), после остановки шаг пульсирует. */
+  let focusToken=0;
+  ['wheel','touchstart'].forEach(ev=>window.addEventListener(ev,()=>{focusToken++;},{passive:true}));
   function focusStep(el){
     if(!el || el.hidden) return;
-    requestAnimationFrame(()=>{
+    const token=++focusToken;
+    const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const topFor=()=>{
+      const hdr=(document.querySelector('header')||{}).offsetHeight||62;
+      let ty=0; try{ ty=new DOMMatrix(getComputedStyle(el).transform).m42||0; }catch(_){}
+      return Math.max(0, Math.round(el.getBoundingClientRect().top - ty + window.scrollY - hdr - 12));
+    };
+    const pulse=()=>{
+      if(token!==focusToken) return;
       el.classList.remove('bk-step--pulse'); void el.offsetWidth; el.classList.add('bk-step--pulse');
-      el.scrollIntoView({behavior:'smooth',block:'start'});
-      clearTimeout(el._pulseT); el._pulseT=setTimeout(()=>el.classList.remove('bk-step--pulse'),3200);
+      clearTimeout(el._pulseT); el._pulseT=setTimeout(()=>el.classList.remove('bk-step--pulse'),3400);
+    };
+    requestAnimationFrame(()=>{
+      window.scrollTo({top:topFor(),behavior:reduce?'auto':'smooth'});
+      let last=-1,still=0,n=0;
+      (function tick(){
+        if(token!==focusToken) return;
+        const y=window.scrollY; still=(y===last)?still+1:0; last=y; n++;
+        if(still>=5||n>120){
+          const want=topFor();
+          if(Math.abs(want-window.scrollY)>2){ window.scrollTo({top:want,behavior:'auto'}); }
+          pulse();
+        }else requestAnimationFrame(tick);
+      })();
     });
   }
 
@@ -1543,6 +1566,24 @@
       showImage(currentIndex);
     });
   });
+})();
+</script>
+
+<script>
+/* Фото грузятся заранее: скрытые слайды с loading="lazy" иначе не грузятся, пока их не покажут */
+(function(){
+  const lazy=[...document.querySelectorAll('img[loading="lazy"]')];
+  if(!lazy.length) return;
+  const groups=new Map();
+  lazy.forEach(img=>{
+    const host=img.closest('.accom-mini-gallery, .stay-carousel')||img;
+    if(!groups.has(host)) groups.set(host,[]);
+    groups.get(host).push(img);
+  });
+  const load=host=>{ (groups.get(host)||[]).forEach(img=>{ img.loading='eager'; }); groups.delete(host); };
+  if(!('IntersectionObserver' in window)){ groups.forEach((_,h)=>load(h)); return; }
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ io.unobserve(e.target); load(e.target); } }),{rootMargin:'1600px 0px'});
+  groups.forEach((_,host)=>io.observe(host));
 })();
 </script>
 
