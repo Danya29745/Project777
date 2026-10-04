@@ -1,0 +1,164 @@
+/* Project777 — editorial anti-slop refinement v2
+   Deliberately visible, while preserving the existing brand, copy and assets. */
+
+/* Sections: remove the repeated frosted slab behind every section. */
+.section::before,
+.section::after {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.section::before {
+  background: transparent !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+.section { margin-top: 0 !important; }
+.section--alt {
+  border-top: 1px solid color-mix(in srgb,var(--brass) 18%,var(--border));
+  border-bottom: 1px solid color-mix(in srgb,var(--brass) 12%,transparent);
+}
+.section-lead { max-width: 690px; }
+
+/* Price block: editorial columns instead of one giant rounded container. */
+.extras {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 0;
+  margin-top: 28px;
+}
+.xg {
+  padding: 24px 28px 20px !important;
+  border-top: 2px solid color-mix(in srgb,var(--brass) 45%,var(--border));
+  border-bottom: 1px solid var(--border);
+}
+.xg + .xg { border-left: 1px solid var(--border) !important; }
+.xg h4 { text-align:left !important; border:0 !important; padding:0 !important; margin-bottom:16px !important; }
+.xg .xr { border-top: 1px solid color-mix(in srgb,var(--border) 72%,transparent); }
+.xg .xr:first-of-type { border-top:0; }
+
+/* Accommodation: cards remain, but the media/body hierarchy is stronger. */
+.accom-grid { align-items: start; gap: 26px; }
+.accom-card {
+  border: 0 !important;
+  border-top: 3px solid color-mix(in srgb,var(--brass) 62%,transparent) !important;
+  border-radius: 0 !important;
+  background: color-mix(in srgb,var(--p-river) 3%,transparent) !important;
+  box-shadow: none !important;
+}
+.accom-card:hover { transform: translateY(-3px); box-shadow: none !important; }
+.accom-card:nth-child(2n) { border-top-color: color-mix(in srgb,var(--accent) 55%,transparent) !important; }
+.accom-card:nth-child(3n) { border-top-color: color-mix(in srgb,var(--brand) 45%,transparent) !important; }
+.accom-card--wide {
+  border: 1px solid color-mix(in srgb,var(--brass) 38%,var(--border)) !important;
+  border-top-width: 4px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 18px 45px rgba(6,12,8,.12) !important;
+}
+.accom-body { padding: 25px 26px 23px !important; }
+.accom-badge { border-radius: 5px !important; }
+.accom-features {
+  background: transparent !important;
+  border: 0 !important;
+  border-left: 2px solid color-mix(in srgb,var(--brass) 58%,transparent) !important;
+  border-radius: 0 !important;
+  padding: 3px 12px !important;
+}
+.accom-price-box,
+.accom-price-single {
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  padding: 15px 2px 7px !important;
+}
+.accom-price-box strong,
+.accom-price-single strong { font-size: clamp(28px,2.8vw,36px); }
+
+/* Stay showcase: make image/info blocks read like an editorial spread. */
+.stay-block { gap: 0 !important; margin-top: 42px !important; }
+.stay-media { border-radius: 0 !important; box-shadow: none !important; }
+.stay-info {
+  border-radius: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 3px solid color-mix(in srgb,var(--brass) 48%,transparent) !important;
+  box-shadow: none !important;
+  background: color-mix(in srgb,var(--bg-alt) 48%,transparent) !important;
+  padding: clamp(24px,4vw,48px) !important;
+}
+.stay-block--reverse .stay-info { border-top-color: color-mix(in srgb,var(--accent) 45%,transparent) !important; }
+
+/* Fish: four equal tiles become cleaner specimens with less UI chrome. */
+.fish-grid { gap: 22px; }
+.fish-card { border-radius: 0 !important; }
+.fish-card__inner { height: 290px; }
+.fish-card__face { border-radius: 0 !important; box-shadow: none !important; }
+.fish-card__back { border: 1px solid color-mix(in srgb,var(--brass) 28%,var(--border)); }
+
+/* Rules: field-guide list instead of dashboard cards. */
+.rules-grid { gap: 0 !important; border-top: 1px solid var(--border); }
+.rule-card {
+  display:grid;
+  grid-template-columns: 64px 1fr;
+  column-gap: 18px;
+  border:0 !important;
+  border-bottom:1px solid var(--border) !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  padding:22px 8px !important;
+}
+.rule-card:hover { transform:none !important; }
+.rule-ico { border-radius: 10px !important; box-shadow:none !important; }
+
+/* Booking: reduce nested boxes and emphasize the step number. */
+.booking-section .booking-form,
+.booking-section .booking-panel {
+  border-radius: 14px !important;
+  box-shadow: 0 16px 40px rgba(6,12,8,.10) !important;
+}
+.bk-step { border-radius:0 !important; border-top:1px solid var(--border); padding-top:22px !important; }
+.bk-step:first-child { border-top:0; padding-top:0 !important; }
+.bk-chip, .bk-pill { border-radius:5px !important; }
+.bf-chips span { border-radius:6px !important; }
+
+/* Buttons: sharper, quieter, more bespoke. */
+.btn { border-radius: 6px !important; box-shadow:none; }
+.btn:hover { transform: translateY(-2px); }
+
+/* Map: remove another container around the map. */
+.territory-map-wrap { margin-top:54px !important; }
+.map-pin { border-radius: 9px !important; }
+.map-label { border-radius:4px !important; }
+
+/* Contact section: information gets hierarchy, not another card wall. */
+.contact-main { border-top: 3px solid color-mix(in srgb,var(--brass) 45%,transparent); }
+
+@media (max-width:760px) {
+  .section { padding-top: 54px !important; padding-bottom: 58px !important; }
+  .extras { display:block; margin-top:20px; }
+  .xg { padding:20px 2px 16px !important; }
+  .xg + .xg { border-left:0 !important; }
+  .accom-grid { gap:18px; }
+  .accom-card { border-top-width:2px !important; }
+  .accom-card--wide { border-radius:12px !important; }
+  .stay-block, .stay-block--reverse { display:flex !important; flex-direction:column !important; }
+  .stay-block--reverse .stay-media, .stay-block--reverse .stay-info { order:initial !important; }
+  .stay-media { min-height:260px; }
+  .stay-info { padding:24px 18px !important; }
+  .fish-grid { gap:14px; }
+  .fish-card__inner { height:250px; }
+  .rule-card { grid-template-columns:52px 1fr; padding:18px 2px !important; }
+  .rule-ico { width:46px; height:46px; }
+  .booking-section .booking-form,
+  .booking-section .booking-panel { border-radius:10px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accom-card, .btn { transition:none !important; }
+}

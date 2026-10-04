@@ -1263,7 +1263,7 @@ img{
 .booking-card--premium .bk-opt__meta{font:700 12px/1.3 var(--font-body);color:var(--green-dark)}
 .booking-card--premium .bk-opt__more{font:600 11px/1.3 var(--font-body);color:var(--fg-soft);padding-top:2px}
 .booking-card--premium .bk-opt input:checked+.bk-opt__box{border-color:var(--green);background:color-mix(in srgb,var(--green) 8%,#fff);box-shadow:0 8px 22px rgba(47,125,84,.13)}
-.booking-card--premium .bk-pills{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.booking-card--premium .bk-pills{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .booking-card--premium .bk-pill>span{min-height:62px;padding:9px 8px;border:1.5px solid rgba(58,73,55,.18);border-radius:14px;background:rgba(255,255,255,.74)}
 .booking-card--premium .bk-pill b{font-size:13px}
 .booking-card--premium .bk-pill em{font-size:11px}
@@ -2045,3 +2045,33 @@ a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipu
 .contact-call small{font:700 12px/1.2 var(--font-body);letter-spacing:.1em;text-transform:uppercase;opacity:.82;}
 .contact-call b{font:800 19px/1.2 var(--font-display);white-space:nowrap;font-variant-numeric:tabular-nums;}
 @media(max-width:640px){#contactModal .contact-modal__buttons{grid-template-columns:1fr;}.contact-call{padding:15px 16px;}.contact-call b{font-size:20px;}}
+
+
+/* ---------- «Рыбалка»: тарифы-путёвки ---------- */
+.tf-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+.tf{--tc:#7d6128;--tg:linear-gradient(135deg,#a3823f,#7d6128);display:flex;flex-direction:column;border:1px solid color-mix(in srgb,var(--tc) 32%,var(--border));border-radius:16px;overflow:hidden;background:color-mix(in srgb,var(--bg) 88%,transparent);box-shadow:var(--shadow-rest)}
+.tf--people{--tc:var(--p-river-deep);--tg:linear-gradient(135deg,var(--p-river-mid),var(--p-river-deep))}
+.tf-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:15px 22px;background:var(--tg);color:#fff}
+.tf-head h4{margin:0;font:800 19px/1.2 var(--font-display)}
+.tf-time{font:700 13px var(--font-mono);letter-spacing:.03em;white-space:nowrap;opacity:.92}
+.tf-price{min-height:104px;box-sizing:border-box;padding:20px 22px 18px;border-bottom:2px dashed color-mix(in srgb,var(--tc) 35%,var(--border))}
+.tf-price b{display:block;font:900 40px/1 var(--font-display);letter-spacing:-.015em;color:var(--tc);white-space:nowrap}
+.tf-price b .rub-symbol{font:700 .6em/1 var(--font-body);margin-left:.08em}
+.tf-price small{display:block;margin-top:7px;font-size:13px;font-weight:600;color:var(--fg-soft)}
+.tf-terms{flex:1;list-style:none;margin:0;padding:16px 22px 20px}
+.tf-terms li{position:relative;padding-left:16px;font-size:15px;font-weight:600;line-height:1.4;color:var(--fg)}
+.tf-terms li+li{margin-top:10px}
+.tf-terms li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:2px;background:var(--tc)}
+@media(max-width:900px){.tf-row{grid-template-columns:1fr;gap:14px}.tf-head{padding:13px 16px}.tf-price,.tf-terms{padding-left:16px;padding-right:16px}}
+
+.tf--half{--tc:#44602f;--tg:linear-gradient(135deg,#6b8a4c,#44602f)}
+.tf-note{margin:16px 2px 34px;font-size:15px;line-height:1.5;color:var(--fg-soft)}
+.tf-note b{color:var(--fg)}
+.extras .xg--bait{--xc:var(--p-brass)}
+.extras .xg--bait h4{background:linear-gradient(135deg,#a3823f,#7d6128)}
+.extras .xg--bait .xp{color:#7d6128}
+
+.footer-faq{padding-top:18px;text-align:center}
+.footer-faq .hero-contact-link{margin:0 auto;font-size:13px}
+
+.booking-summary__status.is-prepay{background:color-mix(in srgb,var(--p-brass) 20%,transparent);color:#6b5120}
