@@ -2075,3 +2075,19 @@ a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipu
 .footer-faq .hero-contact-link{margin:0 auto;font-size:13px}
 
 .booking-summary__status.is-prepay{background:color-mix(in srgb,var(--p-brass) 20%,transparent);color:#6b5120}
+
+/* ---------- Пошаговая бронь: кнопки «Назад» / «Далее» ---------- */
+.bk-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;padding-top:16px;border-top:1px solid rgba(58,73,55,.14);}
+.bk-nav__btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 20px;border-radius:12px;border:1.5px solid var(--green);background:transparent;color:var(--green-dark);font:800 14px/1 var(--font-body);cursor:pointer;transition:.18s ease;}
+.bk-nav__btn:hover{background:rgba(47,125,84,.08);}
+.bk-nav__next{background:var(--green);color:#fff;border-color:var(--green-dark);box-shadow:0 8px 18px rgba(47,125,84,.18);}
+.bk-nav__next:hover{background:var(--green-dark);}
+.bk-nav__btn:focus-visible{outline:3px solid rgba(47,125,84,.45);outline-offset:2px;}
+.bk-nav__btn[hidden]{display:none!important;}
+.bk-nav__count{font:700 12px var(--font-body);color:var(--fg-soft);white-space:nowrap;}
+.booking-submit[hidden]{display:none!important;}
+@media (max-width:480px){
+  .bk-nav{gap:8px;}
+  .bk-nav__btn{min-height:44px;padding:10px 14px;font-size:13px;}
+  .bk-nav__count{font-size:11px;}
+}
