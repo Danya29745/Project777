@@ -367,6 +367,7 @@
         <a class="btn btn--about" href="#price">Посмотреть цены</a>
       </div>
       <button class="hero-contact-link" type="button" id="contactOpen">Есть вопросы? Связаться с администратором</button>
+      <button class="hero-contact-link" type="button" id="faqOpenHero">Часто задаваемые вопросы</button>
     </div>
   </div>
 </section>
@@ -1084,6 +1085,8 @@
 (function(){
   const modal=document.getElementById('faqModal');
   const open=document.getElementById('faqOpen');
+  const openHero=document.getElementById('faqOpenHero');
+  if(openHero)openHero.addEventListener('click',()=>{modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';close.focus();});
   const close=document.getElementById('faqClose');
   if(!modal||!open||!close)return;
   function show(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';close.focus();}
