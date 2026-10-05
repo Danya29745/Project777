@@ -6,8 +6,11 @@
   var root = document.getElementById('catchRoot');
   if (!root) return;
 
-  var grid = root.querySelector('.catch-grid');
+  var track = root.querySelector('.catch-track');
   var empty = root.querySelector('.catch-empty');
+  var counter = root.querySelector('.catch-counter');
+  var prevBtn = root.querySelector('.catch-nav--prev');
+  var nextBtn = root.querySelector('.catch-nav--next');
   var tabs = root.querySelectorAll('[data-range]');
   var items = [];
   var range = 'today';
@@ -25,11 +28,16 @@
     var t = mskToday();
     if (r === 'today') return date === t;
     if (r === 'yesterday') return date === addDays(t, -1);
-    return date >= addDays(t, -6) && date <= t; // последние 7 дней
+    return date >= addDays(t, -6) && date <= t;
   }
 
   function shortDate(iso) {
     return iso.split('-').reverse().slice(0, 2).join('.');
+  }
+
+  // Подпись администратора: первая буква заглавная, остальное как написано.
+  function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
   }
 
   function updateCounts() {
@@ -40,9 +48,35 @@
     });
   }
 
+  function currentList() {
+    return items.filter(function (it) { return inRange(it.date, range); });
+  }
+
+  function updateNav() {
+    var list = currentList();
+    counter.textContent = '';
+    if (!list.length) {
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+    var max = track.scrollWidth - track.clientWidth;
+    var atStart = track.scrollLeft <= 4;
+    var atEnd = track.scrollLeft >= max - 4;
+    prevBtn.disabled = atStart;
+    nextBtn.disabled = atEnd || max <= 0;
+
+    var cards = track.children;
+    var index = 0;
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].offsetLeft - track.offsetLeft <= track.scrollLeft + 4) index = i;
+    }
+    counter.textContent = (index + 1) + ' / ' + list.length;
+  }
+
   function render() {
-    grid.textContent = '';
-    var list = items.filter(function (it) { return inRange(it.date, range); });
+    track.textContent = '';
+    var list = currentList();
     empty.hidden = list.length > 0;
     updateCounts();
 
@@ -57,7 +91,7 @@
 
       var img = document.createElement('img');
       img.src = API + '/media/' + it.thumb;
-      img.alt = it.caption || 'Фото улова';
+      img.alt = it.caption ? capitalize(it.caption) : 'Фото улова';
       img.loading = 'lazy';
       img.decoding = 'async';
       img.width = 640;
@@ -65,25 +99,35 @@
       a.appendChild(img);
       fig.appendChild(a);
 
-      var cap = document.createElement('figcaption');
-      if (it.caption) {
-        var text = document.createElement('span');
-        text.className = 'catch-text';
-        text.textContent = it.caption;
-        cap.appendChild(text);
-        var meta = document.createElement('span');
-        meta.className = 'catch-meta';
-        meta.textContent = (range === 'week' ? shortDate(it.date) + ', ' : '') + 'отправлено в ' + it.time;
-        cap.appendChild(meta);
-      } else {
-        var only = document.createElement('span');
-        only.className = 'catch-text';
-        only.textContent = (range === 'week' ? shortDate(it.date) + ', ' : '') + 'отправлено в ' + it.time;
-        cap.appendChild(only);
+      if (it.caption || range === 'week') {
+        var cap = document.createElement('figcaption');
+        if (it.caption) {
+          var text = document.createElement('span');
+          text.className = 'catch-text';
+          text.textContent = capitalize(it.caption);
+          cap.appendChild(text);
+        }
+        if (range === 'week') {
+          var meta = document.createElement('span');
+          meta.className = 'catch-meta';
+          meta.textContent = shortDate(it.date);
+          cap.appendChild(meta);
+        }
+        fig.appendChild(cap);
       }
-      fig.appendChild(cap);
-      grid.appendChild(fig);
+
+      track.appendChild(fig);
     });
+
+    track.scrollLeft = 0;
+    updateNav();
+  }
+
+  function step(dir) {
+    var card = track.children[0];
+    if (!card) return;
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    track.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: 'smooth' });
   }
 
   function load() {
@@ -112,6 +156,15 @@
       render();
     });
   });
+
+  prevBtn.addEventListener('click', function () { step(-1); });
+  nextBtn.addEventListener('click', function () { step(1); });
+  track.addEventListener('scroll', updateNav, { passive: true });
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+  });
+  window.addEventListener('resize', updateNav);
 
   load();
   setInterval(load, 60000);
