@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  // Адрес бота на bothost, без / на конце. Замените на свой домен.
   var API = 'https://rybalka-catch.bothost.tech';
 
   var root = document.getElementById('catchRoot');
@@ -22,10 +21,10 @@
     return new Date(Date.UTC(p[0], p[1] - 1, p[2] + n)).toISOString().slice(0, 10);
   }
 
-  function inRange(date) {
+  function inRange(date, r) {
     var t = mskToday();
-    if (range === 'today') return date === t;
-    if (range === 'yesterday') return date === addDays(t, -1);
+    if (r === 'today') return date === t;
+    if (r === 'yesterday') return date === addDays(t, -1);
     return date >= addDays(t, -6) && date <= t; // последние 7 дней
   }
 
@@ -33,10 +32,19 @@
     return iso.split('-').reverse().slice(0, 2).join('.');
   }
 
+  function updateCounts() {
+    tabs.forEach(function (tab) {
+      var r = tab.getAttribute('data-range');
+      var n = items.filter(function (it) { return inRange(it.date, r); }).length;
+      tab.querySelector('.catch-count').textContent = n ? String(n) : '';
+    });
+  }
+
   function render() {
     grid.textContent = '';
-    var list = items.filter(function (it) { return inRange(it.date); });
+    var list = items.filter(function (it) { return inRange(it.date, range); });
     empty.hidden = list.length > 0;
+    updateCounts();
 
     list.forEach(function (it) {
       var fig = document.createElement('figure');
@@ -58,12 +66,14 @@
       fig.appendChild(a);
 
       var cap = document.createElement('figcaption');
-      var when = document.createElement('time');
-      when.textContent = range === 'week' ? shortDate(it.date) + ' · ' + it.time : it.time;
+      var when = document.createElement('span');
+      when.className = 'catch-when';
+      when.textContent = (range === 'week' ? shortDate(it.date) + ' · ' : '') + it.time;
       cap.appendChild(when);
       if (it.caption) {
         var text = document.createElement('span');
-        text.textContent = ' — ' + it.caption;
+        text.className = 'catch-text';
+        text.textContent = it.caption;
         cap.appendChild(text);
       }
       fig.appendChild(cap);
@@ -99,5 +109,5 @@
   });
 
   load();
-  setInterval(load, 60000); // обновлять ленту раз в минуту, без перезагрузки страницы
+  setInterval(load, 60000);
 })();
