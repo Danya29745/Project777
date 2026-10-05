@@ -2,7 +2,7 @@
   'use strict';
 
   // Адрес бота на bothost, без / на конце. Замените на свой домен.
-  var API = 'https://ВАШ-ДОМЕН-БОТА';
+  var API = 'https://rybalka-catch.bothost.tech';
 
   var root = document.getElementById('catchRoot');
   if (!root) return;
