@@ -66,15 +66,20 @@
       fig.appendChild(a);
 
       var cap = document.createElement('figcaption');
-      var when = document.createElement('span');
-      when.className = 'catch-when';
-      when.textContent = (range === 'week' ? shortDate(it.date) + ' · ' : '') + it.time;
-      cap.appendChild(when);
       if (it.caption) {
         var text = document.createElement('span');
         text.className = 'catch-text';
         text.textContent = it.caption;
         cap.appendChild(text);
+        var meta = document.createElement('span');
+        meta.className = 'catch-meta';
+        meta.textContent = (range === 'week' ? shortDate(it.date) + ', ' : '') + 'отправлено в ' + it.time;
+        cap.appendChild(meta);
+      } else {
+        var only = document.createElement('span');
+        only.className = 'catch-text';
+        only.textContent = (range === 'week' ? shortDate(it.date) + ', ' : '') + 'отправлено в ' + it.time;
+        cap.appendChild(only);
       }
       fig.appendChild(cap);
       grid.appendChild(fig);
