@@ -310,6 +310,7 @@
   }
 })();
 </script>
+  <link rel="stylesheet" href="css/catch.css">
 </head>
 <body id="top" style="">
 <div class="page-bg" aria-hidden="true"></div>
@@ -350,7 +351,7 @@
     <span class="brand-name">Рыбалка у Иваныча<small>Платная рыбалка в Подмосковье</small></span>
   </a>
   <nav id="nav-menu" aria-label="Основная навигация">
-    <a href="#price">Цены</a><a href="#hotel">Беседки и отдых</a><a href="#tips">Что ловится</a><a href="#rules">Правила</a><a href="#contacts">Контакты</a>
+    <a href="#price">Цены</a><a href="#hotel">Беседки и отдых</a><a href="#tips">Что ловится</a><a href="#catch">Улов</a><a href="#contacts">Контакты</a>
   </nav>
   <div class="contacts"><a href="tel:+79269267887">+7 926 926-78-87</a><br><a href="tel:+79269119407">+7 926 911-94-07</a><br><span class="online">Ежедневно 07:00–18:00</span></div>
   <button class="nav-toggle" id="nav-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
@@ -705,18 +706,19 @@
     </div>
   </div></section>
   <div class="seam seam--alt" aria-hidden="true"></div>
-  <section class="section section--alt" id="rules"><div class="shell">
-    <h2 class="">Коротко о том, что<br>важно знать до выезда</h2>
-    <p class="section-lead">Четыре правила - не для галочки, а чтобы клёв и отдых у всех гостей был одинаково хорош.</p>
-    <div class="rules-grid">
-      <article class="rule-card"><span class="rule-ico"><svg aria-hidden="true"><use href="#r-bait"></use></svg></span><div><h3>Прикормка</h3><p>Только в кормушке, не вразброс.</p></div></article>
-      <article class="rule-card"><span class="rule-ico"><svg aria-hidden="true"><use href="#r-hook"></use></svg></span><div><h3>Не больше трёх крючков</h3><p>На одной снасти.</p></div></article>
-      <article class="rule-card"><span class="rule-ico"><svg aria-hidden="true"><use href="#r-place"></use></svg></span><div><h3>Не занимайте чужие места</h3><p>Напротив чужих беседок ловить нельзя.</p></div></article>
-      <article class="rule-card"><span class="rule-ico"><svg aria-hidden="true"><use href="#r-net"></use></svg></span><div><h3>Подсачник обязателен</h3><p>Ловля без него запрещена. Рыбу отпускаем только при администраторе.</p></div></article>
-      <div class="rule-perk"><span class="rule-ico rule-ico--perk"><svg aria-hidden="true"><use href="#r-fam"></use></svg></span><div><h3>Женщина и ребёнок до 10 лет</h3><p>Рыбачат на снасти рыбака, отдельная оплата не нужна.</p></div><span class="rule-perk__tag">Бесплатно</span></div>
+  <section class="section section--alt" id="catch">
+    <div class="shell" id="catchRoot">
+      <h2>Улов</h2>
+      <p class="section-lead">Фото с рыбалки. Администратор публикует их прямо с места.</p>
+      <div class="catch-tabs" role="tablist">
+        <button type="button" class="catch-tab is-active" data-range="today" role="tab" aria-selected="true">Сегодня</button>
+        <button type="button" class="catch-tab" data-range="yesterday" role="tab" aria-selected="false">Вчера</button>
+        <button type="button" class="catch-tab" data-range="week" role="tab" aria-selected="false">За неделю</button>
+      </div>
+      <div class="catch-grid"></div>
+      <p class="catch-empty" hidden>За этот период пока нет фото.</p>
     </div>
-    <p class="rules-note">Полный свод правил - на стенде администратора при въезде.</p>
-  </div></section>
+  </section>
   <div class="seam seam--bg" aria-hidden="true"></div>
   <section class="section section--alt booking-section" id="booking">
     <div class="shell">
@@ -1710,6 +1712,7 @@
 
 
 
+  <script src="js/catch.js" defer></script>
 </body></html>
 
 
