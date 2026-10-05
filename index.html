@@ -1032,17 +1032,36 @@
   function closeNav(){ if(!navMenu.classList.contains('open')) return; navMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); navToggle.setAttribute('aria-label','Открыть меню'); }
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeNav(); });
   document.addEventListener('click',e=>{ if(!e.target.closest('#nav-menu')&&!e.target.closest('#nav-toggle')) closeNav(); });
+  /* Плавный переход к якорю с добором позиции: пока идёт прокрутка, ленивые картинки и блоки выше
+     меняют высоту страницы, и раздел оказывается не там. После остановки подправляем точно. */
+  function goTo(target){
+    const margin=()=>parseFloat(getComputedStyle(target).scrollMarginTop)||0;
+    target.scrollIntoView({behavior:'smooth',block:'start'});
+    const t0=performance.now(); let last=-1, still=0, fixes=0;
+    const settle=()=>{
+      if(performance.now()-t0>5000) return;
+      const y=window.scrollY;
+      still=Math.abs(y-last)<1?still+1:0; last=y;
+      if(still>=8){
+        const delta=target.getBoundingClientRect().top-margin();
+        if(Math.abs(delta)<=3||++fixes>3) return;
+        window.scrollTo({top:y+delta,behavior:'instant'});
+        still=0;
+      }
+      requestAnimationFrame(settle);
+    };
+    requestAnimationFrame(settle);
+  }
   navMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
-    const wasOpen=navMenu.classList.contains('open');
     const href=a.getAttribute('href')||'';
     const target=href.length>1&&href.charAt(0)==='#'?document.querySelector(href):null;
     /* close the menu right away (no collapse animation), then scroll */
     navMenu.style.transition='none';
     navMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); navToggle.setAttribute('aria-label','Открыть меню');
     void navMenu.offsetHeight; navMenu.style.transition='';
-    if(wasOpen&&target){
+    if(target){
       e.preventDefault();
-      requestAnimationFrame(()=>{ target.scrollIntoView({behavior:'smooth',block:'start'}); try{history.replaceState(null,'',href);}catch(_){} });
+      requestAnimationFrame(()=>{ goTo(target); try{history.replaceState(null,'',href);}catch(_){} });
     }
   }));
 
