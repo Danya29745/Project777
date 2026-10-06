@@ -299,21 +299,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .lb-prev{left:16px;} .lb-next{right:16px;}
 @media (max-width:680px){.lb-nav{width:42px;height:42px;font-size:20px;}.lb-prev{left:8px;}.lb-next{right:8px;}}
 
-/* ---------- reveal on scroll (progressive enhancement) ---------- */
-.reveal{opacity:0;transform:translateY(22px);}
-.reveal.reveal-ready{transition:opacity .6s ease,transform .6s ease;}
-.reveal.in-view{opacity:1;transform:none;}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;} html{scroll-behavior:auto;} *,*::before,*::after{transition:none!important;}}
-
-/* ---------- mobile section reveal: lighter, without touching map interactions ---------- */
-@media (max-width:680px){
-  /* Only ordinary section shells get the lighter mobile entrance.
-     The shell containing the territory map keeps its existing timing so
-     map scrolling, markers, highlights and map controls remain untouched. */
-  .section > .shell.reveal.reveal-ready:not(:has(.territory-map-wrap)){
-    transition:opacity .34s ease,transform .34s ease;
-  }
-}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *,*::before,*::after{transition:none!important;}}
 
 /* ---------- responsive ---------- */
 @media (max-width:960px){
