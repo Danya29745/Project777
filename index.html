@@ -1154,39 +1154,6 @@ window.scrollOffsetFor=function(key,fallback){
       goTo(target); try{history.replaceState(null,'',href);}catch(_){}
     });
   });
-
-  /* Lightweight scroll reveal: reveal each section as one block, not element-by-element. */
-  document.addEventListener('DOMContentLoaded',()=>{
-    const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const sections=[...document.querySelectorAll('.section > .shell')];
-
-    /* Old per-element reveal classes are kept in the markup for compatibility,
-       but the animation itself belongs to the whole section now. */
-    sections.forEach(shell=>{
-      shell.querySelectorAll('.reveal').forEach(el=>{
-        el.classList.remove('reveal','reveal-ready','in-view');
-      });
-    });
-
-    if(reduceMotion || !('IntersectionObserver' in window)){
-      sections.forEach(shell=>shell.classList.add('in-view'));
-      return;
-    }
-
-    const io=new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('reveal','reveal-ready','in-view');
-          io.unobserve(entry.target);
-        }
-      });
-    },{rootMargin:'0px 0px -10% 0px',threshold:0.01});
-
-    sections.forEach(shell=>{
-      shell.classList.add('reveal','reveal-ready');
-      io.observe(shell);
-    });
-  });
 </script>
 
 
