@@ -1018,7 +1018,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .bf-flash{animation:bfFlash 1.2s ease;}
 @keyframes bfFlash{0%,100%{box-shadow:none}30%{box-shadow:0 0 0 4px rgba(47,125,84,.45);border-color:var(--green)}}
 .bf-success{text-align:center;padding:18px 6px;}
-.bf-success[hidden],.booking-form[hidden]{display:none;}
+.bf-success[hidden],.booking-form[hidden]{display:none!important;}
 .bf-success__icon{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;background:var(--green);color:#fff;font-size:34px;line-height:64px;}
 .bf-success h3{margin:0 0 8px;font-family:var(--font-display);font-size:26px;}
 .bf-success p{margin:0 0 18px;color:var(--fg-soft);}
@@ -2092,3 +2092,10 @@ a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipu
 /* «Что входит» в карточках беседок: одна строка через « + », без плашек */
 .accom-grid .accom-features .accom-features__line{flex:0 0 100%;padding:0;border:0;border-radius:0;background:none;font:800 15px/1.45 var(--font-display);color:var(--fg)}
 @media(max-width:760px){.accom-grid .accom-features .accom-features__line{font-size:14px;padding:0}}
+
+/* номер заявки в окне успеха */
+.bf-id{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px;margin:14px 0 4px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--p-river) 6%,transparent);border:1px dashed var(--border);}
+.bf-id span{font:700 11px var(--font-body);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-soft);width:100%;text-align:center;}
+.bf-id strong{font:900 clamp(22px,5vw,28px) var(--font-display);color:var(--accent);letter-spacing:.04em;user-select:all;}
+.bf-id button{border:1px solid var(--border);background:transparent;color:var(--fg);border-radius:9px;padding:7px 12px;font:700 12px var(--font-body);cursor:pointer;}
+.bf-id-note{font-size:13px;color:var(--fg-soft);margin:6px 0 14px;}
