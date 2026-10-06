@@ -1,0 +1,42 @@
+/* Бывшие inline-стили из <head> index.html: подключаются ПОСЛЕ styles.css и seo-pages.css (порядок каскада сохранён) */
+.hero-actions .btn--green,
+.hero-actions .btn--about {
+  font-family: var(--font-display) !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.1 !important;
+  text-transform: uppercase !important;
+}
+@media (max-width: 600px) {
+  .hero-actions .btn--green,
+  .hero-actions .btn--about { font-size: 16px !important; }
+}
+@media (max-width: 380px) {
+  .hero-actions .btn--green,
+  .hero-actions .btn--about { font-size: 15px !important; }
+}
+
+.accom-actions .btn--green,
+.accom-actions .btn--map {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+.accom-actions .btn--green::before,
+.accom-actions .btn--green::after,
+.accom-actions .btn--map::before,
+.accom-actions .btn--map::after {
+  content: none !important;
+  display: none !important;
+}
+.accom-actions .btn--green svg,
+.accom-actions .btn--map svg,
+.accom-actions .btn--green .icon,
+.accom-actions .btn--map .icon,
+.accom-actions .btn--green .arrow,
+.accom-actions .btn--map .arrow {
+  display: none !important;
+}
