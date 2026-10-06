@@ -1938,3 +1938,10 @@ a[href="#prices"].btn:hover {
 .seo-links-grid span{font-size:14px;font-weight:600;line-height:1.5;color:var(--fg-soft)}
 @media(max-width:900px){.seo-links-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.seo-links-grid{grid-template-columns:1fr;gap:10px;margin-top:22px}.seo-links-grid a{padding:16px 18px}}
+
+/* номер заявки в окне успеха */
+.bf-id{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px;margin:14px 0 4px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--p-river) 6%,transparent);border:1px dashed var(--border);}
+.bf-id span{font:700 11px var(--font-body);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-soft);width:100%;text-align:center;}
+.bf-id strong{font:900 clamp(22px,5vw,28px) var(--font-display);color:var(--accent);letter-spacing:.04em;user-select:all;}
+.bf-id button{border:1px solid var(--border);background:transparent;color:var(--fg);border-radius:9px;padding:7px 12px;font:700 12px var(--font-body);cursor:pointer;}
+.bf-id-note{font-size:13px;color:var(--fg-soft);margin:6px 0 14px;}

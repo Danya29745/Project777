@@ -369,6 +369,7 @@
       </div>
       <button class="hero-contact-link" type="button" id="contactOpen">Есть вопросы? Связаться с администратором</button>
       <button class="hero-contact-link" type="button" id="faqOpenHero">Часто задаваемые вопросы</button>
+      <button class="hero-contact-link" type="button" id="rulesOpenHero">Правила</button>
     </div>
   </div>
 </section>
@@ -416,7 +417,6 @@
 <div class="about-modal" id="contactModal" aria-hidden="true">
   <div class="about-modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
     <button class="about-modal__close" type="button" id="contactClose" aria-label="Закрыть">×</button>
-    <span class="about-modal__eyebrow">Связь с администрацией</span>
     <h2 id="contactTitle">Связаться с администратором</h2>
     <div class="about-modal__text contact-modal__actions">
       <p>Позвоните нам, мы на связи ежедневно с 07:00 до 18:00:</p>
@@ -431,11 +431,59 @@
 <div class="about-modal" id="faqModal" aria-hidden="true">
   <div class="about-modal__panel" role="dialog" aria-modal="true" aria-labelledby="faqTitle">
     <button class="about-modal__close" type="button" id="faqClose" aria-label="Закрыть">×</button>
-    <span class="about-modal__eyebrow">Ответы на вопросы</span>
     <h2 id="faqTitle">Часто задаваемые вопросы</h2>
     <div class="about-modal__text">
       <!-- Сюда добавлять вопросы: <p><strong>Вопрос?</strong><br>Ответ.</p> -->
       <p>Ответы появятся здесь совсем скоро. А пока позвоните администратору: <a href="tel:+79269267887">+7 926 926-78-87</a>, ежедневно с 07:00 до 18:00.</p>
+    </div>
+  </div>
+</div>
+
+<div class="about-modal" id="rulesModal" aria-hidden="true">
+  <div class="about-modal__panel" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+    <button class="about-modal__close" type="button" id="rulesClose" aria-label="Закрыть">×</button>
+    <h2 id="rulesTitle">Правила</h2>
+    <div class="about-modal__text">
+      <h3>Рыбалка</h3>
+      <ul>
+        <li>Прикормка используется только в кормушке, не вразброс.</li>
+        <li>Не более трёх крючков на одной снасти.</li>
+        <li>Подсачник обязателен, ловля без него запрещена. Можно свой или из проката.</li>
+        <li>В путёвку входит ловля на две снасти. Дополнительная снасть 500&nbsp;₽, не более 3 шт.</li>
+        <li>Напротив чужих беседок ловить нельзя, не занимайте чужие места.</li>
+        <li>Рыбу отпускают только при администраторе.</li>
+        <li>Улов, который вы берёте с собой, оплачивается отдельно, по весу.</li>
+        <li>Женщина и ребёнок до 10 лет могут рыбачить на снасти рыбака без отдельной оплаты.</li>
+        <li>Приезжать можно со своими снастями и инвентарём. Если чего-то нет, можно взять напрокат.</li>
+      </ul>
+      <h3>Время рыбалки</h3>
+      <ul>
+        <li>Полдня: 12:00–18:00. День: 07:00–18:00.</li>
+        <li>Народный день: по понедельникам, 07:00–18:00, без запуска форели.</li>
+        <li>Форель запускаем в 09:00, кроме понедельника. На каждую путёвку 4&nbsp;кг.</li>
+      </ul>
+      <h3>Беседки</h3>
+      <ul>
+        <li>Можно приезжать со своими дровами, мясом и продуктами.</li>
+        <li>Стандартная беседка рассчитана на 6 человек, средняя и VIP на 10, большая на 15.</li>
+        <li>В большой беседке с 16-го гостя доплата 500&nbsp;₽ за каждого.</li>
+      </ul>
+      <h3>Гостиница</h3>
+      <ul>
+        <li>Заезд в 14:00, выезд в 12:00.</li>
+        <li>Двухместное размещение, стоимость указана за сутки.</li>
+      </ul>
+      <h3>Банный чан</h3>
+      <ul>
+        <li>Аренда на 3 часа, продление 1&nbsp;000&nbsp;₽ за каждый час.</li>
+      </ul>
+      <h3>Бронь и оплата</h3>
+      <ul>
+        <li>Предоплата не нужна: мы проверяем наличие и перезваниваем для подтверждения.</li>
+        <li>Оплата картой и наличными.</li>
+        <li>Парковка бесплатная.</li>
+        <li>Администратор на связи ежедневно с 07:00 до 18:00: <a href="tel:+79269267887">+7 926 926-78-87</a>.</li>
+      </ul>
     </div>
   </div>
 </div>
@@ -506,7 +554,8 @@
           <h3>Стандартная беседка</h3>
           <p>Шесть отдельных беседок по территории пруда. Подходят для спокойного отдыха у воды небольшой компанией.</p>
           <div class="accom-features" aria-label="Удобства">
-            <span>Беседка</span><span>Мангальная зона</span>
+            <span>Беседка</span>
+            <span>мангальная зона</span>
           </div>
           <div class="accom-price-grid">
             <div class="accom-price-box"><small>Будни</small><strong>3 000 <span class="rub"><span class="rub-symbol">₽</span></span></strong></div>
@@ -528,7 +577,9 @@
           <h3>Средняя беседка</h3>
           <p>Закрытый домик и отдельная беседка рядом с водой. Для компании до 10 человек.</p>
           <div class="accom-features" aria-label="Удобства">
-            <span>Беседка</span><span>Домик</span><span>Мангальная зона</span>
+            <span>Домик</span>
+            <span>беседка</span>
+            <span>мангал</span>
           </div>
           <div class="accom-price-grid">
             <div class="accom-price-box"><small>Будни</small><strong>6 000 <span class="rub"><span class="rub-symbol">₽</span></span></strong></div>
@@ -549,7 +600,11 @@
           <h3>Большая беседка</h3>
           <p>Домик и просторная беседка для большой компании.</p>
           <div class="accom-features" aria-label="Удобства">
-            <span>Беседка</span><span>Домик</span><span>Мангальная зона</span><span>Микроволновая печь</span><span>Раковина</span>
+            <span>Беседка</span>
+            <span>домик</span>
+            <span>мангальная зона</span>
+            <span>микроволновая печь</span>
+            <span>раковина</span>
           </div>
           <div class="accom-price-single">
             <small>Любой день</small>
@@ -573,7 +628,16 @@
           <h3>VIP-беседка</h3>
           <p>Отдельный формат для компании до 10 человек.</p>
           <div class="accom-features" aria-label="Удобства">
-            <span>VIP-беседка</span><span>Домик</span><span>Камин</span><span>Телевизор</span><span>Раковина</span><span>Гриль-решётка</span><span>Мешок углей</span><span>Розжиг</span><span>Микроволновка</span><span>Дрова для камина</span>
+            <span>VIP-беседка</span>
+            <span>домик</span>
+            <span>камин</span>
+            <span>телевизор</span>
+            <span>раковина</span>
+            <span>гриль-решётка</span>
+            <span>мешок углей</span>
+            <span>розжиг</span>
+            <span>микроволновка</span>
+            <span>дрова для камина</span>
           </div>
           <div class="accom-price-single">
             <small>Любой день</small>
@@ -746,11 +810,11 @@
               <legend><span class="bk-num">1</span><span><strong>Выберите, где будете отдыхать</strong></span></legend>
               <div class="bk-opts">
                 <label class="bk-opt bk-opt--fishing-only"><input type="checkbox" name="Объект" value="Только рыбалка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Только рыбалка</b><strong>от 2 500 <span class="rub-symbol">₽</span></strong></span><em>Без аренды беседки</em><span class="bk-opt__meta">Мини-беседка 1 × 1 м бесплатно</span><span class="bk-opt__more">Можно занять свободное место у пруда</span></span></label>
-                <label class="bk-opt"><input type="checkbox" name="Объект" value="Стандартная беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Стандартная беседка</b><strong>от 3 000 <span class="rub-symbol">₽</span></strong></span><em>До 6 человек</em><span class="bk-opt__meta">Беседка + мангал + у воды</span><span class="bk-opt__more">Будни 3 000 <span class="rub-symbol">₽</span> · выходные 4 000 <span class="rub-symbol">₽</span></span></span></label>
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="Стандартная беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Стандартная беседка</b><strong>от 3 000 <span class="rub-symbol">₽</span></strong></span><em>До 6 человек</em><span class="bk-opt__meta">Беседка + мангальная зона</span><span class="bk-opt__more">Будни 3 000 <span class="rub-symbol">₽</span> · выходные 4 000 <span class="rub-symbol">₽</span></span></span></label>
                 <label class="bk-opt"><input type="checkbox" name="Объект" value="Банный чан"><span class="bk-opt__box"><span class="bk-opt__top"><b>Банный чан</b><strong>6 000 <span class="rub-symbol">₽</span></strong></span><em>3 часа · на дровах</em><span class="bk-opt__meta">Тёплая вода + травы + хвоя + цитрус</span><span class="bk-opt__more">Продление 1 000 <span class="rub-symbol">₽</span>/час</span></span></label>
                 <label class="bk-opt"><input type="checkbox" name="Объект" value="Средняя беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Средняя беседка</b><strong>от 6 000 <span class="rub-symbol">₽</span></strong></span><em>До 10 человек</em><span class="bk-opt__meta">Домик + беседка + мангал</span><span class="bk-opt__more">Будни 6 000 <span class="rub-symbol">₽</span> · выходные 8 000 <span class="rub-symbol">₽</span></span></span></label>
-                <label class="bk-opt"><input type="checkbox" name="Объект" value="Гостиница"><span class="bk-opt__box"><span class="bk-opt__top"><b>Гостиница</b><strong>от 6 000 <span class="rub-symbol">₽</span></strong></span><em>2 места · за сутки</em><span class="bk-opt__meta">Кухня + спальня + мангал</span><span class="bk-opt__more">Заезд 14:00 · выезд 12:00</span></span></label>
-                <label class="bk-opt"><input type="checkbox" name="Объект" value="Большая беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Большая беседка</b><strong>8 000 <span class="rub-symbol">₽</span></strong></span><em>До 15 человек</em><span class="bk-opt__meta">Домик + мангал + кухня</span><span class="bk-opt__more">До 15 гостей · с 16-го +500 <span class="rub-symbol">₽</span> за каждого</span></span></label>
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="Гостиница"><span class="bk-opt__box"><span class="bk-opt__top"><b>Гостиница</b><strong>от 6 000 <span class="rub-symbol">₽</span></strong></span><em>2 места · за сутки</em><span class="bk-opt__meta">Кухня + спальня + санузел + мангальная зона</span><span class="bk-opt__more">Заезд 14:00 · выезд 12:00</span></span></label>
+                <label class="bk-opt"><input type="checkbox" name="Объект" value="Большая беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>Большая беседка</b><strong>8 000 <span class="rub-symbol">₽</span></strong></span><em>До 15 человек</em><span class="bk-opt__meta">Домик + мангальная зона + кухня</span><span class="bk-opt__more">До 15 гостей · с 16-го +500 <span class="rub-symbol">₽</span> за каждого</span></span></label>
                 <label class="bk-opt"><input type="checkbox" name="Объект" value="VIP-беседка"><span class="bk-opt__box"><span class="bk-opt__top"><b>VIP-беседка</b><strong>15 000 <span class="rub-symbol">₽</span></strong></span><em>До 10 человек</em><span class="bk-opt__meta">Камин + телевизор + раковина</span><span class="bk-opt__more">Стоимость не зависит от дня недели</span></span></label>
               </div>
             <div class="bk-nav"><button type="button" class="bk-nav__btn bk-nav__back" data-back>← Назад</button><span class="bk-nav__count"></span><button type="button" class="bk-nav__btn bk-nav__next" data-next>Далее →</button></div>
@@ -818,6 +882,8 @@
           <div class="bf-success__icon" aria-hidden="true">✓</div>
           <h3>Заявка отправлена</h3>
           <p>Мы получили ваши данные. Свяжемся с вами в ближайшее время и подтвердим наличие.</p>
+          <div class="bf-id"><span>Номер вашей заявки</span><strong id="bfId"></strong><button type="button" id="bfIdCopy">Скопировать</button></div>
+          <p class="bf-id-note">Сохраните номер и назовите его при звонке или в сообщении.</p>
           <button type="button" class="btn btn--map" id="bfAgain">Отправить ещё одну</button>
         </div>
       </div>
@@ -867,8 +933,18 @@
   </a>
   <div class="footer-links"><span>GPS: 55.865551, 38.050037</span><a href="prices/">Цены</a><a href="fishing/">Рыбалка</a><a href="gazebos/">Беседки и отдых</a><a href="hotel/">Гостиница и чан</a><a href="rules/">Правила</a><a href="contacts/">Контакты</a><button type="button" class="footer-about-link" id="aboutOpen">О нас</button><a href="#privacyModal" id="privacyOpen">Политика конфиденциальности</a></div>
 </div>
-<div class="shell footer-faq"><button class="hero-contact-link" type="button" id="faqOpen">Часто задаваемые вопросы</button></div></footer>
+</footer>
 
+<script>
+/* SCROLL_CFG: отступ секции от верха окна после прокрутки, px. Отдельно для ПК и телефона (<=680px).
+   Нет значения - работает прежнее поведение (высота шапки + 14). */
+window.SCROLL_CFG={"pc":{"price":32,"hotel":35,"tips":35,"catch":54,"contacts":300,"booking":34,"territory-map":93,"bkstep2":265,"bkstep3":263,"bkstep4":261},"mobile":{"price":30,"hotel":32,"tips":24,"catch":32,"contacts":49,"booking":40,"territory-map":78}};
+window.scrollOffsetFor=function(key,fallback){
+  var d=window.matchMedia('(max-width:680px)').matches?'mobile':'pc';
+  var v=(window.SCROLL_CFG[d]||{})[key];
+  return typeof v==='number'?v:fallback;
+};
+</script>
 <script>
   /* keep scroll-stop position accurate under the sticky header (fixes mobile links landing past the heading) */
   const topBar=document.querySelector('.top');
@@ -1034,12 +1110,15 @@
   document.addEventListener('click',e=>{ if(!e.target.closest('#nav-menu')&&!e.target.closest('#nav-toggle')) closeNav(); });
   /* Плавный переход к якорю с добором позиции: пока идёт прокрутка, ленивые картинки и блоки выше
      меняют высоту страницы, и раздел оказывается не там. После остановки подправляем точно. */
+  let navToken=0;
+  ['wheel','touchstart'].forEach(ev=>window.addEventListener(ev,()=>{navToken++;},{passive:true}));
   function goTo(target){
-    const margin=()=>parseFloat(getComputedStyle(target).scrollMarginTop)||0;
-    target.scrollIntoView({behavior:'smooth',block:'start'});
+    const token=++navToken;
+    const margin=()=>scrollOffsetFor(target.id,parseFloat(getComputedStyle(target).scrollMarginTop)||0);
+    window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top+window.scrollY-margin()),behavior:'smooth'});
     const t0=performance.now(); let last=-1, still=0, fixes=0;
     const settle=()=>{
-      if(performance.now()-t0>5000) return;
+      if(token!==navToken||performance.now()-t0>5000) return;
       const y=window.scrollY;
       still=Math.abs(y-last)<1?still+1:0; last=y;
       if(still>=8){
@@ -1064,6 +1143,17 @@
       requestAnimationFrame(()=>{ goTo(target); try{history.replaceState(null,'',href);}catch(_){} });
     }
   }));
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    if(navMenu.contains(a)) return;
+    const href=a.getAttribute('href')||'';
+    if(href.length<2||href==='#booking') return;
+    const target=document.querySelector(href);
+    if(!target||!target.matches('section, body')) return;
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      goTo(target); try{history.replaceState(null,'',href);}catch(_){}
+    });
+  });
 
   /* Lightweight scroll reveal: reveal each section as one block, not element-by-element. */
   document.addEventListener('DOMContentLoaded',()=>{
@@ -1117,10 +1207,21 @@
 <script>
 (function(){
   const modal=document.getElementById('faqModal');
-  const open=document.getElementById('faqOpen');
-  const openHero=document.getElementById('faqOpenHero');
-  if(openHero)openHero.addEventListener('click',()=>{modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';close.focus();});
+  const open=document.getElementById('faqOpenHero');
   const close=document.getElementById('faqClose');
+  if(!modal||!open||!close)return;
+  function show(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';close.focus();}
+  function hide(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';open.focus();}
+  open.addEventListener('click',show); close.addEventListener('click',hide);
+  modal.addEventListener('click',e=>{if(e.target===modal)hide();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('is-open'))hide();});
+})();
+</script>
+<script>
+(function(){
+  const modal=document.getElementById('rulesModal');
+  const open=document.getElementById('rulesOpenHero');
+  const close=document.getElementById('rulesClose');
   if(!modal||!open||!close)return;
   function show(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';close.focus();}
   function hide(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';open.focus();}
@@ -1210,7 +1311,7 @@
     'Только рыбалка':30
   };
   const PRIMARY=['Стандартная беседка','Средняя беседка','Большая беседка','VIP-беседка','Гостиница','Только рыбалка'];
-  function primaryObject(){return checked('Объект').find(x=>PRIMARY.includes(x))||null;}
+  function primaryObject(){return checked('Объект').filter(x=>PRIMARY.includes(x)).sort((a,b)=>CAP[b]-CAP[a])[0]||null;}
   function guestLimit(){const o=primaryObject(); return o?CAP[o]:30;}
   function guestName(n){return n===1?'гость':(n<5?'гостя':'гостей');}
   let toastTimer;
@@ -1414,6 +1515,13 @@
     showBar();
   }
   function scrollToCard(){
+    /* Прокрутка к шагу формы: у каждого шага своя настройка (bkstep1..4), по умолчанию - верх карточки под шапкой */
+    const st=stepEls[cur-1], v=scrollOffsetFor('bkstep'+cur,null);
+    if(v!==null && st){
+      glide(()=>{ let ty=0; try{ ty=new DOMMatrix(getComputedStyle(st).transform).m42||0; }catch(_){}
+        return Math.max(0,Math.round(st.getBoundingClientRect().top-ty+window.scrollY-v)); },()=>{});
+      return;
+    }
     if(!bookCard) return;
     glide(()=>Math.max(0,Math.round(bookCard.getBoundingClientRect().top+window.scrollY-hdrH()-14)),()=>{});
   }
@@ -1475,7 +1583,7 @@
   document.querySelectorAll('a[href="#booking"]').forEach(a=>a.addEventListener('click',e=>{
     if(!bookSec) return;
     e.preventDefault();
-    glide(()=>Math.max(0,Math.round(bookSec.getBoundingClientRect().top+window.scrollY-hdrH()-14)),()=>{ if(bookCard) pulseEl(bookCard); });
+    glide(()=>Math.max(0,Math.round(bookSec.getBoundingClientRect().top+window.scrollY-scrollOffsetFor('booking',hdrH()+14))),()=>{ if(bookCard) pulseEl(bookCard); });
   }));
 
   function updateFlow(){
@@ -1516,9 +1624,8 @@
     if(i.checked){
       if(i.value==='Только рыбалка'){
         objs().forEach(x=>{if(x!==i) x.checked=false;});
-      }else if(PRIMARY.includes(i.value)){
-        /* Один основной формат за раз. Банный чан можно добавить отдельно. */
-        objs().forEach(x=>{if(x!==i && PRIMARY.includes(x.value)) x.checked=false;});
+      }else{
+        /* Можно выбрать несколько вариантов; «Только рыбалка» несовместима с остальными. */
         const only=objs().find(x=>x.value==='Только рыбалка');
         if(only) only.checked=false;
       }
@@ -1527,15 +1634,14 @@
     syncGuestLimit();
     updateFlow();
     upd();
-    if(i.checked && cur===1 && hasObjectNow()) setTimeout(()=>gotoStep(2),120);
   }));
 
   /* кнопки «Забронировать» в карточках выбирают объект в форме */
   document.querySelectorAll('[data-book]').forEach(a=>a.addEventListener('click',()=>{
     const i=objs().find(x=>x.value===a.dataset.book);
-    if(i){i.checked=true; step1.classList.remove('bf-invalid'); const b=i.nextElementSibling; b.classList.remove('bf-flash'); void b.offsetWidth; b.classList.add('bf-flash');}
+    if(i){i.checked=true; const only=objs().find(x=>x.value==='Только рыбалка'); if(only) only.checked=false; step1.classList.remove('bf-invalid'); const b=i.nextElementSibling; b.classList.remove('bf-flash'); void b.offsetWidth; b.classList.add('bf-flash');}
     syncFish(); syncGuestLimit(); updateFlow(); upd();
-    if(i){ cur=2; renderStep(true); }
+    cur=1; renderStep(true); /* остаёмся на шаге 1: клиент сам добавляет варианты и жмёт «Далее» */
   }));
 
   /* «Посмотреть на карте»: прокрутка к схеме, затем подсветка (стандартные беседки - все 6 сразу, один пульс) */
@@ -1549,7 +1655,7 @@
   document.querySelectorAll('[data-map]').forEach(a=>a.addEventListener('click',e=>{
     const map=document.getElementById('territoryMap'); if(!map) return;
     e.preventDefault();
-    (document.getElementById('territory-map')||map).scrollIntoView({behavior:'smooth',block:'start'});
+    {const tm=document.getElementById('territory-map')||map; window.scrollTo({top:Math.max(0,tm.getBoundingClientRect().top+window.scrollY-scrollOffsetFor('territory-map',parseFloat(getComputedStyle(tm).scrollMarginTop)||0)),behavior:'smooth'});}
     const key=a.dataset.map;
     afterScroll(()=>{
       if(key==='standard'){
@@ -1581,33 +1687,69 @@
     return null;
   }
 
+  /* Номер заявки: Б-4827 (4 цифры). Он же в теме письма: в почте ищется по «Б-4827» или по слову «Заявка». */
+  function makeReqId(){
+    const u=new Uint32Array(1);
+    if(window.crypto&&crypto.getRandomValues) crypto.getRandomValues(u); else u[0]=Math.random()*4294967296;
+    return 'Б-'+(1000+u[0]%9000);
+  }
+  /* Защита от спама (на стороне браузера): слишком быстрая отправка = бот, пауза между заявками, лимит в час. */
+  const formOpenedAt=Date.now();
+  function spamCheck(){
+    if(Date.now()-formOpenedAt<8000) return 'bot';
+    const now=Date.now(); let log=[];
+    try{ log=JSON.parse(localStorage.getItem('bf_sent')||'[]').filter(t=>now-t<3600000); }catch(_){}
+    if(log.length&&now-log[log.length-1]<60000) return 'Заявка уже отправлена. Подождите минуту или позвоните нам.';
+    if(log.length>=3) return 'Слишком много заявок за час. Позвоните нам: +7 926 926-78-87';
+    return '';
+  }
+  function markSent(){
+    const now=Date.now(); let log=[];
+    try{ log=JSON.parse(localStorage.getItem('bf_sent')||'[]').filter(t=>now-t<3600000); log.push(now); localStorage.setItem('bf_sent',JSON.stringify(log)); }catch(_){}
+  }
+  $('bfIdCopy').addEventListener('click',()=>{
+    const t=$('bfId').textContent, b=$('bfIdCopy');
+    const ok=()=>{b.textContent='Скопировано'; setTimeout(()=>b.textContent='Скопировать',1800);};
+    if(navigator.clipboard) navigator.clipboard.writeText(t).then(ok,()=>{}); else ok();
+  });
   form.addEventListener('submit',async e=>{
     e.preventDefault(); status.textContent=''; status.className='bf-status';
     const err=validate();
     if(err){status.textContent=err.msg; status.classList.add('is-error'); err.el.scrollIntoView({behavior:'smooth',block:'center'}); if(err.el.focus&&err.el!==step1) err.el.focus({preventScroll:true}); return;}
     if(form.elements['_honey'].value) return;
+    const spam=spamCheck();
+    if(spam==='bot'){ $('bfId').textContent=makeReqId(); form.hidden=true; success.hidden=false; return; } /* бот: делаем вид, что отправлено, письмо не уходит */
+    if(spam){ status.textContent=spam; status.classList.add('is-error'); return; }
     const contact=checked('Способ связи')[0];
     store.set('bf_name',nameEl.value.trim()); store.set('bf_phone',phoneEl.value); store.set('bf_contact',contact);
     const dateRu=dateEl.value.split('-').reverse().join('.');
     const o=checked('Объект'), f=checked('Рыбалка')[0], t=checked('Напрокат'); compute();
-    const payload={
-      _subject:'Бронь на '+dateRu+': '+(o.length?o.join(', '):f)+' ('+rubText(calc.sum)+')',
-      _template:'table', _captcha:'false',
-      'Где отдыхаем':o.length?o.join(', '):'— только рыбалка',
-      'Рыбалка':f, 'Напрокат':t.length?t.join(', '):'—',
-      'Дата':dateRu, 'Гостей':guests.value,
-      'Рыбачат':(f!=='Без рыбалки'?fishers.value+' чел.':'—'), 'Ночей в гостинице':(o.includes('Гостиница')?nights.value:'—'),
-      'Расчёт':calc.lines.map(l=>stripHtml(l[0])+' — '+rubText(l[1])).join('; ')||'—', 'Итого (ориентировочно)':rubText(calc.sum),
-      'Предоплата':needsPrepay()?rubText(PREPAY):'Без предоплаты',
-      'Имя':nameEl.value.trim(), 'Телефон':phoneEl.value, 'Способ связи':contact,
-      'Пожелание':$('bfComment').value.trim()||'—'
-    };
+    const reqId=makeReqId();
+    /* Письмо администратору: строки по порядку чтения, пустые не выводятся */
+    const dObj=pd(dateEl.value), WDN=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+    const onlyFish=o.includes('Только рыбалка'), fishing=f&&f!=='Без рыбалки';
+    const payload={_subject:'Заявка '+reqId+' · '+nameEl.value.trim()+' · '+dateRu+' · '+(o.length?o.join(', '):'Рыбалка')+' ('+rubText(calc.sum)+')', _template:'table', _captcha:'false'};
+    const put=(k,v)=>{ if(v!==undefined&&v!==null&&String(v).trim()!=='') payload[k]=v; };
+    put('🔖 Номер заявки',reqId);
+    put('👤 Имя',nameEl.value.trim());
+    put('📞 Телефон',phoneEl.value);
+    put('💬 Как связаться',contact);
+    put('📅 Дата приезда',dateRu+', '+WDN[dObj.getDay()]+(isWe(dObj)?' (выходной / праздник)':' (будни)'));
+    put('🏕 Что бронируют',onlyFish?'Только рыбалка':o.join(', '));
+    put('👥 Гостей',onlyFish?'':guests.value);
+    put('🌙 Ночей в гостинице',o.includes('Гостиница')?nights.value:'');
+    put('🎣 Рыбалка',fishing?f+', '+fishers.value+' чел.':'Без рыбалки');
+    put('🧰 Снасти напрокат',t.join(', '));
+    put('🧮 Расчёт',calc.lines.map(l=>stripHtml(l[0])+': '+rubText(l[1])).join('  |  '));
+    put('💰 Итого (ориентировочно)',rubText(calc.sum));
+    put('💳 Предоплата',needsPrepay()?rubText(PREPAY):'не требуется');
+    put('📝 Пожелание клиента',$('bfComment').value.trim());
     btn.disabled=true; btn.classList.add('is-loading'); btn.firstElementChild.textContent='Отправляем…';
     try{
       const r=await fetch('https://formsubmit.co/ajax/'+encodeURIComponent(BOOKING_EMAIL),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
       const j=await r.json().catch(()=>({}));
       if(!r.ok||String(j.success)==='false') throw new Error('send');
-      form.hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
+      markSent(); $('bfId').textContent=reqId; form.hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
     }catch(x){
       status.innerHTML='Не удалось отправить. Позвоните нам: <a href="tel:+79269267887">+7 926 926-78-87</a>';
       status.classList.add('is-error');
