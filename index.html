@@ -1688,45 +1688,24 @@ window.scrollOffsetFor=function(key,fallback){
     const ok=()=>{b.textContent='Скопировано'; setTimeout(()=>b.textContent='Скопировать',1800);};
     if(navigator.clipboard) navigator.clipboard.writeText(t).then(ok,()=>{}); else ok();
   });
-  /* ===== Красивое HTML-письмо администратору =====
-     Отправляется через EmailJS (шаблон = {{{html}}}). Пока ключи пустые, письмо уходит через formsubmit в виде таблицы. */
-  const EMAILJS={service:'',template:'',key:''};
-  const escM=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const MONTHS_G=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-  function buildMail(d){
-    const C={bg:'#efe9da',card:'#ffffff',dark:'#14281f',gold:'#c9a24a',text:'#1f2a24',soft:'#6b746d',line:'#e7e1d0'};
-    const row=(k,v)=>v?`<tr><td style="padding:9px 0;color:${C.soft};font-size:14px;width:42%;vertical-align:top;border-bottom:1px solid ${C.line}">${k}</td><td style="padding:9px 0;color:${C.text};font-size:15px;font-weight:600;vertical-align:top;border-bottom:1px solid ${C.line}">${v}</td></tr>`:'';
-    const box=(title,inner)=>`<tr><td style="padding:0 24px 16px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.card};border-radius:14px;border:1px solid ${C.line}"><tr><td style="padding:16px 20px 8px"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:${C.gold};font-weight:700;margin-bottom:6px">${title}</div>${inner}</td></tr></table></td></tr>`;
-    const phoneDigits=d.phone.replace(/[^\d+]/g,'');
-    const lines=d.lines.map(l=>`<tr><td style="padding:7px 0;color:${C.text};font-size:14px;border-bottom:1px solid ${C.line}">${escM(l[0])}</td><td align="right" style="padding:7px 0;color:${C.text};font-size:14px;font-weight:600;white-space:nowrap;border-bottom:1px solid ${C.line}">${escM(l[1])}</td></tr>`).join('');
-    return `<!doctype html><html><body style="margin:0;padding:0;background:${C.bg}">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.bg};padding:24px 0;font-family:Arial,Helvetica,sans-serif"><tr><td align="center">
-<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px">
-<tr><td style="padding:0 24px 16px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.dark};border-radius:16px"><tr><td style="padding:24px">
-<div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:${C.gold};font-weight:700">Новая заявка на бронирование</div>
-<div style="font-size:38px;line-height:1.1;color:#ffffff;font-weight:800;margin:8px 0 4px">${escM(d.id)}</div>
-<div style="font-size:13px;color:#b9c4bc">Рыбалка у Иваныча · отправлена ${escM(d.sent)}</div>
-</td></tr></table></td></tr>
-<tr><td style="padding:0 24px 16px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-<td width="50%" style="padding-right:8px"><table role="presentation" width="100%" style="background:${C.card};border:1px solid ${C.line};border-radius:14px"><tr><td style="padding:16px 18px"><div style="font-size:12px;color:${C.soft};text-transform:uppercase;letter-spacing:.1em">Дата приезда</div><div style="font-size:20px;font-weight:800;color:${C.text};margin-top:4px">${escM(d.dateNice)}</div><div style="font-size:13px;color:${C.soft};margin-top:2px">${escM(d.weekday)}${d.weekend?' · <b style="color:#b5651d">выходной / праздник</b>':' · будни'}</div></td></tr></table></td>
-<td width="50%" style="padding-left:8px"><table role="presentation" width="100%" style="background:${C.card};border:1px solid ${C.line};border-radius:14px"><tr><td style="padding:16px 18px"><div style="font-size:12px;color:${C.soft};text-transform:uppercase;letter-spacing:.1em">Ориентировочно</div><div style="font-size:24px;font-weight:800;color:${C.text};margin-top:4px">${escM(d.total)}</div><div style="font-size:13px;color:${C.soft};margin-top:2px">${d.prepay?'предоплата '+escM(d.prepay):'без предоплаты'}</div></td></tr></table></td>
-</tr></table></td></tr>
-${box('Клиент',`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${row('Имя',escM(d.name))}${row('Телефон',`<a href="tel:${escM(phoneDigits)}" style="color:${C.dark};text-decoration:none;font-size:18px">${escM(d.phone)}</a>`)}${row('Как связаться',escM(d.contact))}</table>`)}
-${box('Что бронируют',`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${row('Формат',escM(d.what))}${row('Гостей',d.guests?escM(d.guests):'')}${row('Ночей в гостинице',d.nights?escM(d.nights):'')}${row('Рыбалка',escM(d.fishing))}${row('Снасти напрокат',escM(d.tackle))}</table>`)}
-${d.lines.length?box('Расчёт',`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${lines}<tr><td style="padding:12px 0 8px;font-size:15px;font-weight:800;color:${C.text}">Итого</td><td align="right" style="padding:12px 0 8px;font-size:18px;font-weight:800;color:${C.text}">${escM(d.total)}</td></tr></table>`):''}
-${d.comment?box('Пожелание клиента',`<div style="padding:4px 0 12px;font-size:15px;line-height:1.5;color:${C.text};white-space:pre-wrap">${escM(d.comment)}</div>`):''}
-<tr><td style="padding:4px 24px 0;text-align:center;font-size:12px;color:${C.soft}">Позвоните клиенту, подтвердите наличие и дату. Найти заявку в почте: <b>${escM(d.id)}</b></td></tr>
-</table></td></tr></table></body></html>`;
-  }
-  async function sendMail(payload,mailData){
-    if(EMAILJS.service&&EMAILJS.template&&EMAILJS.key){
-      const r=await fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({service_id:EMAILJS.service,template_id:EMAILJS.template,user_id:EMAILJS.key,template_params:{subject:payload._subject,html:buildMail(mailData)}})});
-      if(!r.ok) throw new Error('send');
-      return;
+  /* Возвращает 'ok' (сервер подтвердил) или 'unknown' (запрос ушёл, но ответ не дошёл: типично для мобильных сетей — письмо при этом приходит).
+     Бросает ошибку только при явном отказе сервера или если нет сети. */
+  let sendWhy='';
+  const escT=v=>String(v).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  async function sendMail(payload){
+    let r;
+    try{
+      r=await fetch('https://formsubmit.co/ajax/'+BOOKING_EMAIL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+    }catch(e){
+      console.error('formsubmit: нет ответа',e);
+      sendWhy=String(e&&e.name||'')+': '+String(e&&e.message||'')+' | online='+navigator.onLine;
+      if(navigator.onLine===false) throw e;
+      return 'unknown';
     }
-    const r=await fetch('https://formsubmit.co/ajax/'+encodeURIComponent(BOOKING_EMAIL),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
-    const j=await r.json().catch(()=>({}));
-    if(!r.ok||String(j.success)==='false') throw new Error('send');
+    const j=await r.json().catch(()=>null);
+    console.log('formsubmit',r.status,j);
+    if(!r.ok||(j&&String(j.success)==='false')){ sendWhy='HTTP '+r.status+' '+(j&&j.message||''); throw new Error('formsubmit '+r.status+' '+(j&&j.message||'')); }
+    return 'ok';
   }
   form.addEventListener('submit',async e=>{
     e.preventDefault(); status.textContent=''; status.className='bf-status';
@@ -1762,17 +1741,17 @@ ${d.comment?box('Пожелание клиента',`<div style="padding:4px 0 1
     put('📝 Пожелание клиента',$('bfComment').value.trim());
     btn.disabled=true; btn.classList.add('is-loading'); btn.firstElementChild.textContent='Отправляем…';
     try{
-      await sendMail(payload,{
-        id:reqId, sent:new Date().toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
-        name:nameEl.value.trim(), phone:phoneEl.value, contact:contact,
-        dateNice:dObj.getDate()+' '+MONTHS_G[dObj.getMonth()]+' '+dObj.getFullYear(), weekday:WDN[dObj.getDay()], weekend:isWe(dObj),
-        what:onlyFish?'Только рыбалка':o.join(', '), guests:onlyFish?'':guests.value, nights:o.includes('Гостиница')?nights.value:'',
-        fishing:fishing?f+', '+fishers.value+' чел.':'Без рыбалки', tackle:t.join(', '),
-        lines:calc.lines.map(l=>[stripHtml(l[0]),rubText(l[1])]), total:rubText(calc.sum), prepay:needsPrepay()?rubText(PREPAY):'', comment:$('bfComment').value.trim()
-      });
-      markSent(); $('bfId').textContent=reqId; form.hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
+      const res=await sendMail(payload);
+      markSent();
+      if(res==='unknown'){
+        status.innerHTML='Нет подтверждения от сервера, но заявка <b>'+reqId+'</b>, скорее всего, дошла. Повторно не отправляйте: если мы не свяжемся в течение часа, позвоните <a href="tel:+79269267887">+7 926 926-78-87</a><br><small style="opacity:.6">тех. код: '+escT(sendWhy)+'</small>';
+        status.classList.add('is-error');
+      } else {
+        $('bfId').textContent=reqId; form.hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
+      }
     }catch(x){
-      status.innerHTML='Не удалось отправить. Позвоните нам: <a href="tel:+79269267887">+7 926 926-78-87</a>';
+      console.error('booking send failed',x);
+      status.innerHTML='Не удалось отправить. Позвоните нам: <a href="tel:+79269267887">+7 926 926-78-87</a><br><small style="opacity:.6">тех. код: '+escT(sendWhy||String(x&&x.message||x))+'</small>';
       status.classList.add('is-error');
     }finally{
       btn.disabled=false; btn.classList.remove('is-loading'); btn.firstElementChild.textContent='Отправить заявку';
