@@ -1586,6 +1586,13 @@ window.scrollOffsetFor=function(key,fallback){
   }
   form.querySelectorAll('input[name="Рыбалка"]').forEach(i=>i.addEventListener('change',()=>{syncFish(); updateFlow(); upd(); }));
   syncFish(); syncGuestLimit(); updateFlow(); upd();
+  /* Банный чан - только вместе с гостиницей (переодеться больше негде); гостиницу можно без чана. */
+  function enforceChan(src){
+    const chan=objs().find(x=>x.value==='Банный чан'), hotel=objs().find(x=>x.value==='Гостиница');
+    if(!chan||!hotel||!chan.checked||hotel.checked) return;
+    if(src==='Гостиница'){ chan.checked=false; showToast('Банный чан бронируется только вместе с гостиницей, поэтому он тоже снят.'); }
+    else{ hotel.checked=true; showToast('Банный чан бронируется только вместе с гостиницей: мы добавили гостиницу, там можно переодеться.'); }
+  }
   objs().forEach(i=>i.addEventListener('change',()=>{
     step1.classList.remove('bf-invalid');
     if(i.checked){
@@ -1597,6 +1604,7 @@ window.scrollOffsetFor=function(key,fallback){
         if(only) only.checked=false;
       }
     }
+    enforceChan(i.value);
     syncFish();
     syncGuestLimit();
     updateFlow();
@@ -1607,6 +1615,7 @@ window.scrollOffsetFor=function(key,fallback){
   document.querySelectorAll('[data-book]').forEach(a=>a.addEventListener('click',()=>{
     const i=objs().find(x=>x.value===a.dataset.book);
     if(i){i.checked=true; const only=objs().find(x=>x.value==='Только рыбалка'); if(only) only.checked=false; step1.classList.remove('bf-invalid'); const b=i.nextElementSibling; b.classList.remove('bf-flash'); void b.offsetWidth; b.classList.add('bf-flash');}
+    enforceChan(a.dataset.book);
     syncFish(); syncGuestLimit(); updateFlow(); upd();
     cur=1; renderStep(true); /* остаёмся на шаге 1: клиент сам добавляет варианты и жмёт «Далее» */
   }));
