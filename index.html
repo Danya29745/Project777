@@ -884,6 +884,7 @@
           <p>Мы получили ваши данные. Свяжемся с вами в ближайшее время и подтвердим наличие.</p>
           <div class="bf-id"><span>Номер вашей заявки</span><strong id="bfId"></strong><button type="button" id="bfIdCopy">Скопировать</button></div>
           <p class="bf-id-note">Сохраните номер и назовите его при звонке или в сообщении.</p>
+          <p class="bf-id-note" id="bfUnsure" hidden>Если мы не свяжемся с вами в течение часа, позвоните: <a href="tel:+79269267887">+7 926 926-78-87</a></p>
           <button type="button" class="btn btn--map" id="bfAgain">Отправить ещё одну</button>
         </div>
       </div>
@@ -1743,12 +1744,8 @@ window.scrollOffsetFor=function(key,fallback){
     try{
       const res=await sendMail(payload);
       markSent();
-      if(res==='unknown'){
-        status.innerHTML='Нет подтверждения от сервера, но заявка <b>'+reqId+'</b>, скорее всего, дошла. Повторно не отправляйте: если мы не свяжемся в течение часа, позвоните <a href="tel:+79269267887">+7 926 926-78-87</a><br><small style="opacity:.6">тех. код: '+escT(sendWhy)+'</small>';
-        status.classList.add('is-error');
-      } else {
-        $('bfId').textContent=reqId; form.hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
-      }
+      $('bfUnsure').hidden=(res!=='unknown');
+      $('bfId').textContent=reqId; form.hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
     }catch(x){
       console.error('booking send failed',x);
       status.innerHTML='Не удалось отправить. Позвоните нам: <a href="tel:+79269267887">+7 926 926-78-87</a><br><small style="opacity:.6">тех. код: '+escT(sendWhy||String(x&&x.message||x))+'</small>';
