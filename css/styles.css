@@ -363,6 +363,8 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .about-modal__text p{margin:0 0 16px;}
 .about-modal__text ul{margin:8px 0 20px;padding-left:22px;}
 .about-modal__text li{margin:7px 0;}
+.about-modal__text h3{margin:24px 0 6px;font-size:19px;color:#26322d;}
+.about-modal__text h3:first-child{margin-top:0;}
 @media(max-width:640px){.about-modal{padding:12px}.about-modal__panel{padding:34px 22px 28px;border-radius:18px}.about-modal__text{font-size:15px}}
 
 /* Контраст навигации на фото */
@@ -1146,11 +1148,8 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
    • mobile paint/compositing work
    ========================================================= */
 
-/* Let the browser skip layout/paint for distant sections until needed. */
-.section{
-  content-visibility:auto;
-  contain-intrinsic-size:760px;
-}
+/* content-visibility:auto убран с .section: пока раздел не отрисован, браузер считает его высоту
+   как 760px, из-за этого при переходе по якорям страница «переезжала» или «не доезжала». */
 
 /* Keep image decoding off the main rendering path where supported. */
 img{
@@ -2071,8 +2070,6 @@ a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipu
 .extras .xg--bait h4{background:linear-gradient(135deg,#a3823f,#7d6128)}
 .extras .xg--bait .xp{color:#7d6128}
 
-.footer-faq{padding-top:18px;text-align:center}
-.footer-faq .hero-contact-link{margin:0 auto;font-size:13px}
 
 .booking-summary__status.is-prepay{background:color-mix(in srgb,var(--p-brass) 20%,transparent);color:#6b5120}
 
@@ -2091,3 +2088,7 @@ a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipu
   .bk-nav__btn{min-height:44px;padding:10px 14px;font-size:13px;}
   .bk-nav__count{font-size:11px;}
 }
+
+/* «Что входит» в карточках беседок: одна строка через « + », без плашек */
+.accom-grid .accom-features .accom-features__line{flex:0 0 100%;padding:0;border:0;border-radius:0;background:none;font:800 15px/1.45 var(--font-display);color:var(--fg)}
+@media(max-width:760px){.accom-grid .accom-features .accom-features__line{font-size:14px;padding:0}}

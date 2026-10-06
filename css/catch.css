@@ -76,6 +76,11 @@
   font-variant-numeric: tabular-nums;
 }
 
+.catch-item--placeholder { padding: 0; background: none; border: 0; box-shadow: none; }
+.catch-item--placeholder img { background: none; object-fit: contain; }
+.catch-item--placeholder:hover { transform: none; box-shadow: none; }
+.catch-item--placeholder:hover img { transform: none; }
+
 .catch-nav {
   position: absolute; top: calc(50% - 28px); z-index: 2;
   width: 52px; height: 52px; border-radius: 50%;

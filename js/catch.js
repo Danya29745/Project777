@@ -2,6 +2,8 @@
   'use strict';
 
   var API = 'https://rybalka-catch.bothost.tech';
+  // Минимум карточек в карусели: недостающие занимают заглушки «Здесь может быть ваше фото».
+  var MIN_SLOTS = 6;
 
   var root = document.getElementById('catchRoot');
   if (!root) return;
@@ -53,9 +55,8 @@
   }
 
   function updateNav() {
-    var list = currentList();
-    counter.textContent = '';
-    if (!list.length) {
+    var total = track.children.length;
+    if (!total) {
       prevBtn.disabled = true;
       nextBtn.disabled = true;
       return;
@@ -65,19 +66,12 @@
     var atEnd = track.scrollLeft >= max - 4;
     prevBtn.disabled = atStart;
     nextBtn.disabled = atEnd || max <= 0;
-
-    var cards = track.children;
-    var index = 0;
-    for (var i = 0; i < cards.length; i++) {
-      if (cards[i].offsetLeft - track.offsetLeft <= track.scrollLeft + 4) index = i;
-    }
-    counter.textContent = (index + 1) + ' / ' + list.length;
   }
 
   function render() {
     track.textContent = '';
     var list = currentList();
-    empty.hidden = list.length > 0;
+    empty.hidden = true;
     updateCounts();
 
     list.forEach(function (it) {
@@ -118,6 +112,22 @@
 
       track.appendChild(fig);
     });
+
+    for (var n = list.length; n < MIN_SLOTS; n++) {
+      var ph = document.createElement('figure');
+      ph.className = 'catch-item catch-item--placeholder';
+      var phImg = document.createElement('img');
+      phImg.src = 'images/catch/placeholder.webp';
+      phImg.srcset = 'images/catch/placeholder-640.webp 640w, images/catch/placeholder.webp 960w';
+      phImg.sizes = '(max-width:760px) 74vw, 330px';
+      phImg.alt = 'Здесь может быть ваше фото';
+      phImg.loading = 'lazy';
+      phImg.decoding = 'async';
+      phImg.width = 640;
+      phImg.height = 480;
+      ph.appendChild(phImg);
+      track.appendChild(ph);
+    }
 
     track.scrollLeft = 0;
     updateNav();
@@ -166,6 +176,7 @@
   });
   window.addEventListener('resize', updateNav);
 
+  render();
   load();
   setInterval(load, 60000);
 })();
