@@ -351,6 +351,7 @@ footer{padding:34px 0;color:var(--fg-on-cover-soft);background:var(--bg-cover-mi
 .about-modal__text li{margin:7px 0;}
 .about-modal__text h3{margin:24px 0 6px;font-size:19px;color:#26322d;}
 .about-modal__text h3:first-child{margin-top:0;}
+.faq-tbd{display:inline-block;padding:3px 11px;border-radius:999px;background:color-mix(in srgb, var(--accent) 16%, transparent);color:var(--accent-dark);font-weight:800;font-size:13px;letter-spacing:.01em;}
 @media(max-width:640px){.about-modal{padding:12px}.about-modal__panel{padding:34px 22px 28px;border-radius:18px}.about-modal__text{font-size:15px}}
 
 /* Контраст навигации на фото */
@@ -2085,3 +2086,32 @@ a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipu
 .bf-id strong{font:900 clamp(22px,5vw,28px) var(--font-display);color:var(--accent);letter-spacing:.04em;user-select:all;}
 .bf-id button{border:1px solid var(--border);background:transparent;color:var(--fg);border-radius:9px;padding:7px 12px;font:700 12px var(--font-body);cursor:pointer;}
 .bf-id-note{font-size:13px;color:var(--fg-soft);margin:6px 0 14px;}
+
+
+/* Окно «Правила»: три раздела, вкладки как в блоке «Улов» */
+#rulesModal .about-modal__panel{width:min(780px,100%);height:min(82vh,740px);height:min(82dvh,740px);max-height:none;padding:0;overflow:hidden;display:flex;flex-direction:column;}
+#rulesModal .rules-head{flex:none;padding:40px 46px 0;border-bottom:1px solid var(--border);}
+#rulesModal .rules-head h2{margin:0 0 22px;padding-right:48px;}
+#rulesModal .rules-tabs{display:flex;flex-wrap:wrap;gap:4px 34px;}
+#rulesModal .rules-tab{position:relative;margin-bottom:-1px;padding:0 0 14px;background:none;border:0;cursor:pointer;font:800 19px/1 var(--font-display);color:var(--fg-soft);transition:color .2s ease;}
+#rulesModal .rules-tab::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.9,.25,1);}
+#rulesModal .rules-tab:hover{color:var(--fg);}
+#rulesModal .rules-tab:focus-visible{outline:2px solid var(--accent);outline-offset:4px;}
+#rulesModal .rules-tab.is-active{color:var(--fg);}
+#rulesModal .rules-tab.is-active::after{transform:scaleX(1);}
+#rulesModal .rules-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:24px 46px 38px;scrollbar-width:thin;}
+#rulesModal .rules-body [role="tabpanel"][hidden]{display:none;}
+#rulesModal .rules-body h3{margin:26px 0 4px;}
+#rulesModal .rules-body [role="tabpanel"]>h3:first-child,#rulesModal .rules-body [role="tabpanel"]>p:first-child{margin-top:0;}
+#rulesModal .rules-body li::marker{color:var(--accent);}
+#rulesModal .rules-body strong{font-weight:800;color:var(--fg);}
+#rulesModal .rules-body a{color:var(--accent-dark);font-weight:800;text-decoration:none;white-space:nowrap;}
+#rulesModal .rules-body a:hover{text-decoration:underline;}
+@media(max-width:640px){
+  #rulesModal .about-modal__panel{height:90vh;height:90dvh;}
+  #rulesModal .rules-head{padding:26px 18px 0;}
+  #rulesModal .rules-head h2{font-size:30px;margin-bottom:16px;}
+  #rulesModal .rules-tabs{gap:4px 22px;}
+  #rulesModal .rules-tab{font-size:16.5px;padding-bottom:12px;}
+  #rulesModal .rules-body{padding:18px 18px 28px;}
+}
