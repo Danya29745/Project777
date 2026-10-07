@@ -246,6 +246,11 @@ window.scrollOffsetFor=function(key,fallback){
   const open=document.getElementById('rulesOpenHero');
   const close=document.getElementById('rulesClose');
   if(!modal||!open||!close)return;
+  const rTabs=modal.querySelectorAll('.rules-tab');
+  rTabs.forEach(t=>t.addEventListener('click',()=>{
+    rTabs.forEach(x=>{const on=x===t;x.classList.toggle('is-active',on);x.setAttribute('aria-selected',on?'true':'false');x.tabIndex=on?0:-1;
+      const pane=document.getElementById(x.getAttribute('aria-controls'));if(pane)pane.hidden=!on;});
+  }));
   function show(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';close.focus();}
   function hide(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';open.focus();}
   open.addEventListener('click',show); close.addEventListener('click',hide);
@@ -794,6 +799,7 @@ window.scrollOffsetFor=function(key,fallback){
     try{
       const res=await sendMail(payload);
       markSent();
+      if(window.ym) ym(28138044,'reachGoal','booking_submit');
       $('bfUnsure').hidden=(res!=='unknown');
       $('bfId').textContent=reqId; form.hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
     }catch(x){
