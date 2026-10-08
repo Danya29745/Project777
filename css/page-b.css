@@ -40,3 +40,18 @@
 .accom-actions .btn--map .arrow {
   display: none !important;
 }
+
+/* Hero на мобильном: три кнопки столбиком на всю ширину, компактно, текст в одну строку */
+@media (max-width:760px){
+  .hero .hero-actions{grid-template-columns:1fr !important;gap:8px !important;}
+  .hero .hero-actions .btn.btn--green{
+    font-size:20px !important;
+    line-height:1.1 !important;
+    min-height:52px !important;
+    padding:10px 12px !important;
+    white-space:nowrap;
+  }
+}
+@media (max-width:359px){
+  .hero .hero-actions .btn.btn--green{font-size:18px !important;}
+}
