@@ -1978,7 +1978,8 @@ a[href="#prices"].btn:hover {
 .accom-grid .pavilion-extra-guest__price{color:var(--xc)}
 .accom-grid .accom-body p{margin-bottom:14px}
 @media(max-width:760px){.accom-grid .accom-features span{font-size:13px;padding:5px 10px}.accom-grid .accom-price-box{padding:11px 14px}.accom-grid .accom-price-box strong,.accom-grid .accom-price-single strong{font-size:24px}.accom-grid .accom-price-single small{padding-left:14px}.accom-grid .accom-price-single strong{padding-right:14px}}
-.accom-grid .accom-features{margin-top:4px;margin-bottom:16px}
+.accom-grid .accom-features{margin-top:4px;margin-bottom:16px;min-height:136px}
+@media(max-width:760px){.accom-grid .accom-features{min-height:0}}
 .accom-grid .accom-price-grid,.accom-grid .accom-price-single{margin-bottom:auto}
 
 /* Блок стоимости: тёмный, как «featured»-карточки в «Ценах»; плашки удобств — тёплые */
