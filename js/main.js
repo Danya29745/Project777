@@ -80,10 +80,10 @@ window.scrollOffsetFor=function(key,fallback){
       hotel:{title:'Гостиница для комфортного отдыха',meta:'Стоимость за сутки, двухместное размещение',price:'6 000 / 8 000 ₽',note:'будни / выходные и праздники',photos:['./images/rooms/hotel-1-640.webp','./images/rooms/hotel-2-640.webp','./images/rooms/hotel-3-640.webp','./images/rooms/hotel-4-640.webp','./images/rooms/hotel-5-640.webp','./images/rooms/hotel-6-640.webp']},
       chan:{title:'Банный чан на дровах',meta:'Продление: 1 000 ₽/час',price:'6 000 ₽',note:'за 3 часа аренды',photos:['./images/facilities/chan-1-640.webp','./images/facilities/chan-2-640.webp','./images/facilities/chan-3-640.webp','./images/facilities/chan-4-640.webp']},
       toilet:{title:'Туалет',meta:'',price:'',note:'',photos:[]},
-      parking:{title:'Парковка',meta:'',price:'',note:'',photos:[]},
-      admin:{title:'Администрация',meta:'Администратор встречает гостей при въезде',price:'',note:'<a href="tel:+79269267887">+7 926 926-78-87</a> · <a href="tel:+79269119407">+7 926 911-94-07</a>',photos:[]},
-      banya1:{title:'В процессе',meta:'',price:'',note:'',photos:[]},
-      banya2:{title:'В процессе',meta:'',price:'',note:'',photos:[]}
+      parking:{title:'Парковка',meta:'',price:'',note:'',photos:['./images/facilities/parking-640.webp']},
+      admin:{title:'Администрация',meta:'Администратор встречает гостей при въезде',price:'',note:'<a href="tel:+79269267887">+7 926 926-78-87</a> · <a href="tel:+79269119407">+7 926 911-94-07</a>',photos:['./images/facilities/admin-640.webp']},
+      banya1:{title:'В процессе',meta:'',price:'',note:'',photos:['./images/facilities/banya-640.webp']},
+      banya2:{title:'В процессе',meta:'',price:'',note:'',photos:['./images/facilities/banya-640.webp']}
     };
     const variant=(new URLSearchParams(location.search).get('banner')||'1').replace(/[^1-3]/g,'')||'1';
     const el=document.createElement('aside');
