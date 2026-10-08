@@ -79,7 +79,7 @@ window.scrollOffsetFor=function(key,fallback){
       vip:{title:'VIP-беседка',meta:'до 10 человек',price:'15 000 ₽',note:'любой день',photos:['./images/rooms/vip-1-640.webp','./images/rooms/vip-2-640.webp','./images/rooms/vip-3-640.webp','./images/rooms/vip-4-640.webp']},
       hotel:{title:'Гостиница для комфортного отдыха',meta:'Стоимость за сутки, двухместное размещение',price:'6 000 / 8 000 ₽',note:'будни / выходные и праздники',photos:['./images/rooms/hotel-1-640.webp','./images/rooms/hotel-2-640.webp','./images/rooms/hotel-3-640.webp','./images/rooms/hotel-4-640.webp','./images/rooms/hotel-5-640.webp','./images/rooms/hotel-6-640.webp']},
       chan:{title:'Банный чан на дровах',meta:'Продление: 1 000 ₽/час',price:'6 000 ₽',note:'за 3 часа аренды',photos:['./images/rooms/chan-1-640.webp','./images/rooms/chan-2-640.webp','./images/rooms/chan-3-640.webp','./images/rooms/chan-4-640.webp']},
-      toilet:{title:'Туалет',meta:'',price:'',note:'',photos:[]},
+      toilet:{title:'Туалет',meta:'',price:'',note:'',photos:['./images/facilities/toilet-640.webp']},
       parking:{title:'Парковка',meta:'',price:'',note:'',photos:['./images/facilities/parking-640.webp']},
       admin:{title:'Администрация',meta:'Администратор встречает гостей при въезде',price:'',note:'<a href="tel:+79269267887">+7 926 926-78-87</a> · <a href="tel:+79269119407">+7 926 911-94-07</a>',photos:['./images/facilities/admin-640.webp']},
       banya1:{title:'В процессе',meta:'',price:'',note:'',photos:['./images/facilities/banya-640.webp']},
