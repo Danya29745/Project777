@@ -55,3 +55,6 @@
 @media (max-width:359px){
   .hero .hero-actions .btn.btn--green{font-size:18px !important;}
 }
+
+/* «Что входит»: плашки не растягиваются на всю высоту блока (у карточек с одной строкой плашек они были высокие и пустые) */
+.accom-grid .accom-features{align-content:flex-start;align-items:flex-start;}
