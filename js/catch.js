@@ -140,7 +140,9 @@
     track.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: 'smooth' });
   }
 
+  var lastLoad = 0;
   function load() {
+    lastLoad = Date.now();
     fetch(API + '/api/feed')
       .then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -177,6 +179,23 @@
   window.addEventListener('resize', updateNav);
 
   render();
-  load();
-  setInterval(load, 60000);
+
+  // Лента грузится, только когда блок «Улов» рядом с экраном и вкладка активна;
+  // обновление раз в минуту — тоже только пока блок виден.
+  if ('IntersectionObserver' in window) {
+    var visible = false;
+    var maybeLoad = function () {
+      if (document.hidden || !visible) return;
+      if (!lastLoad || Date.now() - lastLoad >= 55000) load();
+    };
+    new IntersectionObserver(function (entries) {
+      visible = entries[entries.length - 1].isIntersecting;
+      maybeLoad();
+    }, { rootMargin: '400px 0px' }).observe(root);
+    document.addEventListener('visibilitychange', maybeLoad);
+    setInterval(maybeLoad, 60000);
+  } else {
+    load();
+    setInterval(load, 60000);
+  }
 })();
