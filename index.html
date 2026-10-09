@@ -126,7 +126,16 @@
 .reveal { opacity: 1 !important; transform: none !important; }
 </style></noscript>
 
-  <link rel="stylesheet" href="css/page-a.min.css?v=20261026">
+  <script>
+/* Старые якоря с сайта на Tilda (из рекламы и закладок) -> разделы нового сайта */
+(function(){
+  var m={first:'price',second:'tips',third:'hotel',gostin:'hotel',vip:'hotel',wc:'territory-map',park:'territory-map',admin:'territory-map',
+    bes1:'hotel',bes2:'hotel',bes3:'hotel',bes4:'hotel',bes5:'hotel',bes6:'hotel',bes7:'hotel',bes8:'hotel'};
+  var h=location.hash.slice(1);
+  if(h&&m.hasOwnProperty(h)){ try{ history.replaceState(null,'',location.pathname+location.search+'#'+m[h]); }catch(_){} }
+})();
+</script>
+<link rel="stylesheet" href="css/page-a.min.css?v=20261026">
 <link rel="stylesheet" href="css/styles.min.css?v=20261026">
   <link rel="stylesheet" href="css/seo-pages.min.css?v=20261026">
   <link rel="stylesheet" href="css/page-b.min.css?v=20261026">
