@@ -796,6 +796,8 @@ window.scrollOffsetFor=function(key,fallback){
     put('💳 Предоплата',needsPrepay()?rubText(PREPAY):'не требуется');
     put('📝 Пожелание клиента',$('bfComment').value.trim());
     btn.disabled=true; btn.classList.add('is-loading'); btn.firstElementChild.textContent='Отправляем…';
+    /* Копия заявки в Telegram-бота: не блокирует и не ломает отправку на почту */
+    try{ fetch('https://rybalka-catch.bothost.tech/api/booking',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(Object.entries(payload).filter(([k])=>k[0]!=='_'))),keepalive:true}).catch(()=>{}); }catch(_){}
     try{
       const res=await sendMail(payload);
       markSent();
