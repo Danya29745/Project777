@@ -400,7 +400,7 @@ guests.value=g;
 {const po=primary(), cp=$('bfCap'); let m='';
 if(po&&g>=max&&max<30){ m=po==='Гостиница'?'В гостинице помещается до '+max+' '+gname(max)+'.':(po==='Стандартная беседка'?'Стандартная беседка вмещает до 6 гостей. Если вас больше, выберите другую беседку с большей вместимостью: «Среднюю» (до 10) или «Большую» (до 30).':'«'+po+'» вмещает до '+max+' гостей. Если вас больше, выберите «Большую беседку» (до 30 гостей).'); }
 cp.textContent=m; cp.hidden=!m;}
-const fmax=has?g:30; fishers.max=fmax;
+const fmax=30; fishers.max=fmax;
 if(!fishTouched&&has) fishers.value=g;
 fishers.value=Math.min(fmax,Math.max(1,parseInt(fishers.value,10)||1));
 nights.value=Math.min(14,Math.max(1,parseInt(nights.value,10)||1));
@@ -413,7 +413,7 @@ form.querySelectorAll('input[name="Рыбалка"],input[name="Напрокат
 form.querySelectorAll('.bw-step button').forEach(b=>b.addEventListener('click',()=>{
 const el=$(b.parentElement.dataset.for), cur=parseInt(el.value,10)||1, next=cur+(+b.dataset.step);
 if(el===fishers) fishTouched=true;
-if(next>+el.max){ if(el===guests) warn(overMsg()); else if(el===fishers&&checked().length) warn('Рыбаков не может быть больше, чем гостей.'); }
+if(next>+el.max){ if(el===guests) warn(overMsg());  }
 el.value=Math.min(+el.max,Math.max(+el.min,next)); syncAll(false);
 }));
 guests.addEventListener('input',()=>{ const v=parseInt(guests.value,10)||0; syncAll(v>limit()); });
@@ -689,3 +689,12 @@ guests.value=2; fishers.value=2; nights.value=1; fishTouched=false; cal.hidden=t
   window.addEventListener('resize',placeLabels,{passive:true});
   window.addEventListener('orientationchange',()=>setTimeout(placeLabels,120),{passive:true});
 })();
+/* Пункт меню «Правила» открывает окно с правилами на главной (без перехода на отдельную страницу) */
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('#navRules'); if(!a) return;
+  var btn=document.getElementById('rulesOpenHero'); if(!btn) return;
+  e.preventDefault(); e.stopImmediatePropagation();
+  var nm=document.getElementById('nav-menu'), nt=document.getElementById('nav-toggle');
+  if(nm) nm.classList.remove('open'); if(nt){ nt.setAttribute('aria-expanded','false'); nt.setAttribute('aria-label','Открыть меню'); }
+  btn.click();
+},true);
