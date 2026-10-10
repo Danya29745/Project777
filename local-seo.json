@@ -10,9 +10,9 @@
   "description": "Платная рыбалка у Иваныча в Подмосковье, деревня Большие Жеребцы, 15 км от МКАД. Рыбалка на карпа, карася, форель и осетра, беседки у воды, домики для проживания и банный чан.",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "СПК «Ромашка»",
+    "streetAddress": "территория Сельская",
     "addressRegion": "Московская область",
-    "addressLocality": "Большие Жеребцы",
+    "addressLocality": "городской округ Щёлково",
     "addressCountry": "RU"
   },
   "telephone": [
@@ -20,11 +20,6 @@
     "+7-926-911-94-07"
   ],
   "email": "evg9269119407@yandex.ru",
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 55.865551,
-    "longitude": 38.050037
-  },
   "openingHours": "Mo-Su 07:00-18:00",
   "priceRange": "₽₽",
   "areaServed": [
@@ -54,7 +49,7 @@
       "closes": "18:00"
     }
   ],
-  "hasMap": "https://yandex.ru/maps/-/CXQ~MGIT",
+  "hasMap": "https://yandex.ru/maps/-/CXQ3VB7J",
   "knowsAbout": [
     "платная рыбалка",
     "рыбалка в Подмосковье",
