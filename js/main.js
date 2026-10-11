@@ -287,6 +287,17 @@ const BOOKING_EMAIL='danya.zhitnikov29@gmail.com', BOT_URL='https://rybalka-catc
 const form=document.getElementById('bookingForm'); if(!form) return;
 const $=id=>document.getElementById(id);
 const nameEl=$('bfName'), phoneEl=$('bfPhone'), dateEl=$('bfDate'), dateBtn=$('bfDateBtn'), cal=$('bfCal'), guests=$('bfGuests'), fishers=$('bfFishers'), nights=$('bfNights'), status=$('bfStatus'), btn=$('bfSubmit'), success=$('bfSuccess'), info=$('bfInfo'), chips=$('bfChips'), warnEl=$('bfWarn');
+const BOT_BASE=BOT_URL.replace(/\/api\/booking$/,'');
+let busy={};
+/* Занятые даты с сервера: объект -> список дней, где свободных мест нет */
+function loadBusy(){
+return fetch(BOT_BASE+'/api/availability',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{ if(j&&j.busy) busy=j.busy; }).catch(()=>{});
+}
+function dayShift(s,n){ const x=dparse(s); return iso(new Date(x.getFullYear(),x.getMonth(),x.getDate()+n)); }
+/* Дата занята, если хотя бы один выбранный объект недоступен (гостиница: на все ночи) */
+function blockedFor(s){
+return checked().some(o=>{ const b=busy[o]; if(!b||!b.length) return false; const n=o==='Гостиница'?(parseInt(nights.value,10)||1):1; for(let i=0;i<n;i++) if(b.includes(dayShift(s,i))) return true; return false; });
+}
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 const objs=()=>[...form.querySelectorAll('input[name="Объект"]')];
 const checked=()=>objs().filter(i=>i.checked).map(i=>i.value);
@@ -388,7 +399,7 @@ const r=compute(), pre=$('bfPre');
 $('bfLines').innerHTML=r.lines.length?r.lines.map(l=>'<li><span>'+l[0]+'</span><b>'+rub(l[1])+'</b></li>').join(''):'<li class="bw-empty">Выберите рыбалку или беседку, и здесь появится сумма.</li>';
 $('bfTotal').textContent=rub(r.sum);
 $('bfNote').textContent=r.notes.concat(['Сумма ориентировочная, точную подтвердим по телефону.']).join(' ');
-pre.hidden=!checked().length; pre.textContent='Для беседки, гостиницы и чана нужна предоплата 2 000 ₽, подтвердим по телефону.';
+pre.hidden=!checked().length; pre.textContent='Бронь станет активной после предоплаты 2 000 ₽: после подтверждения заявки мы пришлём QR-код для оплаты.';
 }
 function syncAll(notify){
 const o=checked(), has=o.length>0, fish=fishVal()!=='Без рыбалки';
@@ -405,6 +416,11 @@ if(!fishTouched&&has) fishers.value=g;
 fishers.value=Math.min(fmax,Math.max(1,parseInt(fishers.value,10)||1));
 nights.value=Math.min(14,Math.max(1,parseInt(nights.value,10)||1));
 document.querySelectorAll('.bw-step').forEach(st=>{ const el=$(st.dataset.for), v=+el.value; st.children[0].disabled=v<=+el.min; st.children[2].disabled=v>=+el.max; });
+if(dateEl.value&&blockedFor(dateEl.value)){
+dateEl.value=''; dateBtn.textContent='Выберите дату'; dateBtn.classList.remove('has-val');
+if(notify!==undefined) warn('Выбранный объект на эту дату занят. Выберите другую дату.');
+}
+if(!cal.hidden) renderCal();
 renderCalc();
 }
 objs().forEach(i=>i.addEventListener('change',()=>pick(i)));
@@ -437,12 +453,12 @@ let h='<div class="bw-cal__head"><button type="button" data-nav="-1" aria-label=
 for(let i=0;i<lead;i++) h+='<i></i>';
 for(let n=1;n<=days;n++){
 const dt=new Date(y,m,n), s=iso(dt);
-h+='<button type="button" class="bw-d'+(isWe(dt)?' is-we':'')+(s===minISO?' is-today':'')+(s===dateEl.value?' is-sel':'')+'" data-iso="'+s+'"'+(s<minISO?' disabled':'')+'>'+n+'</button>';
+h+='<button type="button" class="bw-d'+(isWe(dt)?' is-we':'')+(s===minISO?' is-today':'')+(s===dateEl.value?' is-sel':'')+(s>=minISO&&blockedFor(s)?' is-busy':'')+'" data-iso="'+s+'"'+(s<minISO||blockedFor(s)?' disabled':'')+(blockedFor(s)?' title="Занято"':'')+'>'+n+'</button>';
 }
-cal.innerHTML=h+'</div><p class="bw-legend"><b>Красные</b> — выходные и праздники, цены на беседки и гостиницу выше.</p>';
+cal.innerHTML=h+'</div><p class="bw-legend"><b>Красные</b> — выходные и праздники, цены на беседки и гостиницу выше.'+(checked().length?' <b>Зачёркнутые</b> — выбранный объект на эту дату занят.':'')+'</p>';
 }
 dateBtn.addEventListener('click',()=>{
-if(cal.hidden){ view=dateEl.value?new Date(dparse(dateEl.value).getFullYear(),dparse(dateEl.value).getMonth(),1):new Date(d.getFullYear(),d.getMonth(),1); renderCal(); }
+if(cal.hidden){ loadBusy().then(()=>{ if(!cal.hidden) renderCal(); }); view=dateEl.value?new Date(dparse(dateEl.value).getFullYear(),dparse(dateEl.value).getMonth(),1):new Date(d.getFullYear(),d.getMonth(),1); renderCal(); }
 cal.hidden=!cal.hidden; dateBtn.setAttribute('aria-expanded',String(!cal.hidden));
 });
 cal.addEventListener('click',e=>{
@@ -465,12 +481,13 @@ const pl=$('bfPrivacy'); if(pl) pl.addEventListener('click',e=>{e.preventDefault
 function validate(){
 const bad=[], req=mode==='req';
 if(req&&!checked().length&&fishVal()==='Без рыбалки'){ chips.classList.add('bf-invalid'); return {el:chips,msg:'Выберите рыбалку, беседку или гостиницу.'}; }
-if(req&&(!dateEl.value||dateEl.value<minISO)) bad.push(dateBtn);
+if(req&&(!dateEl.value||dateEl.value<minISO||blockedFor(dateEl.value))) bad.push(dateBtn);
 if(req&&nameEl.value.trim().length<2) bad.push(nameEl);
 if(phoneEl.value.replace(/\D/g,'').length!==11) bad.push(phoneEl);
 bad.forEach(el=>el.classList.add('bf-invalid'));
 return bad.length?{el:bad[0],msg:'Проверьте выделенные поля.'}:null;
 }
+loadBusy().then(()=>syncAll(false));
 syncAll(false);
 /* Номер заявки: Б-4827 */
 function makeReqId(){
@@ -516,7 +533,7 @@ e.preventDefault(); status.textContent=''; status.className='bf-status';
 const err=validate();
 if(err){ status.textContent=err.msg; status.classList.add('is-error'); err.el.scrollIntoView({behavior:'smooth',block:'center'}); if(err.el.focus&&err.el!==chips) err.el.focus({preventScroll:true}); return; }
 if(form.elements['_honey'].value) return;
-const call=mode==='call', nm=nameEl.value.trim(), reqId=makeReqId();
+const call=mode==='call', nm=nameEl.value.trim(); let reqId=makeReqId();
 const spam=spamCheck();
 if(spam==='bot'){ showDone(call,reqId,false); return; }
 if(spam){ status.textContent=spam; status.classList.add('is-error'); return; }
@@ -545,13 +562,24 @@ put('💳 Предоплата',o.length?'2 000 ₽':'не требуется');
 put('📝 Пожелание клиента',$('bfComment').value.trim());
 }
 btn.disabled=true; btn.classList.add('is-loading'); const lbl=btn.firstElementChild.textContent; btn.firstElementChild.textContent='Отправляем…';
-/* Копия в Telegram-бота: не блокирует и не ломает отправку на почту */
+try{
+/* Сначала бот: он проверяет занятость и держит дату. Если бот недоступен, заявка всё равно уходит на почту. */
 try{
 const bot=Object.fromEntries(Object.entries(payload).filter(([k])=>k[0]!=='_'&&k!=='📞 Нужно позвонить'));
 bot.type=call?'callback':'request';
-fetch(BOT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(bot),keepalive:true}).catch(()=>{});
+if(!call){ bot._id=reqId; bot._date=dateEl.value; bot._objects=checked(); bot._nights=parseInt(nights.value,10)||1; }
+const ctrl=new AbortController(), tm=setTimeout(()=>ctrl.abort(),8000);
+const br=await fetch(BOT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(bot),signal:ctrl.signal});
+clearTimeout(tm);
+if(br.status===409){
+await loadBusy(); syncAll(false);
+status.textContent='К сожалению, на эту дату уже занято. Выберите другую дату или другой объект.'; status.classList.add('is-error');
+cal.hidden=false; dateBtn.setAttribute('aria-expanded','true'); renderCal(); dateBtn.scrollIntoView({behavior:'smooth',block:'center'});
+return;
+}
+const bj=br.ok?await br.json().catch(()=>null):null;
+if(bj&&bj.ok&&bj.id&&bj.id!==reqId){ payload['🔖 Номер заявки']=bj.id; payload._subject=payload._subject.replace(reqId,bj.id); reqId=bj.id; }
 }catch(_){}
-try{
 const res=await sendMail(payload);
 markSent();
 if(window.ym) ym(28138044,'reachGoal','booking_submit');
@@ -566,7 +594,7 @@ btn.disabled=false; btn.classList.remove('is-loading'); btn.firstElementChild.te
 });
 function showDone(call,id,unsure){
 $('bfTitle').textContent=call?'Ждите звонка':'Заявка отправлена';
-$('bfText').textContent=call?'Мы получили ваш номер и перезвоним в рабочее время: ежедневно 07:00–18:00.':'Мы получили ваши данные, свяжемся с вами в рабочее время (07:00–18:00) и подтвердим наличие.';
+$('bfText').textContent=call?'Мы получили ваш номер и перезвоним в рабочее время: ежедневно 07:00–18:00.':'Мы получили заявку и свяжемся с вами в рабочее время (07:00–18:00). Бронь станет активной после предоплаты 2\u00a0000\u00a0₽: пришлём QR-код для оплаты, дата за вами закрепляется после подтверждения.';
 $('bfId').textContent=id; $('bfUnsure').hidden=!unsure;
 form.hidden=true; document.querySelector('.bw-tabs').hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
 }
