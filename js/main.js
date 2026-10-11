@@ -646,7 +646,7 @@ let j=null; try{ const r=await fetch(BOT_BASE+'/api/booking/status?id='+encodeUR
 if(!j||!j.ok||['rejected','cancelled','expired'].includes(j.status)&&dparse(j.date)<dparse(minISO)){ box.hidden=true; return; }
 const dd=dparse(j.date), hold=j.hold_until&&(j.status==='new'||j.status==='wait_pay')?new Date(j.hold_until*1000):null;
 const canCancel=j.status==='new'||j.status==='wait_pay';
-box.innerHTML='<b>Ваша заявка '+escT(last.id)+'</b><p>'+escT(j.objects.join(', '))+' · '+dd.getDate()+' '+MONG[dd.getMonth()]+' · '+ST_TXT[j.status]+(hold?'. Место держим до '+pad(hold.getHours())+':'+pad(hold.getMinutes()):'')+(j.status==='paid'?'. Чтобы изменить или отменить, позвоните нам.':'')+'</p>'
+box.innerHTML='<b>Ваша заявка '+escT(last.id)+'</b><p>'+escT(j.objects.join(', '))+' · '+dd.getDate()+' '+MONG[dd.getMonth()]+' · '+ST_TXT[j.status]+(hold?'. Место держим до '+(iso(hold)===minISO?'':hold.getDate()+' '+MONG[hold.getMonth()]+', ')+pad(hold.getHours())+':'+pad(hold.getMinutes()):'')+(j.status==='paid'?'. Чтобы изменить или отменить, позвоните нам.':'')+'</p>'
 +'<button type="button" id="bfRef">Обновить статус</button>'+(canCancel?'<button type="button" class="bw-cancel" id="bfCan">Отменить заявку</button>':'');
 box.hidden=false;
 $('bfRef').onclick=showManage;
@@ -656,7 +656,7 @@ await loadBusy(); syncAll(false); showManage(); };
 }
 function showDone(call,id,unsure){
 $('bfTitle').textContent=call?'Ждите звонка':'Заявка отправлена';
-$('bfText').textContent=call?'Мы получили ваш номер и перезвоним в рабочее время: ежедневно 07:00–18:00.':'Мы получили заявку и свяжемся с вами в рабочее время (07:00–18:00). Бронь станет активной после предоплаты 2\u00a0000\u00a0₽: пришлём QR-код для оплаты, дата за вами закрепляется после подтверждения.';
+$('bfText').textContent=call?'Мы получили ваш номер и перезвоним в рабочее время: ежедневно 07:00–18:00.':'Мы получили заявку и свяжемся с вами в рабочее время (07:00–18:00). Место за вами держим 40 минут рабочего времени: если заявка пришла вечером или ночью, отсчёт начнётся в 07:00. Бронь станет активной после предоплаты 2\u00a0000\u00a0₽: пришлём QR-код для оплаты, дата за вами закрепляется после подтверждения.';
 $('bfId').textContent=id; $('bfUnsure').hidden=!unsure;
 form.hidden=true; document.querySelector('.bw-tabs').hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
 }
