@@ -179,6 +179,9 @@ if(g)ym(28138044,'reachGoal',g);},true);
 .bw-form.is-call .bw-req{display:none}
 .bw-lbl{display:block;margin-bottom:8px;font:800 12px/1.3 var(--font-body);letter-spacing:.04em;text-transform:uppercase;color:var(--fg-soft)}
 .bw-lbl small,.bw-opt{text-transform:none;letter-spacing:0;font-weight:500}
+.bw-h{display:flex;align-items:center;gap:12px;margin:0 0 14px;font:900 clamp(18px,2.2vw,22px)/1.2 var(--font-display);letter-spacing:0;text-transform:none;color:var(--fg)}
+.bw-h i{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--brand);color:var(--fg-on-cover);font:900 16px/1 var(--font-display);font-style:normal}
+.bw-h--sep{margin-top:6px;padding-top:22px;border-top:2px dashed var(--border)}
 .bw-opt{display:none}.bw-form.is-call .bw-opt{display:inline}
 .bw-chips{display:flex;flex-wrap:wrap;gap:8px;border-radius:12px}
 .bw-chip{position:relative}.bw-chip input{position:absolute;opacity:0;pointer-events:none}
@@ -538,11 +541,11 @@ textarea.bw-in{min-height:76px;resize:vertical}
       <div class="map-head"><div><h3>Схема территории базы</h3></div></div>
       <div class="territory-map" id="territoryMap"><picture class="territory-map-picture"><source media="(max-width: 760px)" srcset="./images/map/territory-map-generated-mobile.webp"><img src="./images/map/territory-map-generated.webp" alt="Схема территории платной рыбалки у Иваныча: пруды, беседки, парковка" id="territoryMapImage" loading="lazy" decoding="async" width="1200" height="742"></picture>
         <div class="map-marker map-marker--standard" data-marker="besedka1" tabindex="0" role="button" aria-label="Беседка 1" style="left:82.51%;top:51.92%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/1.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">1</div></div>
-        <div class="map-marker map-marker--standard" data-marker="besedka2" tabindex="0" role="button" aria-label="Беседка 2" style="left:90.72%;top:19.32%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/2.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">7</div></div>
-        <div class="map-marker map-marker--standard" data-marker="besedka3" tabindex="0" role="button" aria-label="Беседка 3" style="left:57.71%;top:16.83%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/3.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">8</div></div>
-        <div class="map-marker map-marker--standard" data-marker="besedka4" tabindex="0" role="button" aria-label="Беседка 4" style="left:38.24%;top:17.34%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/4.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">2</div></div>
-        <div class="map-marker map-marker--standard" data-marker="besedka5" tabindex="0" role="button" aria-label="Беседка 5" style="left:49.6%;top:87.09%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/5.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">4</div></div>
-        <div class="map-marker map-marker--standard" data-marker="besedka6" tabindex="0" role="button" aria-label="Беседка 6" style="left:63.21%;top:73.22%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/6.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">3</div></div>
+        <div class="map-marker map-marker--standard" data-marker="besedka2" tabindex="0" role="button" aria-label="Беседка 7" style="left:90.72%;top:19.32%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/2.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">7</div></div>
+        <div class="map-marker map-marker--standard" data-marker="besedka3" tabindex="0" role="button" aria-label="Беседка 8" style="left:57.71%;top:16.83%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/3.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">8</div></div>
+        <div class="map-marker map-marker--standard" data-marker="besedka4" tabindex="0" role="button" aria-label="Беседка 2" style="left:38.24%;top:17.34%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/4.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">2</div></div>
+        <div class="map-marker map-marker--standard" data-marker="besedka5" tabindex="0" role="button" aria-label="Беседка 4" style="left:49.6%;top:87.09%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/5.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">4</div></div>
+        <div class="map-marker map-marker--standard" data-marker="besedka6" tabindex="0" role="button" aria-label="Беседка 3" style="left:63.21%;top:73.22%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/6.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">3</div></div>
         <div class="map-marker map-marker--medium" data-marker="medium" tabindex="0" role="button" aria-label="Средняя беседка" style="left:26.37%;top:44.31%;--s:1.35;--sm:2.3;"><div class="map-pin"><img src="./images/map-icons/7.webp" width="128" height="83" alt="" loading="lazy" decoding="async"></div><div class="map-label">5</div></div>
         <div class="map-marker map-marker--vip" data-marker="vip" tabindex="0" role="button" aria-label="VIP-беседка" style="left:94.33%;top:42.6%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/8.webp" width="128" height="82" alt="" loading="lazy" decoding="async"></div><div class="map-label">VIP</div></div>
         <div class="map-marker map-marker--big" data-marker="big" tabindex="0" role="button" aria-label="Большая беседка" style="left:11.79%;top:18.11%;--s:1.45;--sm:2.4;"><div class="map-pin"><img src="./images/map-icons/9.webp" width="128" height="59" alt="" loading="lazy" decoding="async"></div><div class="map-label">6</div></div>
@@ -593,7 +596,7 @@ textarea.bw-in{min-height:76px;resize:vertical}
 <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="bf-honey" aria-hidden="true">
 <p class="bw-sub bw-req">Можно снять только беседку, только порыбачить или всё вместе. Выберите, что нужно.</p>
 <div class="bw-req">
-<span class="bw-lbl">1. Рыбалка</span>
+<span class="bw-lbl bw-h"><i>1</i>Рыбалка</span>
 <div class="bw-fish"><label class="bw-card"><input type="radio" name="Рыбалка" value="Без рыбалки" data-p="0" checked><span><b>Без рыбалки</b><small>только отдых</small></span></label><label class="bw-card"><input type="radio" name="Рыбалка" value="Полдня 12:00–18:00" data-p="3000"><span><b>Полдня</b><small>12:00–18:00 · 3 000 ₽ с человека</small></span></label><label class="bw-card"><input type="radio" name="Рыбалка" value="День 07:00–18:00" data-p="5000"><span><b>День</b><small>07:00–18:00 · 5 000 ₽ с человека</small></span></label><label class="bw-card"><input type="radio" name="Рыбалка" value="Народный день 07:00–18:00 (по понедельникам)" data-p="3000"><span><b>Народный день</b><small>по понедельникам · 3 000 ₽ с человека</small></span></label></div>
 <div id="bfFishBox" hidden>
 <span class="bw-lbl" style="margin-top:14px">Сколько рыбачат <small>путёвка на каждого рыбака</small></span>
@@ -603,13 +606,13 @@ textarea.bw-in{min-height:76px;resize:vertical}
 </div>
 </div>
 <div class="bw-req">
-<span class="bw-lbl">2. Беседка или гостиница <small>не нужно, если едете только рыбачить</small></span>
+<span class="bw-lbl bw-h bw-h--sep"><i>2</i>Беседка или гостиница</span>
 <div class="bw-chips" id="bfChips"><label class="bw-chip"><input type="checkbox" name="Объект" value="Стандартная беседка"><span>Стандартная беседка<b>от 3 000 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="Средняя беседка"><span>Средняя беседка<b>от 6 000 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="Большая беседка"><span>Большая беседка<b>8 000 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="VIP-беседка"><span>VIP-беседка<b>15 000 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="Гостиница"><span>Гостиница<b>от 6 000 ₽ / ночь</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="Банный чан"><span>Банный чан<b>6 000 ₽ / 3 часа</b></span></label></div>
 <p class="bw-info" id="bfInfo" hidden></p>
 <div class="bw-req" id="bfUnitBox" hidden><span class="bw-lbl">Какую беседку у пруда <small>место видно на карте ниже</small></span><div class="bw-chips" id="bfUnits"></div></div>
 </div>
 <div class="bw-req">
-<span class="bw-lbl">3. Дата приезда</span>
+<span class="bw-lbl bw-h bw-h--sep"><i>3</i>Дата приезда</span>
 <div class="bw-quick"><button type="button" class="bw-q" data-q="today">Сегодня</button><button type="button" class="bw-q" data-q="tomorrow">Завтра</button><button type="button" class="bw-q" data-q="sat">Суббота</button><button type="button" class="bw-q" data-q="sun">Воскресенье</button></div>
 <button type="button" class="bw-in bw-datebtn" id="bfDateBtn" aria-expanded="false">Выберите дату</button>
 <input type="hidden" id="bfDate" name="Дата">
