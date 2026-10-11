@@ -440,7 +440,7 @@ const r=compute(), pre=$('bfPre');
 $('bfLines').innerHTML=r.lines.length?r.lines.map(l=>'<li><span>'+l[0]+'</span><b>'+rub(l[1])+'</b></li>').join(''):'<li class="bw-empty">Выберите рыбалку или беседку, и здесь появится сумма.</li>';
 $('bfTotal').textContent=rub(r.sum);
 $('bfNote').textContent=r.notes.concat(['Сумма ориентировочная, точную подтвердим по телефону.']).join(' ');
-pre.hidden=!checked().length; pre.textContent='Бронь станет активной после предоплаты 2 000 ₽: после подтверждения заявки мы пришлём QR-код для оплаты.';
+pre.hidden=!checked().length; pre.textContent='Дата закрепляется за вами сразу после отправки заявки. Бронь становится окончательной после предоплаты 2 000 ₽: после подтверждения мы пришлём QR-код для оплаты.';
 }
 function syncAll(notify){
 const o=checked(), has=o.length>0, fish=fishVal()!=='Без рыбалки';
@@ -531,11 +531,11 @@ return bad.length?{el:bad[0],msg:'Проверьте выделенные пол
 }
 loadBusy().then(()=>syncAll(false)); showManage();
 syncAll(false);
-/* Номер заявки: Б-4827 */
+/* Код заявки: Р4827 (кириллическая Р и 4 цифры, без тире; сервер при совпадении выдаёт другой) */
 function makeReqId(){
 const u=new Uint32Array(1);
 if(window.crypto&&crypto.getRandomValues) crypto.getRandomValues(u); else u[0]=Math.random()*4294967296;
-return 'Б-'+(1000+u[0]%9000);
+return 'Р'+(1000+u[0]%9000);
 }
 /* Защита от спама: слишком быстрая отправка = бот, пауза между заявками, лимит в час */
 const formOpenedAt=Date.now();
@@ -638,15 +638,16 @@ btn.disabled=false; btn.classList.remove('is-loading'); btn.firstElementChild.te
 }
 });
 function rememberLast(id,phone){ store.set('bf_last',JSON.stringify({id:id,phone:phone})); }
-const ST_TXT={new:'ждёт решения администратора',wait_pay:'одобрена, ждём предоплату',paid:'подтверждена, оплата получена',rejected:'отклонена',cancelled:'отменена',expired:'время ожидания истекло, место освобождено'};
+const ST_TXT={new:'заявка принята, дата за вами, ждите звонка администратора',wait_pay:'заявка одобрена, ждём предоплату 2 000 ₽',paid:'бронь подтверждена, предоплата получена',rejected:'отклонена',cancelled:'отменена',expired:'заявка закрыта, место освобождено'};
+const PH_NOTE='<a href="tel:+79269267887">+7 926 926-78-87</a> или <a href="tel:+79269119407">+7 926 911-94-07</a>';
 async function showManage(){
 const box=$('bfManage'); let last=null; try{ last=JSON.parse(store.get('bf_last')||'null'); }catch(_){}
 if(!box||!last){ if(box) box.hidden=true; return; }
 let j=null; try{ const r=await fetch(BOT_BASE+'/api/booking/status?id='+encodeURIComponent(last.id)+'&phone='+encodeURIComponent(last.phone),{cache:'no-store'}); j=r.ok?await r.json():null; }catch(_){}
 if(!j||!j.ok||['rejected','cancelled','expired'].includes(j.status)&&dparse(j.date)<dparse(minISO)){ box.hidden=true; return; }
-const dd=dparse(j.date), hold=j.hold_until&&(j.status==='new'||j.status==='wait_pay')?new Date(j.hold_until*1000):null;
+const dd=dparse(j.date);
 const canCancel=j.status==='new'||j.status==='wait_pay';
-box.innerHTML='<b>Ваша заявка '+escT(last.id)+'</b><p>'+escT(j.objects.join(', '))+' · '+dd.getDate()+' '+MONG[dd.getMonth()]+' · '+ST_TXT[j.status]+(hold?'. Место держим до '+(iso(hold)===minISO?'':hold.getDate()+' '+MONG[hold.getMonth()]+', ')+pad(hold.getHours())+':'+pad(hold.getMinutes()):'')+(j.status==='paid'?'. Чтобы изменить или отменить, позвоните нам.':'')+'</p>'
+box.innerHTML='<b>Ваша заявка '+escT(last.id)+'</b><p>'+escT(j.objects.join(', '))+' · '+dd.getDate()+' '+MONG[dd.getMonth()]+' · '+ST_TXT[j.status]+(j.status==='paid'?'. Чтобы изменить или отменить, позвоните нам.':'')+'</p>'+(j.status==='new'?'<p>Если вам не позвонили в течение 15–20 минут, перезвоните нам и назовите код <b>'+escT(last.id)+'</b>: '+PH_NOTE+'</p>':'')
 +'<button type="button" id="bfRef">Обновить статус</button>'+(canCancel?'<button type="button" class="bw-cancel" id="bfCan">Отменить заявку</button>':'');
 box.hidden=false;
 $('bfRef').onclick=showManage;
@@ -656,8 +657,10 @@ await loadBusy(); syncAll(false); showManage(); };
 }
 function showDone(call,id,unsure){
 $('bfTitle').textContent=call?'Ждите звонка':'Заявка отправлена';
-$('bfText').textContent=call?'Мы получили ваш номер и перезвоним в рабочее время: ежедневно 07:00–18:00.':'Мы получили заявку и свяжемся с вами в рабочее время (07:00–18:00). Место за вами держим 40 минут рабочего времени: если заявка пришла вечером или ночью, отсчёт начнётся в 07:00. Бронь станет активной после предоплаты 2\u00a0000\u00a0₽: пришлём QR-код для оплаты, дата за вами закрепляется после подтверждения.';
-$('bfId').textContent=id; $('bfUnsure').hidden=!unsure;
+$('bfText').textContent=call?'Мы получили ваш номер и перезвоним в течение 15–20 минут. Мы на связи ежедневно с 07:00 до 18:00; если вы написали ночью, позвоним утром.':'Мы получили вашу заявку. Выбранные дата и место уже закреплены за вами и недоступны другим гостям. Администратор позвонит вам в течение 15–20 минут (ежедневно с 07:00 до 18:00; если вы отправили заявку ночью, позвоним утром), чтобы зафиксировать бронь. Бронь станет окончательной после предоплаты 2\u00a0000\u00a0₽: мы пришлём QR-код для оплаты.';
+$('bfId').textContent=id; $('bfId').parentElement.hidden=!!call;
+const un=$('bfUnsure'); un.hidden=false;
+un.innerHTML=call?'Если мы не дозвонимся, позвоните сами: '+PH_NOTE:(unsure?'<b>Заявка ушла по запасному каналу, дата может быть не закреплена.</b> Пожалуйста, позвоните нам и назовите код <b>'+escT(id)+'</b>: '+PH_NOTE:'Если мы не позвоним вам в течение 15–20 минут, пожалуйста, перезвоните нам на один из номеров и назовите код заявки <b>'+escT(id)+'</b>: '+PH_NOTE);
 form.hidden=true; document.querySelector('.bw-tabs').hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
 }
 $('bfAgain').addEventListener('click',()=>{ showManage();
