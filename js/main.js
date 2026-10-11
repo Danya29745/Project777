@@ -358,7 +358,7 @@ status.textContent=''; status.className='bf-status';
 }
 document.querySelectorAll('.bw-tab').forEach(t=>t.addEventListener('click',()=>setMode(t.dataset.m)));
 
-const PR={'Стандартная беседка':[3000,4000],'Средняя беседка':[6000,8000],'Большая беседка':[8000,8000],'VIP-беседка':[15000,15000],'Гостиница':[6000,8000],'Банный чан':[6000,6000]};
+const PR={'Бесплатная мини-беседка 1×1 м':[0,0],'Стандартная беседка':[3000,4000],'Средняя беседка':[6000,8000],'Большая беседка':[8000,8000],'VIP-беседка':[15000,15000],'Гостиница':[6000,8000],'Банный чан':[6000,6000]};
 const CAP={'Стандартная беседка':6,'Средняя беседка':30,'Большая беседка':30,'VIP-беседка':10};
 const FREE_LIMIT={'Средняя беседка':10,'Большая беседка':15};
 const OVERAGE=500, HOTEL_CAP=2, HOTEL_ROOMS=3;
@@ -411,7 +411,7 @@ function compute(){
 const lines=[], notes=[]; let sum=0;
 const hasDate=!!dateEl.value, dt=hasDate?dparse(dateEl.value):null, o=checked(), fv=fishVal(), fish=fv!=='Без рыбалки';
 const g=parseInt(guests.value,10)||1, nn=parseInt(nights.value,10)||1;
-if(!o.length&&fish) notes.push('Только рыбалка: можно занять свободную мини-беседку 1 × 1 м в любом месте пруда бесплатно.');
+if(!o.length&&fish) notes.push('Только рыбалка: можно дополнительно выбрать бесплатную мини-беседку 1×1 м. Она закрепляется за вами только если свободна.');
 o.forEach(name=>{
 const p=PR[name]; if(!p) return;
 if(name==='Гостиница'){
@@ -443,7 +443,9 @@ $('bfNote').textContent=r.notes.concat(['Сумма ориентировочна
 pre.hidden=!checked().length; pre.textContent='Дата закрепляется за вами сразу после отправки заявки. Бронь становится окончательной после предоплаты 2 000 ₽: после подтверждения мы пришлём QR-код для оплаты.';
 }
 function syncAll(notify){
-const o=checked(), has=o.length>0, fish=fishVal()!=='Без рыбалки';
+const fish=fishVal()!=='Без рыбалки', mini=$('bfFreeMiniWrap');
+if(mini){ mini.hidden=!fish; const mi=mini.querySelector('input'); if(!fish) mi.checked=false; }
+const o=checked(), has=o.length>0;
 if(!o.includes('Стандартная беседка')) selectedUnit=null;
 renderUnits();
 $('bfGuestsBox').hidden=!has; $('bfNightsBox').hidden=!o.includes('Гостиница'); $('bfFishBox').hidden=!fish;
@@ -600,7 +602,7 @@ put('🎣 Рыбалка',fish?fv+', '+n+' '+fname(n):'Без рыбалки');
 put('🧰 Снасти напрокат',tackle().map(x=>x.name).join(', '));
 put('🧮 Расчёт',r.lines.map(l=>l[0]+': '+rub(l[1])).join('  |  '));
 put('💰 Итого (ориентировочно)',rub(r.sum));
-put('💳 Предоплата',o.length?'2 000 ₽':'не требуется');
+put('💳 Предоплата',o.some(x=>x!=='Бесплатная мини-беседка 1×1 м')?'2 000 ₽':'не требуется');
 put('📝 Пожелание клиента',$('bfComment').value.trim());
 }
 btn.disabled=true; btn.classList.add('is-loading'); const lbl=btn.firstElementChild.textContent; btn.firstElementChild.textContent='Отправляем…';
