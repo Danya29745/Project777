@@ -294,9 +294,15 @@ function loadBusy(){
 return fetch(BOT_BASE+'/api/availability',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{ if(j&&j.busy) busy=j.busy; }).catch(()=>{});
 }
 function dayShift(s,n){ const x=dparse(s); return iso(new Date(x.getFullYear(),x.getMonth(),x.getDate()+n)); }
+/* Каждая стандартная беседка у пруда бронируется как отдельное место (совпадает с номерами на карте и на /gazebos/) */
+const GAZEBO_UNITS=[1,2,3,4,7,8];
+let selectedUnit=null;
+const unitKey=n=>'Беседка №'+n;
+/* Объекты как их видит бот: «Стандартная беседка» подменяется на конкретный выбранный номер */
+const bookObjects=()=>checked().map(o=>o==='Стандартная беседка'&&selectedUnit?unitKey(selectedUnit):o);
 /* Дата занята, если хотя бы один выбранный объект недоступен (гостиница: на все ночи) */
 function blockedFor(s){
-return checked().some(o=>{ const b=busy[o]; if(!b||!b.length) return false; const n=o==='Гостиница'?(parseInt(nights.value,10)||1):1; for(let i=0;i<n;i++) if(b.includes(dayShift(s,i))) return true; return false; });
+return bookObjects().some(o=>{ const b=busy[o]; if(!b||!b.length) return false; const n=o==='Гостиница'?(parseInt(nights.value,10)||1):1; for(let i=0;i<n;i++) if(b.includes(dayShift(s,i))) return true; return false; });
 }
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 const objs=()=>[...form.querySelectorAll('input[name="Объект"]')];
@@ -335,7 +341,9 @@ status.textContent=''; status.className='bf-status';
 document.querySelectorAll('.bw-tab').forEach(t=>t.addEventListener('click',()=>setMode(t.dataset.m)));
 
 const PR={'Стандартная беседка':[3000,4000],'Средняя беседка':[6000,8000],'Большая беседка':[8000,8000],'VIP-беседка':[15000,15000],'Гостиница':[6000,8000],'Банный чан':[6000,6000]};
-const CAP={'Стандартная беседка':6,'Средняя беседка':10,'Большая беседка':30,'VIP-беседка':10,'Гостиница':2};
+const CAP={'Стандартная беседка':6,'Средняя беседка':30,'Большая беседка':30,'VIP-беседка':10};
+const FREE_LIMIT={'Средняя беседка':10,'Большая беседка':15};
+const OVERAGE=500, HOTEL_CAP=2, HOTEL_ROOMS=3;
 const NARODNY='Народный день 07:00–18:00 (по понедельникам)';
 const WDN=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
 const HOL=['01-01','01-02','01-03','01-04','01-05','01-06','01-07','01-08','02-23','03-08','05-01','05-09','06-12','11-04'];
@@ -350,15 +358,28 @@ const fishRadio=()=>form.querySelector('input[name="Рыбалка"]:checked');
 const fishVal=()=>{const r=fishRadio(); return r?r.value:'Без рыбалки';};
 const tackle=()=>[...form.querySelectorAll('input[name="Напрокат"]:checked')].map(i=>({name:i.value,p:+i.dataset.p}));
 let fishTouched=false, warnT, calc={lines:[],sum:0,notes:[]};
-function primary(){ return checked().filter(x=>CAP[x]).sort((a,b)=>CAP[b]-CAP[a])[0]||null; }
-function limit(){ const o=primary(); return o?CAP[o]:30; }
+function primary(){ return checked().filter(x=>CAP[x]).sort((a,b)=>CAP[a]-CAP[b])[0]||null; }
+function limit(){ const o=primary(); if(o) return CAP[o]; return checked().includes('Гостиница')?HOTEL_CAP*HOTEL_ROOMS:30; }
 function warn(msg){ clearTimeout(warnT); warnEl.textContent=msg; warnEl.hidden=!msg; if(msg) warnT=setTimeout(()=>{warnEl.hidden=true;},8000); }
 function overMsg(){
 const o=primary(), max=limit();
-if(o==='Гостиница') return 'В гостинице максимум '+max+' '+gname(max)+'.';
+if(!o) return 'В одном номере гостиницы максимум '+HOTEL_CAP+' человека. Если вас больше, уточните в пожеланиях — распределим по нескольким номерам (всего '+HOTEL_ROOMS+').';
 return 'В «'+o+'» максимум '+max+' '+gname(max)+'. Выберите другую беседку: '+(o==='Стандартная беседка'?'«Среднюю» или «Большую»':'«Большую»')+'.';
 }
 function hint(extra){ info.textContent=extra||''; info.hidden=!extra; }
+const unitBox=$('bfUnitBox'), unitWrap=$('bfUnits');
+function renderUnits(){
+const want=objs().some(i=>i.value==='Стандартная беседка'&&i.checked);
+unitBox.hidden=!want;
+if(!want){ return; }
+const s=dateEl.value;
+unitWrap.innerHTML=GAZEBO_UNITS.map(n=>{
+const k=unitKey(n), busyNow=s&&busy[k]&&busy[k].includes(s);
+const on=selectedUnit===n;
+return '<label class="bw-chip'+(busyNow?' bw-chip--busy':'')+'"><input type="radio" name="bfUnit" value="'+n+'"'+(on?' checked':'')+(busyNow?' disabled':'')+'><span>№'+n+(busyNow?'<b>занято</b>':'')+'</span></label>';
+}).join('');
+}
+unitWrap.addEventListener('change',e=>{ const r=e.target.closest('input[name="bfUnit"]'); if(!r) return; selectedUnit=parseInt(r.value,10); warnEl.hidden=true; });
 /* Банный чан - только вместе с гостиницей */
 function chan(src){
 const c=objs().find(x=>x.value==='Банный чан'), h=objs().find(x=>x.value==='Гостиница'); if(!c||!h) return '';
@@ -380,11 +401,13 @@ let sm=0; for(let i=0;i<nn;i++){ const x=hasDate?new Date(dt.getFullYear(),dt.ge
 lines.push([name+', '+nn+' '+nname(nn),sm]); sum+=sm;
 }else{
 const v=hasDate&&isWe(dt)?p[1]:p[0]; lines.push([name,v]); sum+=v;
-if(name==='Большая беседка'){ const ex=Math.max(0,g-15)*500; if(ex){ lines.push(['Доп. гости ('+(g-15)+' × 500 ₽)',ex]); sum+=ex; } }
+const free=FREE_LIMIT[name];
+if(free){ const ex=Math.max(0,g-free)*OVERAGE; if(ex){ lines.push(['Доп. гости ('+(g-free)+' × '+rub(OVERAGE)+')',ex]); sum+=ex; } }
 }
-if(name==='Большая беседка') notes.push('До 15 гостей включено. С 16-го гостя — +500 ₽ за каждого.');
+if(FREE_LIMIT[name]) notes.push('До '+FREE_LIMIT[name]+' гостей включено. С '+(FREE_LIMIT[name]+1)+'-го гостя — +'+rub(OVERAGE)+' за каждого.');
 if(name==='Банный чан') notes.push('Чан: 6 000 ₽ за 3 часа, продление 1 000 ₽ в час.');
 });
+if(o.includes('Гостиница')) notes.push('Один номер гостиницы — до '+HOTEL_CAP+' человек, всего номеров: '+HOTEL_ROOMS+'.');
 if(fish){
 const n=parseInt(fishers.value,10)||1, pr=+fishRadio().dataset.p;
 lines.push(['Рыбалка ('+fv.split(' ')[0].toLowerCase()+'), '+n+' '+fname(n)+' × '+rub(pr),pr*n]); sum+=pr*n;
@@ -403,13 +426,15 @@ pre.hidden=!checked().length; pre.textContent='Бронь станет акти�
 }
 function syncAll(notify){
 const o=checked(), has=o.length>0, fish=fishVal()!=='Без рыбалки';
+if(!o.includes('Стандартная беседка')) selectedUnit=null;
+renderUnits();
 $('bfGuestsBox').hidden=!has; $('bfNightsBox').hidden=!o.includes('Гостиница'); $('bfFishBox').hidden=!fish;
 const max=limit(); guests.max=max;
 let g=Math.max(1,parseInt(guests.value,10)||1);
 if(g>max){ g=max; if(notify) warn(overMsg()); }
 guests.value=g;
 {const po=primary(), cp=$('bfCap'); let m='';
-if(po&&g>=max&&max<30){ m=po==='Гостиница'?'В гостинице помещается до '+max+' '+gname(max)+'.':(po==='Стандартная беседка'?'Стандартная беседка вмещает до 6 гостей. Если вас больше, выберите другую беседку с большей вместимостью: «Среднюю» (до 10) или «Большую» (до 30).':'«'+po+'» вмещает до '+max+' гостей. Если вас больше, выберите «Большую беседку» (до 30 гостей).'); }
+if(po&&g>=max&&max<30){ m=po==='Стандартная беседка'?'Стандартная беседка вмещает до 6 гостей. Если вас больше, выберите другую беседку: «Среднюю» или «Большую» (доплата за гостей сверх нормы).':'«'+po+'» вмещает до '+max+' гостей. Если вас больше, выберите «Большую беседку».'; }
 cp.textContent=m; cp.hidden=!m;}
 const fmax=30; fishers.max=fmax;
 if(!fishTouched&&has) fishers.value=g;
@@ -481,6 +506,7 @@ const pl=$('bfPrivacy'); if(pl) pl.addEventListener('click',e=>{e.preventDefault
 function validate(){
 const bad=[], req=mode==='req';
 if(req&&!checked().length&&fishVal()==='Без рыбалки'){ chips.classList.add('bf-invalid'); return {el:chips,msg:'Выберите рыбалку, беседку или гостиницу.'}; }
+if(req&&checked().includes('Стандартная беседка')&&!selectedUnit){ return {el:unitBox,msg:'Выберите номер беседки у пруда.'}; }
 if(req&&(!dateEl.value||dateEl.value<minISO||blockedFor(dateEl.value))) bad.push(dateBtn);
 if(req&&nameEl.value.trim().length<2) bad.push(nameEl);
 if(phoneEl.value.replace(/\D/g,'').length!==11) bad.push(phoneEl);
@@ -547,11 +573,11 @@ put('📞 Нужно позвонить','Да, клиент просит пер
 put('👤 Имя',nm); put('📞 Телефон',phoneEl.value);
 }else{
 renderCalc();
-const dt=dparse(dateEl.value), dateRu=dateEl.value.split('-').reverse().join('.'), o=checked(), fv=fishVal(), fish=fv!=='Без рыбалки', n=parseInt(fishers.value,10)||1, r=calc;
-payload._subject='Заявка '+reqId+' · '+nm+' · '+dateRu+' · '+(o.length?o.join(', '):'Рыбалка')+' ('+rub(r.sum)+')';
+const dt=dparse(dateEl.value), dateRu=dateEl.value.split('-').reverse().join('.'), o=checked(), ob=bookObjects(), fv=fishVal(), fish=fv!=='Без рыбалки', n=parseInt(fishers.value,10)||1, r=calc;
+payload._subject='Заявка '+reqId+' · '+nm+' · '+dateRu+' · '+(ob.length?ob.join(', '):'Рыбалка')+' ('+rub(r.sum)+')';
 put('👤 Имя',nm); put('📞 Телефон',phoneEl.value);
 put('📅 Дата приезда',dateRu+', '+WDN[dt.getDay()]+(isWe(dt)?' (выходной / праздник)':' (будни)'));
-put('🏕 Что бронируют',o.length?o.join(', '):'Только рыбалка');
+put('🏕 Что бронируют',ob.length?ob.join(', '):'Только рыбалка');
 if(o.length) put('👥 Гостей',guests.value);
 if(o.includes('Гостиница')) put('🌙 Ночей в гостинице',nights.value);
 put('🎣 Рыбалка',fish?fv+', '+n+' '+fname(n):'Без рыбалки');
@@ -567,7 +593,7 @@ try{
 try{
 const bot=Object.fromEntries(Object.entries(payload).filter(([k])=>k[0]!=='_'&&k!=='📞 Нужно позвонить'));
 bot.type=call?'callback':'request';
-if(!call){ bot._id=reqId; bot._date=dateEl.value; bot._objects=checked(); bot._nights=parseInt(nights.value,10)||1; }
+if(!call){ bot._id=reqId; bot._date=dateEl.value; bot._objects=bookObjects(); bot._nights=parseInt(nights.value,10)||1; }
 const ctrl=new AbortController(), tm=setTimeout(()=>ctrl.abort(),8000);
 const br=await fetch(BOT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(bot),signal:ctrl.signal});
 clearTimeout(tm);
