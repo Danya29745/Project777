@@ -2191,3 +2191,6 @@ nav#nav-menu a.nav-book{padding:9px 16px;border:1.5px solid rgba(112,190,140,.55
 .bw-manage b{display:block;margin-bottom:4px}.bw-manage p{margin:4px 0 10px}
 .bw-manage button{margin-right:8px;padding:8px 14px;border-radius:10px;border:1px solid #9aa890;background:#fff;cursor:pointer;font:inherit}
 .bw-manage .bw-cancel{border-color:#e9a29b;color:#b3261e}
+
+/* Complimentary mini gazebo is offered only alongside fishing. */
+#bfFreeMiniWrap[hidden]{display:none!important}
