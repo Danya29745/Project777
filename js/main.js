@@ -304,6 +304,24 @@ const bookObjects=()=>checked().map(o=>o==='Стандартная беседк�
 function blockedFor(s){
 return bookObjects().some(o=>{ const b=busy[o]; if(!b||!b.length) return false; const n=o==='Гостиница'?(parseInt(nights.value,10)||1):1; for(let i=0;i<n;i++) if(b.includes(dayShift(s,i))) return true; return false; });
 }
+const OBJ_NAME={'Стандартная беседка':'Стандартные беседки'};
+function objBusy(o,s){
+const n=o==='Гостиница'?(parseInt(nights.value,10)||1):1;
+const hit=k=>{ const b=busy[k]; if(!b||!b.length) return false; for(let i=0;i<n;i++) if(b.includes(dayShift(s,i))) return true; return false; };
+return o==='Стандартная беседка'?GAZEBO_UNITS.every(x=>hit(unitKey(x))):hit(o);
+}
+function markBusy(){
+const s=dateEl.value, pd=$('bfPickDate'), note=$('bfBusyNote'); if(!pd||!note) return;
+pd.hidden=!!s; const names=[];
+objs().forEach(i=>{
+const lab=i.parentElement, sp=lab.querySelector('span'), old=lab.querySelector('em'); if(old) old.remove();
+const b=!!s&&objBusy(i.value,s); lab.classList.toggle('bw-chip--busy',b); i.disabled=b;
+if(b){ if(i.checked) i.checked=false; sp.appendChild(Object.assign(document.createElement('em'),{textContent:'занято на эту дату'})); names.push(OBJ_NAME[i.value]||i.value); }
+});
+if(s&&selectedUnit&&busy[unitKey(selectedUnit)]&&busy[unitKey(selectedUnit)].includes(s)) selectedUnit=null;
+const d=dparse(s||minISO), nm=d.getDate()+' '+MONG[d.getMonth()];
+note.hidden=!names.length; note.textContent=names.length?(names.length===objs().length?'На '+nm+' всё занято. Выберите другую дату (можно только порыбачить).':'На '+nm+' занято: '+names.join(', ')+'.'):'';
+}
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 const objs=()=>[...form.querySelectorAll('input[name="Объект"]')];
 const checked=()=>objs().filter(i=>i.checked).map(i=>i.value);
@@ -441,10 +459,7 @@ if(!fishTouched&&has) fishers.value=g;
 fishers.value=Math.min(fmax,Math.max(1,parseInt(fishers.value,10)||1));
 nights.value=Math.min(14,Math.max(1,parseInt(nights.value,10)||1));
 document.querySelectorAll('.bw-step').forEach(st=>{ const el=$(st.dataset.for), v=+el.value; st.children[0].disabled=v<=+el.min; st.children[2].disabled=v>=+el.max; });
-if(dateEl.value&&blockedFor(dateEl.value)){
-dateEl.value=''; dateBtn.textContent='Выберите дату'; dateBtn.classList.remove('has-val');
-if(notify!==undefined) warn('Выбранный объект на эту дату занят. Выберите другую дату.');
-}
+markBusy();
 if(!cal.hidden) renderCal();
 renderCalc();
 }
@@ -478,9 +493,9 @@ let h='<div class="bw-cal__head"><button type="button" data-nav="-1" aria-label=
 for(let i=0;i<lead;i++) h+='<i></i>';
 for(let n=1;n<=days;n++){
 const dt=new Date(y,m,n), s=iso(dt);
-h+='<button type="button" class="bw-d'+(isWe(dt)?' is-we':'')+(s===minISO?' is-today':'')+(s===dateEl.value?' is-sel':'')+(s>=minISO&&blockedFor(s)?' is-busy':'')+'" data-iso="'+s+'"'+(s<minISO||blockedFor(s)?' disabled':'')+(blockedFor(s)?' title="Занято"':'')+'>'+n+'</button>';
+h+='<button type="button" class="bw-d'+(isWe(dt)?' is-we':'')+(s===minISO?' is-today':'')+(s===dateEl.value?' is-sel':'')+(s>=minISO&&blockedFor(s)?' is-busy':'')+'" data-iso="'+s+'"'+(s<minISO?' disabled':'')+(blockedFor(s)?' aria-disabled="true" title="Занято"':'')+'>'+n+'</button>';
 }
-cal.innerHTML=h+'</div><p class="bw-legend"><b>Красные</b> — выходные и праздники, цены на беседки и гостиницу выше.'+(checked().length?' <b>Зачёркнутые</b> — выбранный объект на эту дату занят.':'')+'</p>';
+cal.innerHTML=h+'</div><p class="bw-legend"><b>Красные</b> — выходные и праздники, цены на беседки и гостиницу выше.'+(checked().length?' <b style="color:#b3261e">Розовые с надписью «занято»</b> — выбранный объект на эту дату недоступен, нажмите, чтобы узнать причину.':' Выберите объект ниже, и занятые даты подсветятся.')+'</p><p class="bw-cal__msg" id="bfCalMsg" role="alert"></p>';
 }
 dateBtn.addEventListener('click',()=>{
 if(cal.hidden){ loadBusy().then(()=>{ if(!cal.hidden) renderCal(); }); view=dateEl.value?new Date(dparse(dateEl.value).getFullYear(),dparse(dateEl.value).getMonth(),1):new Date(d.getFullYear(),d.getMonth(),1); renderCal(); }
@@ -489,6 +504,7 @@ cal.hidden=!cal.hidden; dateBtn.setAttribute('aria-expanded',String(!cal.hidden)
 cal.addEventListener('click',e=>{
 const nv=e.target.closest('[data-nav]'), dy=e.target.closest('[data-iso]');
 if(nv){ view=new Date(view.getFullYear(),view.getMonth()+(+nv.dataset.nav),1); renderCal(); }
+else if(dy&&dy.classList.contains('is-busy')){ const m=$('bfCalMsg'); if(m) m.textContent='На '+dy.dataset.iso.split('-').reverse().join('.')+' занято: '+bookObjects().filter(o=>objBusy(o==='Стандартная беседка'?o:o,dy.dataset.iso)||(busy[o]&&busy[o].includes(dy.dataset.iso))).join(', ')+'. Выберите другую дату или другой объект.'; }
 else if(dy&&!dy.disabled){ setDate(dy.dataset.iso); cal.hidden=true; dateBtn.setAttribute('aria-expanded','false'); }
 });
 form.querySelectorAll('.bw-q').forEach(b=>b.addEventListener('click',()=>{
@@ -513,7 +529,7 @@ if(phoneEl.value.replace(/\D/g,'').length!==11) bad.push(phoneEl);
 bad.forEach(el=>el.classList.add('bf-invalid'));
 return bad.length?{el:bad[0],msg:'Проверьте выделенные поля.'}:null;
 }
-loadBusy().then(()=>syncAll(false));
+loadBusy().then(()=>syncAll(false)); showManage();
 syncAll(false);
 /* Номер заявки: Б-4827 */
 function makeReqId(){
@@ -527,7 +543,7 @@ function spamCheck(){
 if(Date.now()-formOpenedAt<8000) return 'bot';
 const now=Date.now(); let log=[];
 try{ log=JSON.parse(localStorage.getItem('bf_sent')||'[]').filter(t=>now-t<3600000); }catch(_){}
-if(log.length&&now-log[log.length-1]<60000) return 'Заявка уже отправлена. Подождите минуту или позвоните нам.';
+if(log.length&&now-log[log.length-1]<20000) return 'Заявка только что отправлена. Подождите несколько секунд.';
 if(log.length>=3) return 'Слишком много заявок за час. Позвоните нам: +7 926 926-78-87';
 return '';
 }
@@ -598,6 +614,8 @@ const ctrl=new AbortController(), tm=setTimeout(()=>ctrl.abort(),8000);
 const br=await fetch(BOT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(bot),signal:ctrl.signal});
 clearTimeout(tm);
 if(br.status===409){
+const cj=await br.clone().json().catch(()=>null);
+if(cj&&cj.error==='own'){ status.innerHTML='У вас уже есть заявка <b>'+escT(cj.id)+'</b> на эти даты и объекты. Её можно проверить или отменить выше, на странице заявки.'; status.classList.add('is-error'); rememberLast(cj.id,phoneEl.value); showManage(); $('bfManage').scrollIntoView({behavior:'smooth',block:'center'}); return; }
 await loadBusy(); syncAll(false);
 status.textContent='К сожалению, на эту дату уже занято. Выберите другую дату или другой объект.'; status.classList.add('is-error');
 cal.hidden=false; dateBtn.setAttribute('aria-expanded','true'); renderCal(); dateBtn.scrollIntoView({behavior:'smooth',block:'center'});
@@ -609,6 +627,7 @@ if(bj&&bj.ok&&bj.id&&bj.id!==reqId){ payload['🔖 Номер заявки']=bj.
 const res=await sendMail(payload);
 markSent();
 if(window.ym) ym(28138044,'reachGoal','booking_submit');
+if(!call) rememberLast(reqId,phoneEl.value);
 showDone(call,reqId,res==='unknown');
 }catch(x){
 console.error('booking send failed',x);
@@ -618,13 +637,30 @@ status.classList.add('is-error');
 btn.disabled=false; btn.classList.remove('is-loading'); btn.firstElementChild.textContent=lbl;
 }
 });
+function rememberLast(id,phone){ store.set('bf_last',JSON.stringify({id:id,phone:phone})); }
+const ST_TXT={new:'ждёт решения администратора',wait_pay:'одобрена, ждём предоплату',paid:'подтверждена, оплата получена',rejected:'отклонена',cancelled:'отменена',expired:'время ожидания истекло, место освобождено'};
+async function showManage(){
+const box=$('bfManage'); let last=null; try{ last=JSON.parse(store.get('bf_last')||'null'); }catch(_){}
+if(!box||!last){ if(box) box.hidden=true; return; }
+let j=null; try{ const r=await fetch(BOT_BASE+'/api/booking/status?id='+encodeURIComponent(last.id)+'&phone='+encodeURIComponent(last.phone),{cache:'no-store'}); j=r.ok?await r.json():null; }catch(_){}
+if(!j||!j.ok||['rejected','cancelled','expired'].includes(j.status)&&dparse(j.date)<dparse(minISO)){ box.hidden=true; return; }
+const dd=dparse(j.date), hold=j.hold_until&&(j.status==='new'||j.status==='wait_pay')?new Date(j.hold_until*1000):null;
+const canCancel=j.status==='new'||j.status==='wait_pay';
+box.innerHTML='<b>Ваша заявка '+escT(last.id)+'</b><p>'+escT(j.objects.join(', '))+' · '+dd.getDate()+' '+MONG[dd.getMonth()]+' · '+ST_TXT[j.status]+(hold?'. Место держим до '+pad(hold.getHours())+':'+pad(hold.getMinutes()):'')+(j.status==='paid'?'. Чтобы изменить или отменить, позвоните нам.':'')+'</p>'
++'<button type="button" id="bfRef">Обновить статус</button>'+(canCancel?'<button type="button" class="bw-cancel" id="bfCan">Отменить заявку</button>':'');
+box.hidden=false;
+$('bfRef').onclick=showManage;
+if(canCancel) $('bfCan').onclick=async()=>{ if(!confirm('Отменить заявку '+last.id+'? Место освободится.')) return;
+try{ await fetch(BOT_BASE+'/api/booking/cancel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(last)}); }catch(_){}
+await loadBusy(); syncAll(false); showManage(); };
+}
 function showDone(call,id,unsure){
 $('bfTitle').textContent=call?'Ждите звонка':'Заявка отправлена';
 $('bfText').textContent=call?'Мы получили ваш номер и перезвоним в рабочее время: ежедневно 07:00–18:00.':'Мы получили заявку и свяжемся с вами в рабочее время (07:00–18:00). Бронь станет активной после предоплаты 2\u00a0000\u00a0₽: пришлём QR-код для оплаты, дата за вами закрепляется после подтверждения.';
 $('bfId').textContent=id; $('bfUnsure').hidden=!unsure;
 form.hidden=true; document.querySelector('.bw-tabs').hidden=true; success.hidden=false; success.scrollIntoView({behavior:'smooth',block:'center'});
 }
-$('bfAgain').addEventListener('click',()=>{
+$('bfAgain').addEventListener('click',()=>{ showManage();
 success.hidden=true; form.hidden=false; document.querySelector('.bw-tabs').hidden=false;
 $('bfComment').value=''; objs().forEach(i=>i.checked=false); form.querySelectorAll('input[name="Напрокат"]').forEach(i=>i.checked=false);
 form.querySelector('input[name="Рыбалка"][value="Без рыбалки"]').checked=true;
