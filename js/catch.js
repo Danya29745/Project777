@@ -34,7 +34,7 @@
   }
 
   function shortDate(iso) {
-    return iso.split('-').reverse().slice(0, 2).join('.');
+    return iso.split('-').reverse().join('.');
   }
 
   // Подпись администратора: первая буква заглавная, остальное как написано.
