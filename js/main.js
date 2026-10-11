@@ -69,11 +69,11 @@ window.scrollOffsetFor=function(key,fallback){
     if(!map) return;
     const data={
       besedka1:{title:'Стандартная беседка №1',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-1-640.webp']},
-      besedka2:{title:'Стандартная беседка №2',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-2-640.webp']},
-      besedka3:{title:'Стандартная беседка №3',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-3-640.webp']},
-      besedka4:{title:'Стандартная беседка №4',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-4-640.webp']},
-      besedka5:{title:'Стандартная беседка №5',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-5-640.webp']},
-      besedka6:{title:'Стандартная беседка №6',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-6-640.webp']},
+      besedka2:{title:'Стандартная беседка №7',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-2-640.webp']},
+      besedka3:{title:'Стандартная беседка №8',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-3-640.webp']},
+      besedka4:{title:'Стандартная беседка №2',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-4-640.webp']},
+      besedka5:{title:'Стандартная беседка №4',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-5-640.webp']},
+      besedka6:{title:'Стандартная беседка №3',meta:'до 6 человек · 6 мест',price:'3 000 / 4 000 ₽',note:'будни / выходные',photos:['./images/rooms/standard-6-640.webp']},
       medium:{title:'Средняя беседка',meta:'до 10 человек',price:'6 000 / 8 000 ₽',note:'будни / выходные',photos:['./images/rooms/medium-1-640.webp','./images/rooms/medium-2-640.webp','./images/rooms/medium-3-640.webp']},
       big:{title:'Большая беседка',meta:'до 15 человек',price:'8 000 ₽',note:'<div class="pavilion-extra-guest">Если гостей больше 15, стоимость каждого следующего - <b class="pavilion-extra-guest__price">500₽</b>.</div>',photos:['./images/rooms/large-1-640.webp','./images/rooms/large-2-640.webp']},
       vip:{title:'VIP-беседка',meta:'до 10 человек',price:'15 000 ₽',note:'любой день',photos:['./images/rooms/vip-1-640.webp','./images/rooms/vip-2-640.webp','./images/rooms/vip-3-640.webp','./images/rooms/vip-4-640.webp']},
