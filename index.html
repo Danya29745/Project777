@@ -141,6 +141,7 @@
 </script>
 <link rel="stylesheet" href="css/page-a.min.css?v=20261026">
 <link rel="stylesheet" href="css/styles.min.css?v=20261036">
+<link rel="stylesheet" href="css/map-booking.css?v=20261012">
   <link rel="stylesheet" href="css/seo-pages.min.css?v=20261026">
   <link rel="stylesheet" href="css/page-b.min.css?v=20261026">
 <script>
@@ -538,7 +539,15 @@ textarea.bw-in{min-height:76px;resize:vertical}
     </div>
 
     <div class="territory-map-wrap" id="territory-map">
-      <div class="map-head"><div><h3>Схема территории базы</h3></div></div>
+      <div class="map-head"><div><h3>Схема территории базы</h3><p>Выберите дату, и на схеме сразу видно, что свободно, а что занято. Нажмите на беседку, чтобы посмотреть фото и забронировать.</p></div></div>
+      <div class="map-cal" id="mapCal">
+        <div class="mc-bar">
+          <button type="button" class="mc-arrow" data-dir="-1" aria-label="Раньше">‹</button>
+          <div class="mc-strip" id="mcStrip" role="group" aria-label="Дата для схемы"></div>
+          <button type="button" class="mc-arrow" data-dir="1" aria-label="Позже">›</button>
+        </div>
+        <div class="mc-foot"><label class="mc-pick">Другая дата <input type="date" id="mcPick"></label><p class="mc-sum" id="mcSum" aria-live="polite">Загружаем занятость…</p></div>
+      </div>
       <div class="territory-map" id="territoryMap"><picture class="territory-map-picture"><source media="(max-width: 760px)" srcset="./images/map/territory-map-generated-mobile.webp"><img src="./images/map/territory-map-generated.webp" alt="Схема территории платной рыбалки у Иваныча: пруды, беседки, парковка" id="territoryMapImage" loading="lazy" decoding="async" width="1200" height="742"></picture>
         <div class="map-marker map-marker--standard" data-marker="besedka1" tabindex="0" role="button" aria-label="Беседка 1" style="left:82.51%;top:51.92%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/1.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">1</div></div>
         <div class="map-marker map-marker--standard" data-marker="besedka2" tabindex="0" role="button" aria-label="Беседка 7" style="left:90.72%;top:19.32%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/2.webp" width="128" height="107" alt="" loading="lazy" decoding="async"></div><div class="map-label">7</div></div>
@@ -557,6 +566,7 @@ textarea.bw-in{min-height:76px;resize:vertical}
         <div class="map-marker map-marker--facility" data-marker="parking" tabindex="0" role="button" aria-label="Парковка" style="left:87.02%;top:79.77%;--s:1;--sm:1.65;"><div class="map-pin"><img src="./images/map-icons/15.webp" width="128" height="112" alt="" loading="lazy" decoding="async"></div><div class="map-label">P</div></div>
         <div class="map-marker map-marker--custom" data-marker="admin" tabindex="0" role="button" aria-label="Администрация" style="left:87.05%;top:60.61%;--s:0.8;--sm:1.2;"><div class="map-pin"><img src="./images/map-icons/16.webp" width="128" height="103" alt="" loading="lazy" decoding="async"></div><div class="map-label">Adm</div></div>
       </div>
+      <p class="map-key" id="mapKey"><span class="k k--free">свободно</span><span class="k k--busy">занято на выбранную дату</span></p>
     </div>
   </div></section>
   <section class="section section--alt" id="catch">
@@ -920,7 +930,7 @@ textarea.bw-in{min-height:76px;resize:vertical}
 
 
 
-  <script src="js/main.js?v=20261030" defer></script>
+  <script src="js/main.js?v=20261031" defer></script>
   <script src="js/catch.js?v=20261026" defer></script>
 </body></html>
 
