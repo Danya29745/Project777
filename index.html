@@ -616,17 +616,7 @@ textarea.bw-in{min-height:76px;resize:vertical}
 <div class="bw-req">
 <span class="bw-lbl bw-h bw-h--sep"><i>2</i>Рыбалка</span>
 <div class="bw-fish"><label class="bw-card"><input type="radio" name="Рыбалка" value="Без рыбалки" data-p="0" checked><span><b>Без рыбалки</b><small>только отдых</small></span></label><label class="bw-card"><input type="radio" name="Рыбалка" value="Полдня 12:00–18:00" data-p="3000"><span><b>Полдня</b><small>12:00–18:00 · 3 000 ₽ с человека</small></span></label><label class="bw-card"><input type="radio" name="Рыбалка" value="День 07:00–18:00" data-p="5000"><span><b>День</b><small>07:00–18:00 · 5 000 ₽ с человека</small></span></label><label class="bw-card"><input type="radio" name="Рыбалка" value="Народный день 07:00–18:00 (по понедельникам)" data-p="3000"><span><b>Народный день</b><small>по понедельникам · 3 000 ₽ с человека</small></span></label></div>
-<div id="bfFishBox" hidden>
-<span class="bw-lbl" style="margin-top:14px">Сколько рыбачат <small>путёвка на каждого рыбака</small></span>
-<div class="bw-step" data-for="bfFishers"><button type="button" data-step="-1" aria-label="Меньше">−</button><input class="bw-num" id="bfFishers" name="Рыбачат" type="number" inputmode="numeric" min="1" max="30" value="2"><button type="button" data-step="1" aria-label="Больше">+</button></div>
-<span class="bw-lbl" style="margin-top:14px">Снасти напрокат <small>необязательно</small></span>
-<div class="bw-chips"><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Подсачник" data-p="200"><span>Подсачник<b>200 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Садок" data-p="200"><span>Садок<b>200 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Поплавочная снасть" data-p="500"><span>Поплавочная снасть<b>500 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Донная снасть" data-p="500"><span>Донная снасть<b>500 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Спиннинг" data-p="1000"><span>Спиннинг<b>1000 ₽</b></span></label></div>
 </div>
-</div>
-<div class="bw-req" id="bfGuestsBox" hidden><span class="bw-lbl">Сколько гостей</span>
-<div class="bw-step" data-for="bfGuests"><button type="button" data-step="-1" aria-label="Меньше">−</button><input class="bw-num" id="bfGuests" name="Гостей" type="number" inputmode="numeric" min="1" max="30" value="2"><button type="button" data-step="1" aria-label="Больше">+</button></div><p class="bw-info" id="bfCap" hidden></p></div>
-<div class="bw-req" id="bfNightsBox" hidden><span class="bw-lbl">Сколько ночей в гостинице</span>
-<div class="bw-step" data-for="bfNights"><button type="button" data-step="-1" aria-label="Меньше">−</button><input class="bw-num" id="bfNights" name="Ночей" type="number" inputmode="numeric" min="1" max="14" value="1"><button type="button" data-step="1" aria-label="Больше">+</button></div></div>
 <div class="bw-req">
 <span class="bw-lbl bw-h bw-h--sep"><i>3</i>Беседка или гостиница</span>
 <p class="bw-pickdate" id="bfPickDate">Сначала выберите дату в шаге 1: мы покажем, что свободно.</p>
@@ -634,6 +624,16 @@ textarea.bw-in{min-height:76px;resize:vertical}
 <div class="bw-chips" id="bfChips"><label class="bw-chip"><input type="checkbox" name="Объект" value="Стандартная беседка"><span>Стандартная беседка<b>от 3 000 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="Средняя беседка"><span>Средняя беседка<b>от 6 000 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="Большая беседка"><span>Большая беседка<b>8 000 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="VIP-беседка"><span>VIP-беседка<b>15 000 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="Гостиница"><span>Гостиница<b>от 6 000 ₽ / ночь</b></span></label><label class="bw-chip"><input type="checkbox" name="Объект" value="Банный чан"><span>Банный чан<b>6 000 ₽ / 3 часа</b></span></label><label class="bw-chip" id="bfFreeMiniWrap" hidden><input type="checkbox" name="Объект" value="Бесплатная мини-беседка 1×1 м"><span>Мини-беседка 1×1 м<b>Бесплатно · только при рыбалке, если свободна</b></span></label></div>
 <p class="bw-info" id="bfInfo" hidden></p>
 <div class="bw-req" id="bfUnitBox" hidden><span class="bw-lbl">Какую беседку у пруда <small>место видно на карте ниже</small></span><div class="bw-chips" id="bfUnits"></div></div>
+</div>
+<div class="bw-req" id="bfGuestsBox" hidden><span class="bw-lbl">Сколько гостей всего</span>
+<div class="bw-step" data-for="bfGuests"><button type="button" data-step="-1" aria-label="Меньше">−</button><input class="bw-num" id="bfGuests" name="Гостей" type="number" inputmode="numeric" min="1" max="30" value="2"><button type="button" data-step="1" aria-label="Больше">+</button></div><p class="bw-info" id="bfCap" hidden></p></div>
+<div class="bw-req" id="bfNightsBox" hidden><span class="bw-lbl">Сколько ночей в гостинице</span>
+<div class="bw-step" data-for="bfNights"><button type="button" data-step="-1" aria-label="Меньше">−</button><input class="bw-num" id="bfNights" name="Ночей" type="number" inputmode="numeric" min="1" max="14" value="1"><button type="button" data-step="1" aria-label="Больше">+</button></div></div>
+<div id="bfFishBox" class="bw-req" hidden>
+<span class="bw-lbl">Сколько из них будут рыбачить <small>путёвка на каждого рыбака</small></span>
+<div class="bw-step" data-for="bfFishers"><button type="button" data-step="-1" aria-label="Меньше">−</button><input class="bw-num" id="bfFishers" name="Рыбачат" type="number" inputmode="numeric" min="1" max="30" value="2"><button type="button" data-step="1" aria-label="Больше">+</button></div>
+<span class="bw-lbl" style="margin-top:14px">Снасти напрокат <small>необязательно</small></span>
+<div class="bw-chips"><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Подсачник" data-p="200"><span>Подсачник<b>200 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Садок" data-p="200"><span>Садок<b>200 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Поплавочная снасть" data-p="500"><span>Поплавочная снасть<b>500 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Донная снасть" data-p="500"><span>Донная снасть<b>500 ₽</b></span></label><label class="bw-chip"><input type="checkbox" name="Напрокат" value="Спиннинг" data-p="1000"><span>Спиннинг<b>1000 ₽</b></span></label></div>
 </div>
 <p class="bw-warn" id="bfWarn" role="alert" hidden></p>
 <div class="bw-sum bw-req"><span class="bw-sum__t">Ориентировочная стоимость</span><ul id="bfLines"></ul>
