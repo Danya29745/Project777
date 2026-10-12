@@ -519,6 +519,19 @@ setDate(iso(x)); cal.hidden=true;
 document.querySelectorAll('[data-book]').forEach(a=>a.addEventListener('click',()=>{
 setMode('req'); const i=objs().find(x=>x.value===a.dataset.book); if(i){ i.checked=true; pick(i); }
 }));
+/* мост для схемы территории: занятость и бронь выбранного объекта на выбранную дату */
+window.RB={
+minISO:minISO,
+busy:()=>busy,
+date:()=>dateEl.value,
+load(){ return fetch(BOT_BASE+'/api/availability',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{ if(j&&j.busy){ busy=j.busy; return true; } return false; }).catch(()=>false); },
+book(name,day,unit){
+setMode('req'); setDate(day);
+const i=objs().find(x=>x.value===name); if(!i) return;
+if(name==='Стандартная беседка') selectedUnit=unit||null;
+i.checked=true; pick(i);
+}
+};
 const pl=$('bfPrivacy'); if(pl) pl.addEventListener('click',e=>{e.preventDefault();const o=$('privacyOpen'); if(o) o.click();});
 
 function validate(){
@@ -795,3 +808,117 @@ document.addEventListener('click',function(e){
   if(nm) nm.classList.remove('open'); if(nt){ nt.setAttribute('aria-expanded','false'); nt.setAttribute('aria-label','Открыть меню'); }
   btn.click();
 },true);
+
+;
+/* Схема территории: листание дат, занято/свободно на метках, бронь прямо с карты */
+(function(){
+const cal=document.getElementById('mapCal'), map=document.getElementById('territoryMap');
+if(!cal||!map||!window.RB) return;
+const RB=window.RB, strip=document.getElementById('mcStrip'), pickEl=document.getElementById('mcPick'), sum=document.getElementById('mcSum');
+const WD=['вс','пн','вт','ср','чт','пт','сб'], WDF=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+const MS=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+const MG=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const pad=n=>String(n).padStart(2,'0'), iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const parse=s=>{ const a=s.split('-'); return new Date(+a[0],+a[1]-1,+a[2]); };
+const shift=(s,n)=>{ const d=parse(s); return iso(new Date(d.getFullYear(),d.getMonth(),d.getDate()+n)); };
+const today=RB.minISO, KEYS={medium:'Средняя беседка',big:'Большая беседка',vip:'VIP-беседка',hotel:'Гостиница',chan:'Банный чан'};
+const items=[...map.querySelectorAll('.map-marker')].map(m=>{
+  const id=m.dataset.marker; let name=KEYS[id]||null, unit=null;
+  if(/^besedka/.test(id)){ const n=(m.getAttribute('aria-label')||'').match(/\d+/); if(n){ unit=+n[0]; name='Беседка №'+unit; } }
+  return name?{m,name,unit,base:m.getAttribute('aria-label')||name}:null;
+}).filter(Boolean);
+let sel=RB.date()&&RB.date()>=today?RB.date():today, ok=false, tried=false, days=60, curItem=null;
+const isBusy=(name,day)=>(RB.busy()[name]||[]).includes(day);
+const freeAt=day=>items.filter(it=>!isBusy(it.name,day));
+const whenOf=day=>{ const d=parse(day); return d.getDate()+' '+MG[d.getMonth()]; };
+
+function renderStrip(){
+  const end=Math.max(days,Math.round((parse(sel)-parse(today))/864e5)+8); let h='';
+  for(let i=0;i<end;i++){
+    const s=shift(today,i), d=parse(s), we=d.getDay()===0||d.getDay()===6;
+    h+='<button type="button" class="mc-d'+(we?' is-we':'')+(s===sel?' is-on':'')+'" data-iso="'+s+'" aria-pressed="'+(s===sel)+'"><small class="mc-mon">'+((i===0||d.getDate()===1)?MS[d.getMonth()]:'')+'</small><span class="mc-wd">'+WD[d.getDay()]+'</span><b>'+d.getDate()+'</b><i class="mc-m"></i></button>';
+  }
+  strip.innerHTML=h; paintMeters();
+}
+function paintMeters(){
+  strip.querySelectorAll('.mc-d').forEach(b=>{
+    const m=b.querySelector('.mc-m');
+    if(!ok){ m.style.setProperty('--f',0); b.dataset.s=''; b.removeAttribute('title'); return; }
+    const f=freeAt(b.dataset.iso).length, t=items.length;
+    m.style.setProperty('--f',f/t); b.dataset.s=f===0?'none':f===t?'all':'some';
+    b.title=whenOf(b.dataset.iso)+': свободно '+f+' из '+t;
+  });
+}
+function paint(){
+  const d=parse(sel), when=WDF[d.getDay()][0].toUpperCase()+WDF[d.getDay()].slice(1)+', '+whenOf(sel);
+  if(!ok){
+    items.forEach(it=>{ it.m.classList.remove('is-busy','is-free'); it.m.setAttribute('aria-label',it.base); });
+    sum.textContent=tried?'Не удалось загрузить занятость. Позвоните нам, и мы подскажем свободные даты.':'Загружаем занятость…';
+    refreshBanner(); return;
+  }
+  const busyNames=[];
+  items.forEach(it=>{
+    const b=isBusy(it.name,sel);
+    it.m.classList.toggle('is-busy',b); it.m.classList.toggle('is-free',!b);
+    it.m.setAttribute('aria-label',it.base+(b?': занято':': свободно')+' на '+whenOf(sel));
+    if(b) busyNames.push(it.name);
+  });
+  const f=items.length-busyNames.length;
+  sum.innerHTML='<b></b> '+(busyNames.length?(f?'Свободно '+f+' из '+items.length+'. Занято: ':'Всё занято: ')+'<span class="mc-busy"></span>.':'Свободно всё.');
+  sum.firstChild.textContent=when+'.'; const bn=sum.querySelector('.mc-busy'); if(bn) bn.textContent=busyNames.join(', ');
+  refreshBanner();
+}
+function select(day,center){
+  sel=day; if(!strip.querySelector('[data-iso="'+day+'"]')) renderStrip();
+  strip.querySelectorAll('.mc-d').forEach(b=>{ const on=b.dataset.iso===day; b.classList.toggle('is-on',on); b.setAttribute('aria-pressed',on); });
+  pickEl.value=day; paint();
+  if(center){ const b=strip.querySelector('.is-on'); if(b) strip.scrollTo({left:b.offsetLeft-strip.clientWidth/2+b.offsetWidth/2,behavior:'smooth'}); }
+}
+strip.addEventListener('click',e=>{ const b=e.target.closest('.mc-d'); if(b) select(b.dataset.iso,true); });
+cal.querySelectorAll('.mc-arrow').forEach(a=>a.addEventListener('click',()=>strip.scrollBy({left:(+a.dataset.dir)*strip.clientWidth*.8,behavior:'smooth'})));
+pickEl.min=today;
+pickEl.addEventListener('change',()=>{ if(pickEl.value&&pickEl.value>=today) select(pickEl.value,true); else pickEl.value=sel; });
+
+/* карточка метки: статус на выбранную дату и кнопка «Забронировать» */
+const mb=document.querySelector('.mb'); let avail=null, bookBtn=null;
+function ensureBanner(){
+  if(avail) return true; if(!mb) return false;
+  const body=mb.querySelector('.mb-body'), act=mb.querySelector('.mb-actions'); if(!body||!act) return false;
+  avail=document.createElement('div'); avail.className='mb-avail'; avail.hidden=true; body.insertBefore(avail,act);
+  bookBtn=document.createElement('a'); bookBtn.href='#booking'; bookBtn.className='mb-btn mb-btn--book'; bookBtn.hidden=true; act.prepend(bookBtn);
+  bookBtn.addEventListener('click',onBook); return true;
+}
+function refreshBanner(){
+  if(!ensureBanner()||!mb.classList.contains('is-open')) return;
+  if(!curItem){ avail.hidden=true; bookBtn.hidden=true; return; }
+  const when=whenOf(sel); avail.hidden=false;
+  if(!ok){ avail.className='mb-avail is-unknown'; avail.textContent='Занятость сейчас недоступна, уточните по телефону.'; bookBtn.hidden=true; return; }
+  if(isBusy(curItem.name,sel)){ avail.className='mb-avail is-busy'; avail.textContent='Занято на '+when+'. Выберите другую дату выше на схеме.'; bookBtn.hidden=true; return; }
+  if(curItem.name==='Банный чан'&&isBusy('Гостиница',sel)){ avail.className='mb-avail is-busy'; avail.textContent='Чан бронируется вместе с гостиницей, а гостиница на '+when+' занята.'; bookBtn.hidden=true; return; }
+  avail.className='mb-avail is-free'; avail.textContent='Свободно на '+when+', '+WDF[parse(sel).getDay()]+'.';
+  bookBtn.hidden=false; bookBtn.textContent='Забронировать на '+when;
+}
+function toBooking(){
+  const sec=document.getElementById('booking'); if(!sec) return;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  sec.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  const card=(document.getElementById('bookingForm')||sec).closest('.booking-card')||sec;
+  setTimeout(()=>{ const r=sec.getBoundingClientRect(), off=parseFloat(getComputedStyle(sec).scrollMarginTop)||0; if(Math.abs(r.top-off)>12) sec.scrollIntoView({behavior:'auto',block:'start'}); },1100);
+  setTimeout(()=>{ card.classList.remove('bk-step--pulse'); void card.offsetWidth; card.classList.add('bk-step--pulse'); setTimeout(()=>card.classList.remove('bk-step--pulse'),4200); },900);
+}
+function onBook(e){
+  e.preventDefault(); if(!curItem) return;
+  RB.book(curItem.unit?'Стандартная беседка':curItem.name,sel,curItem.unit);
+  const x=mb.querySelector('[data-close]'); if(x) x.click();
+  toBooking();
+}
+map.querySelectorAll('.map-marker').forEach(m=>{
+  const upd=()=>{ curItem=items.find(i=>i.m===m)||null; refreshBanner(); };
+  m.addEventListener('click',upd);
+  m.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') upd(); });
+});
+
+function load(){ return RB.load().then(r=>{ tried=true; if(r) ok=true; paintMeters(); paint(); return r; }); }
+renderStrip(); pickEl.value=sel; paint(); load();
+setInterval(()=>{ if(!document.hidden) load(); },60000);
+})();
