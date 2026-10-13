@@ -141,7 +141,7 @@
 </script>
 <link rel="stylesheet" href="css/page-a.min.css?v=20261026">
 <link rel="stylesheet" href="css/styles.min.css?v=20261036">
-<link rel="stylesheet" href="css/map-booking.css?v=20261012">
+<link rel="stylesheet" href="css/map-booking.css?v=20261013-readable">
   <link rel="stylesheet" href="css/seo-pages.min.css?v=20261026">
   <link rel="stylesheet" href="css/page-b.min.css?v=20261026">
 <script>
@@ -178,7 +178,7 @@ if(g)ym(28138044,'reachGoal',g);},true);
 .bw-tab.is-on{background:var(--brand);color:var(--fg-on-cover)}
 .bw-form{display:grid;gap:16px;position:relative}
 .bw-form.is-call .bw-req{display:none}
-.bw-lbl{display:block;margin-bottom:8px;font:800 12px/1.3 var(--font-body);letter-spacing:.04em;text-transform:uppercase;color:var(--fg-soft)}
+.bw-lbl{display:block;margin-bottom:8px;font:900 13px/1.3 var(--font-body);letter-spacing:.04em;text-transform:uppercase;color:var(--fg-soft)}
 .bw-lbl small,.bw-opt{text-transform:none;letter-spacing:0;font-weight:500}
 .bw-h{display:flex;align-items:center;gap:12px;margin:0 0 14px;font:900 clamp(18px,2.2vw,22px)/1.2 var(--font-display);letter-spacing:0;text-transform:none;color:var(--fg)}
 .bw-h i{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--brand);color:var(--fg-on-cover);font:900 16px/1 var(--font-display);font-style:normal}
@@ -595,7 +595,9 @@ textarea.bw-in{min-height:76px;resize:vertical}
 <div class="shell">
 <div class="booking-heading"><div>
 <h2>Забронировать <em>рыбалку и отдых</em></h2>
-<p class="section-lead">Оставьте заявку или просто номер телефона: мы свяжемся и всё подтвердим. При отправке платить не нужно: для беседки и гостиницы пришлём QR-код на предоплату, после неё бронь становится активной.</p>
+<div class="booking-intro booking-intro--quote" role="note" aria-label="Информация о бронировании">
+<div class="booking-intro__content"><p>Оставьте заявку — наш администратор свяжется с вами, уточнит детали и подтвердит бронирование.</p></div>
+</div>
 </div></div>
 <div class="bw">
 <div class="bw-tabs" role="tablist">
@@ -606,8 +608,8 @@ textarea.bw-in{min-height:76px;resize:vertical}
 <form id="bookingForm" class="bw-form" novalidate>
 <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="bf-honey" aria-hidden="true">
 <p class="bw-sub bw-req">Можно выбрать рыбалку, беседку или гостиницу в любом сочетании. При рыбалке доступна бесплатная мини-беседка 1×1 м, если она свободна.</p>
-<div class="bw-req">
-<span class="bw-lbl bw-h"><i>1</i>Дата приезда</span>
+<div class="bw-req bw-date-request">
+<span class="bw-lbl bw-h">Дата</span>
 <div class="bw-quick"><button type="button" class="bw-q" data-q="today">Сегодня</button><button type="button" class="bw-q" data-q="tomorrow">Завтра</button><button type="button" class="bw-q" data-q="sat">Суббота</button><button type="button" class="bw-q" data-q="sun">Воскресенье</button></div>
 <button type="button" class="bw-in bw-datebtn" id="bfDateBtn" aria-expanded="false">Выберите дату</button>
 <input type="hidden" id="bfDate" name="Дата">
@@ -640,8 +642,8 @@ textarea.bw-in{min-height:76px;resize:vertical}
 <div class="bw-sum__tot"><span>Итого</span><strong id="bfTotal">0 ₽</strong></div>
 <p class="bw-sum__pre" id="bfPre" hidden></p><p class="bw-info" id="bfNote"></p></div>
 <div class="bw-row">
-<label><span class="bw-lbl">Имя <span class="bw-opt">(необязательно)</span></span><input class="bw-in" id="bfName" name="Имя" type="text" autocomplete="name" placeholder="Например, Иван"></label>
-<label><span class="bw-lbl">Телефон</span><input class="bw-in" id="bfPhone" name="Телефон" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>
+<label><span class="bw-lbl">Имя</span><input class="bw-in" id="bfName" name="Имя" type="text" autocomplete="name" placeholder="Например, Иван"></label>
+<label><span class="bw-lbl">Телефон</span><input class="bw-in" id="bfPhone" name="Телефон" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
 </div>
 <label class="bw-req"><span class="bw-lbl">Пожелания <small>необязательно</small></span><textarea class="bw-in" id="bfComment" name="Комментарий" rows="2" placeholder="Например: приедем утром, нужен столик ближе к воде"></textarea></label>
 <button type="submit" class="btn btn--green bf-submit" id="bfSubmit"><span>Отправить заявку</span></button>
