@@ -661,7 +661,7 @@ async function showManage(){
 const box=$('bfManage'); let last=null; try{ last=JSON.parse(store.get('bf_last')||'null'); }catch(_){}
 if(!box||!last){ if(box) box.hidden=true; return; }
 let j=null; try{ const r=await fetch(BOT_BASE+'/api/booking/status?id='+encodeURIComponent(last.id)+'&phone='+encodeURIComponent(last.phone),{cache:'no-store'}); j=r.ok?await r.json():null; }catch(_){}
-if(!j||!j.ok||['rejected','cancelled','expired'].includes(j.status)&&dparse(j.date)<dparse(minISO)){ box.hidden=true; return; }
+if(!j||!j.ok||['rejected','cancelled','expired'].includes(j.status)){ if(j&&j.ok){ try{ store.set('bf_last','null'); }catch(_){} } box.hidden=true; return; }
 const dd=dparse(j.date);
 const canCancel=j.status==='new'||j.status==='wait_pay';
 box.innerHTML='<b>Ваша заявка '+escT(last.id)+'</b><p>'+escT(j.objects.join(', '))+' · '+dd.getDate()+' '+MONG[dd.getMonth()]+' · '+ST_TXT[j.status]+(j.status==='paid'?'. Чтобы изменить или отменить, позвоните нам.':'')+'</p>'+(j.status==='new'?'<p>Если вам не позвонили в течение 15–20 минут, перезвоните нам и назовите код <b>'+escT(last.id)+'</b>: '+PH_NOTE+'</p>':'')
