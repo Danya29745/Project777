@@ -2038,8 +2038,8 @@ a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipu
 .tf-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
 .tf{--tc:#7d6128;--tg:linear-gradient(135deg,#a3823f,#7d6128);display:flex;flex-direction:column;border:1px solid color-mix(in srgb,var(--tc) 32%,var(--border));border-radius:16px;overflow:hidden;background:color-mix(in srgb,var(--bg) 88%,transparent);box-shadow:var(--shadow-rest)}
 .tf--people{--tc:var(--p-river-deep);--tg:linear-gradient(135deg,var(--p-river-mid),var(--p-river-deep))}
-.tf-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:15px 22px;background:var(--tg);color:#fff}
-.tf-head h4{margin:0;font:800 19px/1.2 var(--font-display)}
+.tf-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;background:var(--tg);color:#fff;min-height:50px}
+.tf-head h4{margin:0;font:800 17px/1.2 var(--font-display)}
 .tf-time{font:700 13px var(--font-mono);letter-spacing:.03em;white-space:nowrap;opacity:.92}
 .tf-price{min-height:104px;box-sizing:border-box;padding:20px 22px 18px;border-bottom:2px dashed color-mix(in srgb,var(--tc) 35%,var(--border))}
 .tf-price b{display:block;font:900 40px/1 var(--font-display);letter-spacing:-.015em;color:var(--tc);white-space:nowrap}
@@ -2049,7 +2049,7 @@ a,button,summary,label,[role="button"],input,select,textarea{touch-action:manipu
 .tf-terms li{position:relative;padding-left:16px;font-size:15px;font-weight:600;line-height:1.4;color:var(--fg)}
 .tf-terms li+li{margin-top:10px}
 .tf-terms li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:2px;background:var(--tc)}
-@media(max-width:900px){.tf-row{grid-template-columns:1fr;gap:14px}.tf-head{padding:13px 16px}.tf-price,.tf-terms{padding-left:16px;padding-right:16px}}
+@media(max-width:900px){.tf-row{grid-template-columns:1fr;gap:14px}.tf-head{padding:10px 16px}.tf-price,.tf-terms{padding-left:16px;padding-right:16px}}
 
 .tf--half{--tc:#44602f;--tg:linear-gradient(135deg,#6b8a4c,#44602f)}
 .tf-note{margin:16px 2px 34px;font-size:15px;line-height:1.5;color:var(--fg-soft)}
@@ -2194,3 +2194,41 @@ nav#nav-menu a.nav-book{padding:9px 16px;border:1.5px solid rgba(112,190,140,.55
 
 /* Complimentary mini gazebo is offered only alongside fishing. */
 #bfFreeMiniWrap[hidden]{display:none!important}
+
+
+/* Booking intro: compact, warm information panel under the booking heading. */
+.booking-heading .booking-intro{display:flex;align-items:flex-start;gap:14px;max-width:760px;margin-top:16px;padding:16px 18px;border:1px solid #e7dcc3;border-radius:16px;background:rgba(247,240,223,.88);color:var(--fg);box-shadow:0 5px 18px rgba(42,48,35,.035)}
+.booking-intro__icon{display:flex;flex:0 0 42px;width:42px;height:42px;align-items:center;justify-content:center;border-radius:12px;background:#e6eadb;color:#386c4f}
+.booking-intro__icon svg{display:block;width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.booking-intro__content{min-width:0;padding-top:1px}
+.booking-intro__content strong{display:block;margin:0 0 4px;color:#2f6448;font-size:14px;font-weight:800;line-height:1.35}
+.booking-heading .booking-intro__content p{margin:0;color:var(--fg-soft);font-size:15px;font-weight:500;line-height:1.55;max-width:none}
+@media(max-width:680px){.booking-heading .booking-intro{gap:11px;margin-top:12px;padding:13px 14px;border-radius:14px}.booking-intro__icon{flex-basis:36px;width:36px;height:36px;border-radius:10px}.booking-intro__icon svg{width:20px;height:20px}.booking-heading .booking-intro__content p{font-size:14px;line-height:1.5}}
+
+
+/* Refined section intro: lightweight editorial note, not a separate card */
+#price > .shell > .section-lead {
+  box-sizing: border-box;
+  max-width: 780px;
+  margin: 12px 0 0;
+  padding: 2px 0 2px 16px;
+  border: 0;
+  border-left: 4px solid var(--accent, #477b5d);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #26352a;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+@media (max-width: 700px) {
+  #price > .shell > .section-lead {
+    max-width: 100%;
+    margin-top: 10px;
+    padding-left: 13px;
+    border-left-width: 3px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+}

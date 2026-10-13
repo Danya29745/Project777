@@ -44,3 +44,143 @@
 .mb-actions{flex-wrap:wrap}
 .mb-btn--book{order:-1;flex:1 0 100%;display:block;text-align:center;text-decoration:none;background:#2f7d54;color:#fff;border:1px solid #2f7d54}
 .mb-btn--book:hover{filter:brightness(1.08)}
+
+/* Упрощённая заявка: только дата, имя и телефон. */
+.bw-tabs{display:none !important}
+#bookingForm > .bw-req:not(.bw-date-request),#bookingForm > .bw-sub,#bookingForm > label.bw-req,#bookingForm > .bw-sum,#bookingForm > .bw-warn,#bookingForm > .bw-row + label{display:none !important}
+#bookingForm .bw-row{display:grid;grid-template-columns:1fr;gap:12px}
+#bookingForm .bw-date-request .bw-quick{display:none}
+#bookingForm .bw-date-request .bw-cal{margin-top:8px}
+/* Иконки занятых объектов остаются полностью видимыми; статусы контрастнее. */
+.map-marker.is-busy .map-pin img,.map-marker.is-busy.is-selected .map-pin img{opacity:1 !important;filter:grayscale(1) brightness(.82) drop-shadow(0 2px 3px rgba(0,0,0,.65)) !important}
+.map-marker .map-status{font-size:13px;font-weight:900;letter-spacing:.03em;padding:4px 7px;border-radius:5px;background:rgba(15,20,16,.92);text-shadow:0 1px 2px #000,0 0 5px #000;z-index:5}
+.map-marker.is-free .map-status{color:#8ff0a8}
+.map-marker.is-busy .map-status{color:#ff8b78}
+@media(max-width:760px){.map-marker .map-status{font-size:10px;padding:3px 5px;top:calc(100% + 3px)}}
+
+/* Desktop booking calendar refinement: compact, legible, balanced grid. */
+#bookingForm .bw-date-request .bw-cal{width:100%;max-width:760px;margin:10px auto 0;padding:18px 20px 14px;border:1px solid #ded6c5;border-radius:16px;background:#fffdf8;box-shadow:0 8px 24px rgba(35,38,25,.07)}
+#bookingForm .bw-cal__head{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:12px;margin:0 0 12px}
+#bookingForm .bw-cal__head b{font:800 clamp(19px,1.8vw,24px)/1.2 var(--font-display);text-align:center;color:#1d2a20;letter-spacing:-.02em}
+#bookingForm .bw-cal__head button{width:44px;height:44px;border:1px solid #e3d8bf;border-radius:11px;background:#f5edda;color:#243127;font-size:25px;line-height:1;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+#bookingForm .bw-cal__head button:hover:not(:disabled){background:#e9d7ad;border-color:#b38a3b;transform:translateY(-1px)}
+#bookingForm .bw-cal__head button:disabled{opacity:.35;cursor:not-allowed}
+#bookingForm .bw-cal__grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;align-items:stretch}
+#bookingForm .bw-cal__grid>span{display:grid;place-items:center;min-height:30px;margin-bottom:3px;color:#65705f;font:800 12px/1 var(--font-body);letter-spacing:.04em;text-transform:uppercase}
+#bookingForm .bw-cal__grid>i{display:block;min-height:clamp(48px,5.2vw,64px)}
+#bookingForm .bw-cal__grid .bw-d{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:clamp(48px,5.2vw,64px);padding:8px 4px;border:1px solid transparent;border-radius:11px;background:#f7f5ee;color:#263127;font:800 clamp(16px,1.5vw,20px)/1 var(--font-body);cursor:pointer;transition:background .15s,border-color .15s,transform .15s,box-shadow .15s}
+#bookingForm .bw-cal__grid .bw-d:hover:not(:disabled):not(.is-busy){background:#efe4c9;border-color:#c6a65f;transform:translateY(-1px)}
+#bookingForm .bw-cal__grid .bw-d.is-we{color:#b34527;background:#fbf0e8}
+#bookingForm .bw-cal__grid .bw-d.is-today{box-shadow:inset 0 0 0 1.5px #b38a3b}
+#bookingForm .bw-cal__grid .bw-d.is-sel{background:#173a32;border-color:#173a32;color:#fff8e8;box-shadow:0 3px 8px rgba(15,38,34,.2)}
+#bookingForm .bw-cal__grid .bw-d.is-sel.is-we{color:#ffcfad}
+#bookingForm .bw-cal__grid .bw-d:disabled{background:transparent;color:#b9b9b1;cursor:not-allowed}
+#bookingForm .bw-cal__grid .bw-d.is-busy{display:flex;flex-direction:column;gap:5px;background:#fff0ec;border:1px solid #e6a494;color:#a93422;text-decoration:none;cursor:not-allowed;font-size:clamp(14px,1.2vw,17px)}
+#bookingForm .bw-cal__grid .bw-d.is-busy::after{position:static;display:block;content:"ЗАНЯТО";font:900 9px/1 var(--font-body);letter-spacing:.04em;color:#a93422;text-decoration:none}
+#bookingForm .bw-legend{margin:14px 2px 0;padding-top:12px;border-top:1px solid #eee5d4;color:#596253;font-size:12.5px;line-height:1.5}
+#bookingForm .bw-legend b{color:#a94327}
+#bookingForm .bw-cal__msg{padding:10px 12px;border-radius:8px;background:#fff0ec}
+@media(min-width:1000px){#bookingForm .bw-date-request .bw-cal{max-width:700px;padding:16px 18px 12px}#bookingForm .bw-cal__grid{gap:6px}#bookingForm .bw-cal__grid>i,#bookingForm .bw-cal__grid .bw-d{min-height:54px}}
+@media(max-width:680px){#bookingForm .bw-date-request .bw-cal{padding:12px 10px 10px;border-radius:12px}#bookingForm .bw-cal__head{grid-template-columns:36px minmax(0,1fr) 36px;gap:8px}#bookingForm .bw-cal__head button{width:36px;height:36px}#bookingForm .bw-cal__grid{gap:3px}#bookingForm .bw-cal__grid>i,#bookingForm .bw-cal__grid .bw-d{min-height:42px}#bookingForm .bw-cal__grid .bw-d{border-radius:8px;font-size:15px}#bookingForm .bw-cal__grid .bw-d.is-busy::after{font-size:7px}#bookingForm .bw-legend{font-size:11.5px}}
+
+
+/* Booking intro: restrained quote-style note */
+.booking-heading .booking-intro--quote{
+  display:block;
+  max-width:760px;
+  margin-top:14px;
+  padding:3px 0 3px 16px;
+  border:0;
+  border-left:4px solid #528766;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  color:var(--fg);
+}
+.booking-intro--quote .booking-intro__content{padding:0}
+.booking-intro--quote .booking-intro__content strong{
+  margin:0 0 5px;
+  color:#386c4f;
+  font-size:13px;
+  font-weight:800;
+  line-height:1.4;
+}
+.booking-heading .booking-intro--quote .booking-intro__content p{
+  max-width:680px;
+  margin:0;
+  color:#26352a;
+  font-size:16px;
+  font-weight:600;
+  line-height:1.6;
+}
+@media(max-width:680px){
+  .booking-heading .booking-intro--quote{margin-top:10px;padding-left:12px;border-left-width:3px}
+  .booking-heading .booking-intro--quote .booking-intro__content p{font-size:14px;line-height:1.5}
+}
+
+/* Readable description callouts: clear contrast, comfortable type and restrained framing */
+.section-lead,
+.tf-note,
+.map-head > div > p{
+  border:1px solid #d9ddce;
+  border-left:4px solid #386c4f;
+  border-radius:12px;
+  padding:14px 17px;
+  background:rgba(247, 241, 226, .94);
+  color:#202a22 !important;
+  font-size:18px;
+  font-weight:600;
+  line-height:1.55;
+  opacity:1;
+  max-width:780px;
+  box-shadow:0 3px 10px rgba(25, 39, 27, .06);
+}
+.section-lead{margin-top:12px;margin-bottom:22px}
+.tf-note{margin-top:16px;margin-bottom:22px}
+.map-head > div > p{margin-top:8px;margin-bottom:0}
+@media(max-width:680px){
+  .section-lead,.tf-note,.map-head > div > p{
+    padding:12px 13px;
+    border-left-width:4px;
+    border-radius:10px;
+    font-size:16px;
+    line-height:1.55;
+  }
+}
+
+/* Unified readable intro notes: same restrained quote treatment across sections. */
+#hotel > .shell > .section-lead,
+#territory-map .map-head > div > p,
+#price .tf-note {
+  box-sizing: border-box;
+  max-width: 780px;
+  margin-top: 12px;
+  margin-bottom: 22px;
+  padding: 2px 0 2px 16px;
+  border: 0;
+  border-left: 4px solid #477b5d;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #26352a;
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.55;
+  opacity: 1;
+}
+#territory-map .map-head > div > p { max-width: 780px; margin-bottom: 0; }
+#price .tf-note b { color: #173a32; font-weight: 800; }
+@media (max-width: 700px) {
+  #hotel > .shell > .section-lead,
+  #territory-map .map-head > div > p,
+  #price .tf-note {
+    max-width: 100%;
+    margin-top: 10px;
+    margin-bottom: 18px;
+    padding-left: 13px;
+    border-left-width: 3px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  #territory-map .map-head > div > p { margin-bottom: 0; }
+}
