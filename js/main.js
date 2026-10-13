@@ -777,22 +777,31 @@ guests.value=2; fishers.value=2; nights.value=1; fishTouched=false; cal.hidden=t
   const map=document.getElementById('territoryMap');
   if(!map) return;
   const markers=[...map.querySelectorAll('.map-marker')];
+  markers.forEach(marker=>{
+    if(!marker.querySelector('.map-status')){
+      const st=document.createElement('div');
+      st.className='map-status';
+      marker.appendChild(st);
+    }
+  });
   function placeLabels(){
     const mobile=window.matchMedia('(max-width:760px)').matches;
     markers.forEach(marker=>{
       const label=marker.querySelector('.map-label');
-      if(!label) return;
-      label.style.left='50%';
-      label.style.right='auto';
-      label.style.transform='translateX(-50%)';
-      label.style.top='auto';
-      label.style.bottom='calc(100% + '+(mobile?1:4)+'px)';
+      const status=marker.querySelector('.map-status');
       const x=parseFloat(marker.style.left)||50;
-      if(mobile && x<15){
-        label.style.left='0'; label.style.transform='translateX(0)';
-      } else if(mobile && x>85){
-        label.style.left='auto'; label.style.right='0'; label.style.transform='translateX(0)';
-      }
+      [label,status].forEach(el=>{
+        if(!el) return;
+        el.style.left='50%';
+        el.style.right='auto';
+        el.style.transform='translateX(-50%)';
+        if(mobile && x<15){
+          el.style.left='0'; el.style.transform='translateX(0)';
+        } else if(mobile && x>85){
+          el.style.left='auto'; el.style.right='0'; el.style.transform='translateX(0)';
+        }
+      });
+      if(label){ label.style.top='auto'; label.style.bottom='calc(100% + '+(mobile?1:4)+'px)'; }
     });
   }
   placeLabels();
@@ -852,7 +861,7 @@ function paintMeters(){
 function paint(){
   const d=parse(sel), when=WDF[d.getDay()][0].toUpperCase()+WDF[d.getDay()].slice(1)+', '+whenOf(sel);
   if(!ok){
-    items.forEach(it=>{ it.m.classList.remove('is-busy','is-free'); it.m.setAttribute('aria-label',it.base); });
+    items.forEach(it=>{ it.m.classList.remove('is-busy','is-free'); it.m.setAttribute('aria-label',it.base); const st=it.m.querySelector('.map-status'); if(st) st.textContent=''; });
     sum.textContent=tried?'Не удалось загрузить занятость. Позвоните нам, и мы подскажем свободные даты.':'Загружаем занятость…';
     refreshBanner(); return;
   }
@@ -861,6 +870,7 @@ function paint(){
     const b=isBusy(it.name,sel);
     it.m.classList.toggle('is-busy',b); it.m.classList.toggle('is-free',!b);
     it.m.setAttribute('aria-label',it.base+(b?': занято':': свободно')+' на '+whenOf(sel));
+    const st=it.m.querySelector('.map-status'); if(st) st.textContent=b?'Занято':'Свободно';
     if(b) busyNames.push(it.name);
   });
   const f=items.length-busyNames.length;
