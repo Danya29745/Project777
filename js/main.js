@@ -535,14 +535,12 @@ i.checked=true; pick(i);
 const pl=$('bfPrivacy'); if(pl) pl.addEventListener('click',e=>{e.preventDefault();const o=$('privacyOpen'); if(o) o.click();});
 
 function validate(){
-const bad=[], req=mode==='req';
-if(req&&!checked().length&&fishVal()==='Без рыбалки'){ chips.classList.add('bf-invalid'); return {el:chips,msg:'Выберите рыбалку, беседку или гостиницу.'}; }
-if(req&&checked().includes('Стандартная беседка')&&!selectedUnit){ return {el:unitBox,msg:'Выберите номер беседки у пруда.'}; }
-if(req&&(!dateEl.value||dateEl.value<minISO||blockedFor(dateEl.value))) bad.push(dateBtn);
-if(req&&nameEl.value.trim().length<2) bad.push(nameEl);
+const bad=[];
+if(!dateEl.value||dateEl.value<minISO) bad.push(dateBtn);
+if(nameEl.value.trim().length<2) bad.push(nameEl);
 if(phoneEl.value.replace(/\D/g,'').length!==11) bad.push(phoneEl);
 bad.forEach(el=>el.classList.add('bf-invalid'));
-return bad.length?{el:bad[0],msg:'Проверьте выделенные поля.'}:null;
+return bad.length?{el:bad[0],msg:'Укажите дату, имя и корректный номер телефона.'}:null;
 }
 loadBusy().then(()=>syncAll(false)); showManage();
 syncAll(false);
@@ -590,7 +588,7 @@ e.preventDefault(); status.textContent=''; status.className='bf-status';
 const err=validate();
 if(err){ status.textContent=err.msg; status.classList.add('is-error'); err.el.scrollIntoView({behavior:'smooth',block:'center'}); if(err.el.focus&&err.el!==chips) err.el.focus({preventScroll:true}); return; }
 if(form.elements['_honey'].value) return;
-const call=mode==='call', nm=nameEl.value.trim(); let reqId=makeReqId();
+const call=true, nm=nameEl.value.trim(); let reqId=makeReqId();
 const spam=spamCheck();
 if(spam==='bot'){ showDone(call,reqId,false); return; }
 if(spam){ status.textContent=spam; status.classList.add('is-error'); return; }
@@ -599,9 +597,11 @@ const payload={_template:'table',_captcha:'false'};
 const put=(k,v)=>{ if(v!==undefined&&v!==null&&String(v).trim()!=='') payload[k]=v; };
 put('🔖 Номер заявки',reqId);
 if(call){
-payload._subject='Перезвонить '+reqId+' · '+(nm||phoneEl.value);
-put('📞 Нужно позвонить','Да, клиент просит перезвонить');
+payload._subject='Заявка на подбор услуги '+reqId+' · '+nm+' · '+dateEl.value.split('-').reverse().join('.');
+put('📞 Нужно позвонить','Заявка с сайта: администратор должен позвонить клиенту и уточнить услугу');
 put('👤 Имя',nm); put('📞 Телефон',phoneEl.value);
+put('📅 Желаемая дата',dateEl.value.split('-').reverse().join('.'));
+put('ℹ️ Действие администратора','Связаться с клиентом, уточнить услугу и вручную занять её в админ-панели. До выбора услуги объект не блокируется.');
 }else{
 renderCalc();
 const dt=dparse(dateEl.value), dateRu=dateEl.value.split('-').reverse().join('.'), o=checked(), ob=bookObjects(), fv=fishVal(), fish=fv!=='Без рыбалки', n=parseInt(fishers.value,10)||1, r=calc;
