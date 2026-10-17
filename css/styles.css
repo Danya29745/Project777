@@ -2232,3 +2232,11 @@ nav#nav-menu a.nav-book{padding:9px 16px;border:1.5px solid rgba(112,190,140,.55
     line-height: 1.55;
   }
 }
+
+/* perf: плавный скролл на слабых ПК — убираем backdrop-filter и fixed-шум (как уже сделано для мобильных) */
+body:before{display:none}
+.top{backdrop-filter:none;-webkit-backdrop-filter:none;background:#0f2622f7}
+.section:before{backdrop-filter:none;-webkit-backdrop-filter:none;background:color-mix(in srgb,var(--bg) 88%,transparent)}
+.section--alt:before{background:color-mix(in srgb,var(--bg-alt) 88%,transparent)}
+.section:not(#price):after{display:none}
+.btn--about,.btn--green,.ql-card,.stub,.stay-nav,.stay-counter,.tip-card,.rule,.contact-side,.rule-card,.extras,.extras .xg,.booking-card,.reviews-widget,.accom-count,.accom-badge,.gallery-nav,.mb-back,.fish-card__hint,.lightbox,.about-modal,nav#nav-menu.open{backdrop-filter:none;-webkit-backdrop-filter:none}
